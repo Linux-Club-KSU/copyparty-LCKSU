@@ -93,6 +93,10 @@ u = unicode
 printed: list[str] = []
 zsid = uuid.uuid4().urn[4:]
 
+CFG_DEF = [os.environ.get("PRTY_CONFIG", "")]
+if not CFG_DEF[0]:
+    CFG_DEF.pop()
+
 
 class RiceFormatter(argparse.HelpFormatter):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
@@ -990,7 +994,7 @@ def build_flags_desc():
 
 def add_general(ap, nc, srvname):
     ap2 = ap.add_argument_group('general options')
-    ap2.add_argument("-c", metavar="PATH", type=u, action="append", help="add config file")
+    ap2.add_argument("-c", metavar="PATH", type=u, default=CFG_DEF, action="append", help="add config file")
     ap2.add_argument("-nc", metavar="NUM", type=int, default=nc, help="max num clients")
     ap2.add_argument("-j", metavar="CORES", type=int, default=1, help="max num cpu cores, 0=all")
     ap2.add_argument("-a", metavar="ACCT", type=u, action="append", help="add account, \033[33mUSER\033[0m:\033[33mPASS\033[0m; example [\033[32med:wark\033[0m]")
@@ -1786,7 +1790,7 @@ def main(argv: Optional[list[str]] = None) -> None:
         argv[idx] = nk + ov
         time.sleep(2)
 
-    da = len(argv) == 1
+    da = len(argv) == 1 and not CFG_DEF
     try:
         if da:
             argv.extend(["--qr"])
