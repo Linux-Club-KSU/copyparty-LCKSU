@@ -1713,7 +1713,8 @@ class AuthSrv(object):
                 t = "Read-access has been disabled due to failsafe: No volumes were defined by the config-file. This failsafe is to prevent unintended access if this is due to accidental loss of config. You can override this safeguard and allow read/write to the working-directory by adding the following arguments:  -v .::rw"
                 self.log(t, 1)
                 axs = AXS()
-            vfs = VFS(self.log_func, absreal("."), "", "", axs, self.vf0())
+            zvf = {"tcolor": self.args.tcolor}
+            vfs = VFS(self.log_func, absreal("."), "", "", axs, zvf)
             if not axs.uread:
                 self.badcfg1 = True
         elif "" not in mount:
