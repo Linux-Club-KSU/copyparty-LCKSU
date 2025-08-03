@@ -1196,15 +1196,6 @@ class HttpCli(object):
                     self.reply(b"ssdp is disabled in server config", 404)
                     return False
 
-            if self.vpath.startswith(".cpr/dd/") and self.args.mpmc:
-                if self.args.mpmc == ".":
-                    raise Pebkac(404)
-
-                loc = self.args.mpmc.rstrip("/") + self.vpath[self.vpath.rfind("/") :]
-                h = {"Location": loc, "Cache-Control": "max-age=39"}
-                self.reply(b"", 301, headers=h)
-                return True
-
             if self.vpath == ".cpr/metrics":
                 return self.conn.hsrv.metrics.tx(self)
 

@@ -86,7 +86,6 @@ copyparty = [
     "web/*.css",
     "web/*.html",
     "web/a/*.bat",
-    "web/dd/*.png",
     "web/deps/*.gz",
     "web/deps/*.woff*",
 ]

@@ -132,7 +132,6 @@ args = {
         "copyparty.stolen.ifaddr",
         "copyparty.web",
         "copyparty.web.a",
-        "copyparty.web.dd",
         "copyparty.web.deps",
     ],
     "install_requires": ["jinja2"],
