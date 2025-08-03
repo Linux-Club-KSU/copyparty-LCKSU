@@ -180,6 +180,9 @@ function vis_exh(msg, url, lineNo, columnNo, error) {
     if (!/\.js($|\?)/.exec(url))
         return;  // chrome debugger
 
+    if (url.indexOf('extension://') + 1)
+        return;
+
     if (url.indexOf(' > eval') + 1 && !evalex_fatal)
         return;  // md timer
 
