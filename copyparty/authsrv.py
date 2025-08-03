@@ -2751,6 +2751,8 @@ class AuthSrv(object):
                 "s_name": self.args.bname,
                 "have_up2k_idx": "e2d" in vf,
                 "have_acode": not self.args.no_acode,
+                "have_c2flac": self.args.allow_flac,
+                "have_c2wav": self.args.allow_wav,
                 "have_shr": self.args.shr,
                 "have_zip": not self.args.no_zip,
                 "have_mv": not self.args.no_mv,

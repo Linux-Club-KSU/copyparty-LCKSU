@@ -4,6 +4,7 @@ var XHR = XMLHttpRequest,
 	img_re = /\.(a?png|avif|bmp|gif|heif|jpe?g|jfif|svg|webp|webm|mkv|mp4|m4v|mov)(\?|$)/i;
 
 // please add translations in alphabetic order, but keep "eng" and "nor" first
+// (lines ending with //m are machine translations)
 var Ls = {
 	"eng": {
 		"tt": "English",
@@ -306,8 +307,8 @@ var Ls = {
 		"mt_c2owa": "opus-weba, for iOS 17.5 and newer\">owa",
 		"mt_c2caf": "opus-caf, for iOS 11 through 17\">caf",
 		"mt_c2mp3": "use this on very old devices\">mp3",
-		"mt_c2flac": "best sound quality\">flac",
-		"mt_c2wav": "uncompressed playback\">wav",
+		"mt_c2flac": "best sound quality, but huge downloads\">flac",
+		"mt_c2wav": "uncompressed playback (even bigger)\">wav",
 		"mt_c2ok": "nice, good choice",
 		"mt_c2nd": "that's not the recommended output format for your device, but that's fine",
 		"mt_c2ng": "your device does not seem to support this output format, but let's try anyways",
@@ -936,6 +937,8 @@ var Ls = {
 		"mt_c2owa": "opus-weba, for iOS 17.5 og nyere\">owa",
 		"mt_c2caf": "opus-caf, for iOS 11 tilogmed 17\">caf",
 		"mt_c2mp3": "bra valg for steinalder-utstyr (slår aldri feil)\">mp3",
+		"mt_c2flac": "gir best lydkvalitet, men eter nettet ditt\">flac",
+		"mt_c2wav": "helt rå lydstrøm (bruker enda mere data enn flac)\">wav",
 		"mt_c2ok": "bra valg!",
 		"mt_c2nd": "ikke det foretrukne valget for din enhet, men funker sikkert greit",
 		"mt_c2ng": "ser virkelig ikke ut som enheten din takler dette formatet... men ok, vi prøver",
@@ -1563,6 +1566,8 @@ var Ls = {
 		"mt_c2owa": "opus-weba（适用于 iOS 17.5 及更新版本）\">owa", //m
 		"mt_c2caf": "opus-caf（适用于 iOS 11 到 iOS 17）\">caf", //m
 		"mt_c2mp3": "适用于非常旧的设备\">mp3", //m
+		"mt_c2flac": "最佳音质，但下载量很大\">flac", //m
+		"mt_c2wav": "无压缩播放（更占空间）\">wav", //m
 		"mt_c2ok": "不错的选择！", //m
 		"mt_c2nd": "这不是您的设备推荐的输出格式，但应该没问题。", //m
 		"mt_c2ng": "您的设备似乎不支持此输出格式，不过我们还是试试看吧。", //m
@@ -2190,6 +2195,8 @@ var Ls = {
 		"mt_c2owa": "opus-weba, für iOS 17.5 und neuer\">owa",
 		"mt_c2caf": "opus-caf, für iOS 11 bis 17\">caf",
 		"mt_c2mp3": "benutze dieses Format für ältere Geräte\">mp3",
+		"mt_c2flac": "beste Klangqualität, aber große Downloads\">flac", //m
+		"mt_c2wav": "unkomprimierte Wiedergabe (noch größer)\">wav", //m
 		"mt_c2ok": "Gute Wahl, Chef!",
 		"mt_c2nd": "Das ist nicht das empfohlene Ausgabeformat für dein Gerät, aber passt schon",
 		"mt_c2ng": "Dein Gerät scheint dieses Ausgabeformat nicht zu unterstützen, aber lass trotzdem mal probieren",
@@ -2817,6 +2824,8 @@ var Ls = {
 		"mt_c2owa": "opus-weba, iOS 17.5:lle ja uudemmille\">owa",
 		"mt_c2caf": "opus-caf, iOS 11:lle - 17:lle\">caf",
 		"mt_c2mp3": "käytä tätä erittäin vanhoissa laitteissa\">mp3",
+		"mt_c2flac": "paras äänenlaatu, mutta isot lataukset\">flac", //m
+		"mt_c2wav": "pakkaamaton toisto (vielä suurempi tiedosto)\">wav", //m
 		"mt_c2ok": "hienoa, hyvä valinta",
 		"mt_c2nd": "tuo ei ole suositeltu formaatti laitteellesi, mutta tee miten lystäät",
 		"mt_c2ng": "laitteesi ei näytä tukevan tätä formaattia, mutta yritetään nyt silti",
@@ -3444,6 +3453,8 @@ var Ls = {
 		"mt_c2owa": "opus-weba, per iOS 17.5 e più recenti\">owa",
 		"mt_c2caf": "opus-caf, per iOS 11 fino a 17\">caf",
 		"mt_c2mp3": "usa questo su dispositivi molto vecchi\">mp3",
+		"mt_c2flac": "qualità audio migliore, ma download pesanti\">flac", //m
+		"mt_c2wav": "riproduzione non compressa (ancora più grande)\">wav", //m
 		"mt_c2ok": "bene, buona scelta",
 		"mt_c2nd": "quello non è il formato di output raccomandato per il tuo dispositivo, ma va bene",
 		"mt_c2ng": "il tuo dispositivo non sembra supportare questo formato di output, ma proviamo comunque",
@@ -4071,6 +4082,8 @@ var Ls = {
 		"mt_c2owa": "opus-weba, voor iOS 17.5 en nieuwer\">owa",
 		"mt_c2caf": "opus-caf, voor iOS 11 tot en met iOS 17\">caf",
 		"mt_c2mp3": "Gebruik dit hele oude toestellen\">mp3",
+		"mt_c2flac": "Beste geluidskwaliteit, maar grote downloads\">flac", //m
+		"mt_c2wav": "Ongemprimeerde weergave (nog groter)\">wav", //m
 		"mt_c2ok": "Mooi, goede keuze",
 		"mt_c2nd": "Dat is niet het aanbevolen uitvoerformaat voor uw apparaat, maar dat is prima",
 		"mt_c2ng": "Uw apparaat lijkt dit uitvoerformaat niet te ondersteunen, maar we gaan het toch proberen",
@@ -4698,6 +4711,8 @@ var Ls = {
 		"mt_c2owa": "opus-weba, для iOS 17.5 и выше\">owa",
 		"mt_c2caf": "opus-caf, для iOS 11-17\">caf",
 		"mt_c2mp3": "для очень старых устройств\">mp3",
+		"mt_c2flac": "лучшее качество звука, но большие файлы\">flac", //m
+		"mt_c2wav": "не сжатое воспроизведение (ещё больше)\">wav", //m
 		"mt_c2ok": "хороший выбор",
 		"mt_c2nd": "это не рекомендованный вариант формата для вашего устройства, но сойдёт",
 		"mt_c2ng": "не похоже, что ваше устройство поддерживает этот формат, но давайте попробуем и узнаем наверняка",
@@ -5324,6 +5339,8 @@ var Ls = {
 		"mt_c2owa": 'opus-weba, para iOS 17.5 y superior">owa',
 		"mt_c2caf": 'opus-caf, para iOS 11 a 17">caf',
 		"mt_c2mp3": 'usar en dispositivos muy antiguos">mp3',
+		"mt_c2flac": "la mejor calidad de sonido,$Npero descargas muy grandes\">flac", //m
+		"mt_c2wav": "reproducción sin comprimir (aún más grande)\">wav", //m
 		"mt_c2ok": "bien, buena elección",
 		"mt_c2nd": "ese no es el formato de salida recomendado para tu dispositivo, pero está bien",
 		"mt_c2ng": "tu dispositivo no parece soportar este formato de salida, pero intentémoslo de todas formas",
@@ -5951,6 +5968,8 @@ var Ls = {
 		"mt_c2owa": "opus-weba, для iOS 17.5 і новіших\">owa",
 		"mt_c2caf": "opus-caf, для iOS 11 до 17\">caf",
 		"mt_c2mp3": "використовуйте це на дуже старих пристроях\">mp3",
+		"mt_c2flac": "найкраща якість звуку, але великі завантаження\">flac", //m
+		"mt_c2wav": "відтворення без стиснення (ще більше)\">wav", //m
 		"mt_c2ok": "гарно, хороший вибір",
 		"mt_c2nd": "це не рекомендований вихідний формат для вашого пристрою, але це нормально",
 		"mt_c2ng": "ваш пристрій, здається, не підтримує цей вихідний формат, але давайте все одно спробуємо",
@@ -6921,10 +6940,8 @@ var mpl = (function () {
 
 		if (!have_acode)
 			c = false;
-		else if (/\.flac$/i.exec(cs))
+		else if (/\.(wav|flac)$/i.exec(cs))
 			c = r.ac_flac;
-		else if (/\.wav$/i.exec(cs))
-			c = r.ac_wav;
 		else if (/\.(aac|m4a)$/i.exec(cs))
 			c = r.ac_aac;
 		else if (/\.(oga|ogg|opus)$/i.exec(cs) && (!can_ogg || mpl.ac2 == 'mp3'))
@@ -6932,6 +6949,7 @@ var mpl = (function () {
 		else if (re_au_native.exec(cs))
 			c = false;
 
+		// allow flac->flac (bitstream fixup)
 		if (!c)
 			return url;
 
@@ -6949,9 +6967,7 @@ var mpl = (function () {
 		}
 
 		var dv = can_ogg ? 'opus' :
-				can_caf ? 'caf' :
-				can_mp3 ? 'mp3' :
-				can_flac ? 'flac' : 'wav',
+				can_caf ? 'caf' : 'mp3',
 			fmts = ['opus', 'owa', 'caf', 'mp3', 'flac', 'wav'],
 			btns = [];
 
@@ -6963,7 +6979,6 @@ var mpl = (function () {
 		if ((v == 'opus' && !can_ogg) ||
 			(v == 'caf' && !can_caf) ||
 			(v == 'owa' && !can_owa) ||
-			(v == 'mp3' && !can_mp3) ||
 			(v == 'flac' && !can_flac))
 			toast.warn(15, L.mt_c2ng);
 
@@ -6979,6 +6994,8 @@ var mpl = (function () {
 		}
 		if (!IPHONE)
 			btns[1].style.display = btns[2].style.display = 'none';
+		btns[4].style.display = have_c2flac ? '' : 'none';
+		btns[5].style.display = have_c2wav ? '' : 'none';
 
 		if (v)
 			swrite('acode2', v);
@@ -7102,14 +7119,12 @@ var mpl = (function () {
 var za,
 	can_ogg = true,
 	can_owa = false,
-	can_mp3 = false,
 	can_flac = false,
 	can_caf = APPLE && !/ OS ([1-9]|1[01])_/.test(UA);
 try {
 	za = new Audio();
 	can_ogg = za.canPlayType('audio/ogg; codecs=opus') === 'probably';
 	can_owa = za.canPlayType('audio/webm; codecs=opus') === 'probably';
-	can_mp3 = za.canPlayType('audio/mpeg') === 'probably';
 	can_flac = za.canPlayType('audio/flac') === 'probably';
 	can_caf = za.canPlayType('audio/x-caf') && can_caf; //'maybe'
 }

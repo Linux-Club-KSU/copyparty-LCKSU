@@ -814,8 +814,8 @@ class ThumbSrv(object):
         self._run_ff(cmd, vn, oom=300)
 
     def conv_flac(self, abspath: str, tpath: str, fmt: str, vn: VFS) -> None:
-        if self.args.no_acode or self.args.no_flac:
-            raise Exception("disabled in server config")
+        if self.args.no_acode or not self.args.allow_flac:
+            raise Exception("flac not permitted in server config")
 
         self.wait4ram(0.2, tpath)
         tags, rawtags = ffprobe(abspath, int(vn.flags["convt"] / 2))
@@ -839,8 +839,8 @@ class ThumbSrv(object):
         self._run_ff(cmd, vn, oom=300)
 
     def conv_wav(self, abspath: str, tpath: str, fmt: str, vn: VFS) -> None:
-        if self.args.no_acode or self.args.no_wav:
-            raise Exception("disabled in server config")
+        if self.args.no_acode or not self.args.allow_wav:
+            raise Exception("wav not permitted in server config")
 
         self.wait4ram(0.2, tpath)
         tags, rawtags = ffprobe(abspath, int(vn.flags["convt"] / 2))

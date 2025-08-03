@@ -1,4 +1,5 @@
 // please add translations in alphabetic order, but keep "nor" and "eng" first
+// (lines ending with //m are machine translations)
 var Ls = {
 	"nor": {
 		"a1": "oppdater",
