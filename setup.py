@@ -136,6 +136,7 @@ args = {
     ],
     "install_requires": ["jinja2"],
     "extras_require": {
+        "all": ["argon2-cffi", "partftpy>=0.4.0", "Pillow", "pyftpdlib", "pyopenssl", "pyzmq"],
         "thumbnails": ["Pillow"],
         "thumbnails2": ["pyvips"],
         "audiotags": ["mutagen"],
