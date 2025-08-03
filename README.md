@@ -513,11 +513,16 @@ anyone trying to bruteforce a password gets banned according to `--ban-pw`; defa
 
 and if you want to use config files instead of commandline args (good!) then here's the same examples as a configfile; save it as `foobar.conf` and use it like this: `python copyparty-sfx.py -c foobar.conf`
 
+* you can also `PRTY_CONFIG=foobar.conf python copyparty-sfx.py` (convenient in docker etc)
+
 ```yaml
 [accounts]
   u1: p1  # create account "u1" with password "p1"
   u2: p2  #  (note that comments must have
   u3: p3  #   two spaces before the # sign)
+
+[groups]
+  g1: u1, u2  # create a group
 
 [/]     # this URL will be mapped to...
   /srv  # ...this folder on the server filesystem
@@ -528,6 +533,7 @@ and if you want to use config files instead of commandline args (good!) then her
   /mnt/music   # which is mapped to this folder
   accs:
     r: u1, u2  # only these accounts can read,
+    r: @g1     # (exactly the same, just with a group instead)
     rw: u3     # and only u3 can read-write
 
 [/inc]

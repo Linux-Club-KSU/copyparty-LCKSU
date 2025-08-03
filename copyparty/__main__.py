@@ -578,7 +578,7 @@ def get_sects():
 
             --grp takes groupname:username1,username2,...
             and groupnames can be used instead of usernames in -v
-            by prefixing the groupname with %
+            by prefixing the groupname with @
 
             list of permissions:
               "r" (read):   list folder contents, download files
