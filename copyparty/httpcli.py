@@ -658,6 +658,9 @@ class HttpCli(object):
                     self.pw = ""
                     self.uname = idp_usr
                     self.html_head += "<script>var is_idp=1</script>\n"
+                    zs = self.asrv.ases.get(idp_usr)
+                    if zs:
+                        self.set_idp_cookie(zs)
                 else:
                     self.log("unknown username: %r" % (idp_usr,), 1)
 
@@ -3028,6 +3031,19 @@ class HttpCli(object):
             self.out_headers["Set-Cookie"] = ck
 
         return dur > 0, msg
+
+    def set_idp_cookie(self, ases) -> None:
+        k = "cppws" if self.is_https else "cppwd"
+        ck = gencookie(
+            k,
+            ases,
+            self.args.R,
+            self.args.cookie_lax,
+            self.is_https,
+            self.args.idp_cookie,
+            "; HttpOnly",
+        )
+        self.out_headers["Set-Cookie"] = ck
 
     def handle_mkdir(self) -> bool:
         assert self.parser  # !rm

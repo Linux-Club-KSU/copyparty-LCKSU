@@ -2869,7 +2869,10 @@ class AuthSrv(object):
 
         n = []
         q = "insert into us values (?,?,?)"
-        for uname in self.acct:
+        accs = list(self.acct)
+        if self.args.idp_h_usr and self.args.idp_cookie:
+            accs.extend(self.idp_accs.keys())
+        for uname in accs:
             if uname not in ases:
                 sid = ub64enc(os.urandom(blen)).decode("ascii")
                 cur.execute(q, (uname, sid, int(time.time())))

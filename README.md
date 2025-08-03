@@ -1894,6 +1894,8 @@ you can disable the built-in password-based login system, and instead replace it
 
 * the regular config-defined users will be used as a fallback for requests which don't include a valid (trusted) IdP username header
 
+* if your IdP-server is slow, consider `--idp-cookie` and let requests with the cookie `cppws` bypass the IdP; experimental sessions-based feature added for a party
+
 some popular identity providers are [Authelia](https://www.authelia.com/) (config-file based) and [authentik](https://goauthentik.io/) (GUI-based, more complex)
 
 there is a [docker-compose example](./docs/examples/docker/idp-authelia-traefik) which is hopefully a good starting point (alternatively see [./docs/idp.md](./docs/idp.md) if you're the DIY type)
