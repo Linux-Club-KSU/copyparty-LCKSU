@@ -1425,6 +1425,8 @@ note that this disables hotlinking because the opengraph spec demands it; to sne
 
 you can also hotlink files regardless by appending `?raw` to the url
 
+> WARNING: if you plan to use WebDAV, then `--og-ua` / `og_ua` must be configured
+
 if you want to entirely replace the copyparty response with your own jinja2 template, give the template filepath to `--og-tpl` or volflag `og_tpl` (all members of `HttpCli` are available through the `this` object)
 
 
