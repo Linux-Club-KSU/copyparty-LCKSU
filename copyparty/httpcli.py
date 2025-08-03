@@ -2074,15 +2074,15 @@ class HttpCli(object):
         rnd, lifetime, xbu, xau = self.upload_flags(vfs)
         lim = vfs.get_dbv(rem)[0].lim
         fdir = vfs.canonical(rem)
-        if lim:
-            fdir, rem = lim.all(
-                self.ip, rem, remains, vfs.realpath, fdir, self.conn.hsrv.broker
-            )
-
         fn = None
         if rem and not self.trailing_slash and not bos.path.isdir(fdir):
             fdir, fn = os.path.split(fdir)
             rem, _ = vsplit(rem)
+
+        if lim:
+            fdir, rem = lim.all(
+                self.ip, rem, remains, vfs.realpath, fdir, self.conn.hsrv.broker
+            )
 
         bos.makedirs(fdir, vf=vfs.flags)
 
