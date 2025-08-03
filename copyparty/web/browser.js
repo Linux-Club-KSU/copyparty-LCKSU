@@ -6166,7 +6166,7 @@ var Ls = {
 
 		"xhr403": "403: Доступ заборонено\n\nспробуйте натиснути F5, можливо ви вийшли з системи",
 		"xhr0": "невідома (ймовірно втрачено з'єднання з сервером, або сервер офлайн)",
-		"cf_ok": "вибачте за це -- захист від DD" + "oS спрацював\n\nречі повинні відновитися приблизно через 30 сек\n\nякщо нічого не відбувається, натисніть F5 для перезавантаження сторінки",
+		"cf_ok": "вибачте за це -- захист від DD" + wah + "oS спрацював\n\nречі повинні відновитися приблизно через 30 сек\n\nякщо нічого не відбувається, натисніть F5 для перезавантаження сторінки",
 		"tl_xe1": "не вдалося перелічити підпапки:\n\nпомилка ",
 		"tl_xe2": "404: Папка не знайдена",
 		"fl_xe1": "не вдалося перелічити файли в папці:\n\nпомилка ",
@@ -7139,6 +7139,7 @@ mpl.init_ac2();
 
 var re_m3u = /\.(m3u8?)$/i;
 var re_au_native = (can_ogg || have_acode) ? /\.(aac|flac|m4a|mp3|oga|ogg|opus|wav)$/i : /\.(aac|flac|m4a|mp3|wav)$/i,
+	re_au_vid = /\.(3gp|asf|avi|flv|m4v|mkv|mov|mp4|mpeg|mpeg2|mpegts|mpg|mpg2|nut|ogm|ogv|rm|ts|vob|webm|wmv)$/i,
 	re_au_all = /\.(aac|ac3|aif|aiff|alac|alaw|amr|ape|au|dfpwm|dts|flac|gsm|it|itgz|itxz|itz|m4a|mdgz|mdxz|mdz|mo3|mod|mp2|mp3|mpc|mptm|mt2|mulaw|oga|ogg|okt|opus|ra|s3m|s3gz|s3xz|s3z|tak|tta|ulaw|wav|wma|wv|xm|xmgz|xmxz|xmz|xpk|3gp|asf|avi|flv|m4v|mkv|mov|mp4|mpeg|mpeg2|mpegts|mpg|mpg2|nut|ogm|ogv|rm|ts|vob|webm|wmv)$/i;
 
 
@@ -7167,10 +7168,11 @@ function MPlayer() {
 			fn = url.split('?')[0];
 
 		if (re_audio.exec(fn)) {
-			var tid = link.getAttribute('id');
+			var tid = link.getAttribute('id'),
+				txt = re_au_vid.exec(fn) ? '(🎧)' : L.mb_play;
 			r.order.push(tid);
 			r.tracks[tid] = url;
-			tds[0].innerHTML = '<a id="a' + tid + '" href="#a' + tid + '" class="play">' + L.mb_play + '</a></td>';
+			tds[0].innerHTML = '<a id="a' + tid + '" href="#a' + tid + '" class="play">' + txt + '</a></td>';
 			ebi('a' + tid).onclick = ev_play;
 			clmod(trs[a], 'au', 1);
 		}
