@@ -86,7 +86,10 @@ if TYPE_CHECKING:
     from .svchub import SvcHub
 
 zsg = "avif,avifs,bmp,gif,heic,heics,heif,heifs,ico,j2p,j2k,jp2,jpeg,jpg,jpx,png,tga,tif,tiff,webp"
-CV_EXTS = set(zsg.split(","))
+ICV_EXTS = set(zsg.split(","))
+
+zsg = "3gp,asf,av1,avc,avi,flv,m4v,mjpeg,mjpg,mkv,mov,mp4,mpeg,mpeg2,mpegts,mpg,mpg2,mts,nut,ogm,ogv,rm,vob,webm,wmv"
+VCV_EXTS = set(zsg.split(","))
 
 zsg = "nohash noidx xdev xvol"
 VF_AFFECTS_INDEXING = set(zsg.split(" "))
@@ -1478,7 +1481,7 @@ class Up2k(object):
         unreg: list[str] = []
         files: list[tuple[int, int, str]] = []
         fat32 = True
-        cv = ""
+        cv = vcv = ""
 
         th_cvd = self.args.th_coversd
         th_cvds = self.args.th_coversd_set
@@ -1573,25 +1576,24 @@ class Up2k(object):
 
                 rsz += sz
                 files.append((sz, lmod, iname))
-                liname = iname.lower()
-                if (
-                    sz
-                    and (
+                if sz:
+                    liname = iname.lower()
+                    ext = liname.rsplit(".", 1)[-1]
+                    if (
                         liname in th_cvds
-                        or (
-                            not cv
-                            and liname.rsplit(".", 1)[-1] in CV_EXTS
-                            and not iname.startswith(".")
-                        )
-                    )
-                    and (
+                        or (not cv and ext in ICV_EXTS and not iname.startswith("."))
+                    ) and (
                         not cv
                         or liname not in th_cvds
                         or cv.lower() not in th_cvds
                         or th_cvd.index(liname) < th_cvd.index(cv.lower())
-                    )
-                ):
-                    cv = iname
+                    ):
+                        cv = iname
+                    elif not vcv and ext in VCV_EXTS and not iname.startswith("."):
+                        vcv = iname
+
+        if not cv:
+            cv = vcv
 
         if not self.args.no_dirsz:
             tnf += len(files)
