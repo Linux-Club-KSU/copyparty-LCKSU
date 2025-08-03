@@ -583,7 +583,7 @@ class TcpSrv(object):
         if not ip:
             return ""
 
-        hip = "[%s]" % (ip,) if ":" in ip else ip 
+        hip = "[%s]" % (ip,) if ":" in ip else ip
 
         if self.args.http_only:
             https = ""

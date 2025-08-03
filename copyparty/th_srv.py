@@ -846,7 +846,7 @@ class ThumbSrv(object):
         tags, rawtags = ffprobe(abspath, int(vn.flags["convt"] / 2))
         if "ac" not in tags:
             raise Exception("not audio")
-        
+
         bits = tags[".bps"][1]
         if bits == 0.0:
             bits = tags[".bprs"][1]
