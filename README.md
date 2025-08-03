@@ -147,6 +147,8 @@ made in Norway 🇳🇴
 
 just run **[copyparty-sfx.py](https://github.com/9001/copyparty/releases/latest/download/copyparty-sfx.py)** -- that's it! 🎉
 
+> ℹ️ the sfx is a [self-extractor](https://github.com/9001/copyparty/issues/270) which unpacks an embedded `tar.gz` into `$TEMP` -- if this looks too scary, you can use the [zipapp](#zipapp) which has slightly worse performance
+
 * or install through [pypi](https://pypi.org/project/copyparty/): `python3 -m pip install --user -U copyparty`
 * or if you cannot install python, you can use [copyparty.exe](#copypartyexe) instead
 * or install [on arch](#arch-package) ╱ [on NixOS](#nixos-module) ╱ [through nix](#nix-package)
@@ -2859,7 +2861,7 @@ then again, if you are already into downloading shady binaries from the internet
 
 ## zipapp
 
-another emergency alternative, [copyparty.pyz](https://github.com/9001/copyparty/releases/latest/download/copyparty.pyz)  has less features, is slow, requires python 3.7 or newer, worse compression, and more importantly is unable to benefit from more recent versions of jinja2 and such (which makes it less secure)... lots of drawbacks with this one really -- but it does not unpack any temporary files to disk, so it *may* just work if the regular sfx fails to start because the computer is messed up in certain funky ways, so it's worth a shot if all else fails
+another emergency alternative, [copyparty.pyz](https://github.com/9001/copyparty/releases/latest/download/copyparty.pyz)  has less features, is slow, requires python 3.7 or newer, worse compression, and more importantly is unable to benefit from more recent versions of jinja2 and such (which makes it less secure)... lots of drawbacks with this one really -- but, unlike the sfx, it is a completely normal zipfile which does not unpack any temporary files to disk, so it *may* just work if the regular sfx fails to start because the computer is messed up in certain funky ways, so it's worth a shot if all else fails
 
 run it by doubleclicking it, or try typing `python copyparty.pyz` in your terminal/console/commandline/telex if that fails
 
