@@ -1229,7 +1229,7 @@ using arguments or config files, or a mix of both:
 
 **NB:** as humongous as this readme is, there is also a lot of undocumented features. Run copyparty with `--help` to see all available global options; all of those can be used in the `[global]` section of config files, and everything listed in `--help-flags` can be used in volumes as volflags.
 * if running in docker/podman, try this: `docker run --rm -it copyparty/ac --help`
-* or see this (probably outdated): https://ocv.me/copyparty/helptext.html
+* or see this: https://ocv.me/copyparty/helptext.html
 * or if you prefer plaintext, https://ocv.me/copyparty/helptext.txt
 
 
