@@ -2439,7 +2439,7 @@ var Ls = {
 
 		"u_https1": "für bessere Performance solltest du",
 		"u_https2": "auf HTTPS wechseln",
-		"u_https3": "",
+		"u_https3": " ",
 		"u_ancient": 'Dein Browser ist verdammt antik -- vielleicht solltest du <a href="#" onclick="goto(\'bup\')">stattdessen bup benutzen</a>',
 		"u_nowork": "Benötigt Firefox 53+ oder Chrome 57+ oder iOS 11+",
 		"tail_2old": "Benötigt Firefox 105+ oder Chrome 71+ oder iOS 14.5+",
@@ -2489,7 +2489,7 @@ var Ls = {
 		"u_ehsdf": "Server hat kein Speicherplatz mehr!\n\nwerde es erneut versuchen, falls jemand\ngenug Platz schafft um fortzufahren",
 		"u_emtleak1": "scheint, als ob dein Browser ein Memory Leak hätte;\nbitte",
 		"u_emtleak2": ' <a href="{0}">wechsle auf HTTPS (empfohlen)</a> oder ',
-		"u_emtleak3": '',
+		"u_emtleak3": ' ',
 		"u_emtleakc": 'versuche folgendes:\n<ul><li>drücke <code>F5</code> um die Seite neu zu laden</li><li>deaktivere dann den &nbsp;<code>mt</code>&nbsp; Button in den &nbsp;<code>⚙️ Einstellungen</code></li><li>und versuche den Upload nochmal.</li></ul>Uploads werden etwas langsamer sein, aber man kann ja nicht alles haben.\nSorry für die Umstände !\n\nPS: Chrome v107 <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1354816" target="_blank">hat ein Bugfix</a> dafür',
 		"u_emtleakf": 'versuche folgendes:\n<ul><li>drücke <code>F5</code> um die Seite neu zu laden</li><li>aktivere dann <code>🥔</code> (potato) im Upload UI<li>und versuche den Upload nochmal</li></ul>\nPS: Firefox <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1790500" target="_blank">hat hoffentlich irgendwann ein Bugfix</a>',
 		"u_s404": "nicht auf dem Server gefunden",
@@ -2857,7 +2857,7 @@ var Ls = {
 		"mm_uncache": "välimuisti tyhjennetty; kaikki kappaleet ladataan uudelleen seuraavalla toistolla",
 		"mm_hnf": "tuota kappaletta ei enää ole olemassa",
 
-"		im_hnf": "tuota kuvaa ei enää ole olemassa",
+		"im_hnf": "tuota kuvaa ei enää ole olemassa",
 
 		"f_empty": 'tämä hakemisto on tyhjä',
 		"f_chide": 'tämä piilottaa sarakkeen «{0}»\n\nvoit palauttaa sarakkeet asetuksista',
