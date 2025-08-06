@@ -11957,7 +11957,7 @@ function ev_load_m3u(e) {
 		function () { load_m3u(url); },
 		function () {
 			if (has(perms, 'write') && has(perms, 'delete'))
-				window.location = url + '?edit';
+				location = url + '?edit';
 			else
 				showfile.show(url);
 		}
@@ -12556,7 +12556,7 @@ var treectl = (function () {
 
 	r.reqls = function (url, hpush, back, hydrate) {
 		if (IE && !history.pushState)
-			return window.location = url;
+			return location = url;
 
 		var xhr = new XHR(),
 			m = /[?&](k=[^&#]+)/.exec(url),

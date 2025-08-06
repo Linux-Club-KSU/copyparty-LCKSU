@@ -1572,7 +1572,7 @@ function up2k_init(subtle) {
 
     function linklist() {
         var ret = [],
-            base = document.location.origin.replace(/\/$/, '');
+            base = location.origin.replace(/\/$/, '');
 
         for (var a = 0; a < st.files.length; a++) {
             var t = st.files[a],
