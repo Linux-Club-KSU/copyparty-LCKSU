@@ -5447,6 +5447,8 @@ class HttpCli(object):
                 elif nfi == 3:
                     if not vp.endswith(vfi):
                         continue
+                else:
+                    continue
 
                 n -= 1
                 if not n:
@@ -5571,6 +5573,8 @@ class HttpCli(object):
                 elif nfi == 3:
                     if not vp.endswith(vfi):
                         continue
+                else:
+                    continue
 
                 if not dots and "/." in vp:
                     continue
