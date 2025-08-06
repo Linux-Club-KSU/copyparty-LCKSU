@@ -5071,6 +5071,13 @@ class HttpCli(object):
             self.reply(zb, mime="text/plain; charset=utf-8")
             return True
 
+        re_btn = ""
+        nre = self.args.ctl_re
+        if "re" in self.uparam:
+            self.out_headers["Refresh"] = str(nre)
+        elif nre:
+            re_btn = "&re=%s" % (nre,)
+
         html = self.j2s(
             "splash",
             this=self,
@@ -5088,6 +5095,7 @@ class HttpCli(object):
             mtpq=vs["mtpq"],
             dbwt=vs["dbwt"],
             url_suf=suf,
+            re=re_btn,
             k304=self.k304(),
             no304=self.no304(),
             k304vis=self.args.k304 > 0,

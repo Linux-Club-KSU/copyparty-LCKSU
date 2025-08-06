@@ -385,6 +385,9 @@ if (o && /[0-9]+$/.exec(o.innerHTML))
 
 ebi('uhash').value = '' + location.hash;
 
+if (/\&re=/.test('' + location))
+	ebi('a').className = 'af g';
+
 (function() {
 	if (!ebi('x'))
 		return;
