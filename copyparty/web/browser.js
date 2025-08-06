@@ -6742,6 +6742,10 @@ var ACtx = !IPHONE && (window.AudioContext || window.webkitAudioContext),
 	dk, mp;
 
 
+if (location.pathname.indexOf('//') === 0)
+	hist_replace(location.pathname.replace(/^\/+/, '/'));
+
+
 if (window.og_fn) {
 	hash0 = 1;
 	hist_replace(vsplit(get_evpath())[0]);
