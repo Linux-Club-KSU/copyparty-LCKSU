@@ -6927,7 +6927,7 @@ var Ls = {
 	},
 };
 
-var LANGS = ["eng", "nor", "chi", "deu", "fin", "ita", "nld", "rus", "spa", "ukr", "grc"];
+var LANGS = ["eng", "nor", "chi", "deu", "fin", "grc", "ita", "nld", "rus", "spa", "ukr"];
 
 if (window.langmod)
 	langmod();

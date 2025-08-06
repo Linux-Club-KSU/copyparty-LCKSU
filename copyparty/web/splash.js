@@ -174,7 +174,7 @@ var Ls = {
 		"ac1": "ota no304 käyttöön",
 		"ad1": "no304:n lopettaa välimuistin käytön kokonaan; kokeile tätä jos k304 ei riittänyt. Tuhlaa valtavan määrän verkkoliikennettä!",
 		"ae1": "lähtevät:",
-        	"af1": "näytä viimeaikaiset lataukset",
+		"af1": "näytä viimeaikaiset lataukset",
 		"ag1": "näytä tunnetut IdP-käyttäjät",
 	},
 	"grc": {
@@ -259,7 +259,7 @@ var Ls = {
 		"ae1": "in uscita:",
 		"af1": "mostra i file caricati di recente",
 		"ag1": "mostra utenti IdP conosciuti"
-},
+	},
 	"nld": {
 		"a1": "Update",
 		"b1": "Hallo, hoe gaat het met jou? &nbsp; <small>(Je bent niet ingelogd)</small>",
