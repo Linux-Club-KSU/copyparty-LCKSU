@@ -7151,13 +7151,12 @@ ebi('op_cfg').innerHTML = (
 	'</div>\n' +
 	'<div>\n' +
 	'	<h3>' + L.cl_themes + '</h3>\n' +
-	'	<div id="themes">\n' +
+	'	<div><select id="themes"></select></div>\n' +
 	'	</div>\n' +
 	'</div>\n' +
 	'<div>\n' +
 	'	<h3>' + L.cl_langs + '</h3>\n' +
-	'	<div id="langs">\n' +
-	'	</div>\n' +
+	'	<div><select id="langs"></select></div>\n' +
 	'</div>\n' +
 	(have_zip ? (
 		'<div><h3>' + L.cl_ziptype + '</h3><div id="arc_fmt"></div></div>\n'
@@ -7204,7 +7203,7 @@ ebi('op_cfg').innerHTML = (
 	'		</td>\n' +
 	'	</div>\n' +
 	'</div>\n' +
-	'<div><h3>' + L.cl_keytype + '</h3><div id="key_notation"></div></div>\n' +
+	'<div><h3>' + L.cl_keytype + '</h3><div><select id="key_notation"></select></div></div>\n' +
 	'<div><h3>' + L.cl_hiddenc + ' &nbsp;' + (MOBILE ? '<a href="#" id="hcolsh">' + L.cl_hidec + '</a> / ' : '') + '<a href="#" id="hcolsr">' + L.cl_reset + '</a></h3><div id="hcols"></div></div>'
 );
 
@@ -14109,25 +14108,21 @@ var mukey = (function () {
 		defnot = 'rekobo_alnum';
 
 	var map = {},
-		html = [];
+		html = [],
+		cb = ebi('key_notation');
 
 	for (var k in maps) {
 		if (!maps.hasOwnProperty(k))
 			continue;
 
-		html.push(
-			'<span><input type="radio" name="keytype" value="' + k + '" id="key_' + k + '">' +
-			'<label for="key_' + k + '">' + k + '</label></span>');
-
+		html.push('<option value="{0}">{0}</option>'.format(k));
 		for (var a = 0; a < 24; a++)
 			maps[k][a] = maps[k][a].trim();
 	}
-	ebi('key_notation').innerHTML = html.join('\n');
+	cb.innerHTML = html.join('');
 
-	function set_key_notation(e) {
-		ev(e);
-		var notation = this.getAttribute('value');
-		load_notation(notation);
+	function set_key_notation() {
+		load_notation(cb.value);
 		try_render();
 	}
 
@@ -14184,13 +14179,9 @@ var mukey = (function () {
 	if (!maps[notation])
 		notation = defnot;
 
-	ebi('key_' + notation).checked = true;
+	cb.value = notation;
+	cb.onchange = set_key_notation;
 	load_notation(notation);
-
-	var o = QSA('#key_notation input');
-	for (var a = 0; a < o.length; a++) {
-		o[a].onchange = set_key_notation;
-	}
 
 	return {
 		"render": try_render
@@ -14230,17 +14221,17 @@ var settheme = (function () {
 		showfile.setstyle();
 		bchrome();
 
-		var html = [], itheme = ax.indexOf(theme[0]) * 2 + (light ? 1 : 0),
+		var html = [],
+			cb = ebi('themes'),
+			itheme = ax.indexOf(theme[0]) * 2 + (light ? 1 : 0),
 			names = ['classic dark', 'classic light', 'pm-monokai', 'flat light', 'vice', 'hotdog stand', 'hacker', 'hi-con'];
 
 		for (var a = 0; a < themes; a++)
-			html.push('<a href="#" class="btn tgl' + (a == itheme ? ' on' : '') +
-				'" tt="' + (names[a] || 'custom') + '">' + a + '</a>');
+			html.push('<option value="{0}">{0} ┃ {1}</option>'.format(a, names[a] || 'custom'));
 
 		ebi('themes').innerHTML = html.join('');
-		var btns = QSA('#themes a');
-		for (var a = 0; a < themes; a++)
-			btns[a].onclick = r.go;
+		cb.value = itheme;
+		cb.onchange = r.onsel;
 
 		if (chldr) {
 			var x = r.ldr[itheme] || [tre];
@@ -14249,12 +14240,13 @@ var settheme = (function () {
 		}
 
 		bcfg_set('light', light);
-		tt.att(ebi('themes'));
 	}
 
-	r.go = function (e) {
-		var i = e;
-		try { ev(e); i = e.target.textContent; } catch (ex) { }
+	r.onsel = function () {
+		r.go(parseInt(ebi('themes').value));
+	};
+
+	r.go = function (i) {
 		light = i % 2 == 1;
 		var c = ax[Math.floor(i / 2)],
 			l = light ? 'y' : 'z';
@@ -14262,7 +14254,7 @@ var settheme = (function () {
 		themen = c + l;
 		swrite('cpp_thm', theme);
 		freshen();
-	}
+	};
 
 	freshen();
 	return r;
@@ -14272,26 +14264,25 @@ var settheme = (function () {
 (function () {
 	function freshen() {
 		lang = sread("cpp_lang", LANGS) || lang;
-		var k, html = [];
+		var k, cb = ebi('langs'), html = [];
 		for (var a = 0; a < LANGS.length; a++) {
 			k = LANGS[a];
-			html.push('<a href="#" class="btn tgl' + (k == lang ? ' on' : '') +
-				'" tt="' + Ls[k].tt + '">' + k + '</a>');
+			html.push('<option value="{0}">{0} ┃ {1}</option>'.format(k, Ls[k].tt));
 		}
-		ebi('langs').innerHTML = html.join('');
-		var btns = QSA('#langs a');
-		for (var a = 0, aa = btns.length; a < aa; a++)
-			btns[a].onclick = setlang;
+		cb.innerHTML = html.join('');
+		cb.onchange = setlang;
+		cb.value = lang;
 	}
 
 	function setlang(e) {
 		ev(e);
 		var t = L.lang_set;
-		L = Ls[this.textContent];
-		swrite("cpp_lang", this.textContent);
+		lang = ebi('langs').value;
+		L = Ls[lang];
+		swrite("cpp_lang", lang);
 		freshen();
 		modal.confirm(L.lang_set + "\n\n" + t, location.reload.bind(location), null);
-	};
+	}
 
 	freshen();
 })();
