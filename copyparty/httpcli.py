@@ -3584,7 +3584,7 @@ class HttpCli(object):
         rem = "{}/{}".format(rp, fn).strip("/")
         dbv, vrem = vfs.get_dbv(rem)
 
-        if not rem.endswith(".md") and not self.can_delete:
+        if not rem.lower().endswith(".md") and not self.can_delete:
             raise Pebkac(400, "only markdown pls")
 
         if nullwrite:
@@ -6196,7 +6196,8 @@ class HttpCli(object):
                 if not use_filekey:
                     return self.tx_404(True)
 
-            if add_og and not abspath.lower().endswith(".md"):
+            is_md = abspath.lower().endswith(".md")
+            if add_og and not is_md:
                 if og_ua or self.host not in self.headers.get("referer", ""):
                     self.vpath, og_fn = vsplit(self.vpath)
                     vpath = self.vpath
@@ -6208,10 +6209,10 @@ class HttpCli(object):
                     vpnodes.pop()
 
             if (
-                (abspath.endswith(".md") or self.can_delete)
+                (is_md or self.can_delete)
                 and "nohtml" not in vn.flags
                 and (
-                    ("v" in self.uparam and abspath.endswith(".md"))
+                    (is_md and "v" in self.uparam)
                     or "edit" in self.uparam
                     or "edit2" in self.uparam
                 )
