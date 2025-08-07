@@ -2959,9 +2959,11 @@ class HttpCli(object):
 
     def handle_login(self) -> bool:
         assert self.parser  # !rm
-        if self.args.usernames:
+        if self.args.usernames and not (
+            self.args.shr and self.vpath.startswith(self.args.shr1)
+        ):
             try:
-                un = self.parser.require("uname", 256)
+                un = self.parser.require("uname", 64)
             except:
                 un = ""
         else:
