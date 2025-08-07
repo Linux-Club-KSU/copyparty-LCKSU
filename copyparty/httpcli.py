@@ -2937,12 +2937,16 @@ class HttpCli(object):
 
     def handle_chpw(self) -> bool:
         assert self.parser  # !rm
+        if self.args.usernames:
+            self.parser.require("uname", 64)
         pwd = self.parser.require("pw", 64)
         self.parser.drop()
 
         ok, msg = self.asrv.chpw(self.conn.hsrv.broker, self.uname, pwd)
         if ok:
             self.cbonk(self.conn.hsrv.gpwc, pwd, "pw", "too many password changes")
+            if self.args.usernames:
+                pwd = "%s:%s" % (self.uname, pwd)
             ok, msg = self.get_pwd_cookie(pwd)
             if ok:
                 msg = "new password OK"
@@ -2955,6 +2959,13 @@ class HttpCli(object):
 
     def handle_login(self) -> bool:
         assert self.parser  # !rm
+        if self.args.usernames:
+            try:
+                un = self.parser.require("uname", 256)
+            except:
+                un = ""
+        else:
+            un = ""
         pwd = self.parser.require("cppwd", 64)
         try:
             uhash = self.parser.require("uhash", 256)
@@ -2964,6 +2975,9 @@ class HttpCli(object):
 
         if not pwd:
             raise Pebkac(422, "password cannot be blank")
+
+        if un:
+            pwd = "%s:%s" % (un, pwd)
 
         dst = self.args.SRS
         if self.vpath:

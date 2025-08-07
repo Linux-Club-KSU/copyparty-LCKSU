@@ -437,6 +437,7 @@ upgrade notes
 
 * can I link someone to a password-protected volume/file by including the password in the URL?
   * yes, by adding `?pw=hunter2` to the end; replace `?` with `&` if there are parameters in the URL already, meaning it contains a `?` near the end
+    * if you have enabled `--accounts` then do `?pw=username:password` instead
 
 * how do I stop `.hist` folders from appearing everywhere on my HDD?
   * by default, a `.hist` folder is created inside each volume for the filesystem index, thumbnails, audio transcodes, and markdown document history. Use the `--hist` global-option or the `hist` volflag to move it somewhere else; see [database location](#database-location)
@@ -1016,6 +1017,7 @@ a feed example: https://cd.ocv.me/a/d2/d22/?rss&fext=mp3
 url parameters:
 
 * `pw=hunter2` for password auth
+  * if you enabled `--usernames` then do `pw=username:password` instead
 * `recursive` to also include subfolders
 * `title=foo` changes the feed title (default: folder name)
 * `fext=mp3,opus` only include mp3 and opus files (default: all)
@@ -1301,6 +1303,7 @@ an FTP server can be started using `--ftp 3921`,  and/or `--ftps` for explicit T
   * if you enable both `ftp` and `ftps`, the port-range will be divided in half
   * some older software (filezilla on debian-stable) cannot passive-mode with TLS
 * login with any username + your password, or put your password in the username field
+  * unless you enabled `--usernames`
 
 some recommended FTP / FTPS clients; `wark` = example password:
 * https://winscp.net/eng/download.php
@@ -1318,6 +1321,7 @@ click the [connect](http://127.0.0.1:3923/?hc) button in the control-panel to se
 
 general usage:
 * login with any username + your password, or put your password in the username field (password field can be empty/whatever)
+  * unless you enabled `--usernames`
 
 on macos, connect from finder:
 * [Go] -> [Connect to Server...] -> http://192.168.123.1:3923/
@@ -1333,6 +1337,7 @@ using the GUI  (winXP or later):
 * rightclick [my computer] -> [map network drive] -> Folder: `http://192.168.123.1:3923/`
   * on winXP only, click the `Sign up for online storage` hyperlink instead and put the URL there
   * providing your password as the username is recommended; the password field can be anything or empty
+    * unless you enabled `--usernames`
 
 the webdav client that's built into windows has the following list of bugs; you can avoid all of these by connecting with rclone instead:
 * win7+ doesn't actually send the password to the server when reauthenticating after a reboot unless you first try to login with an incorrect password and then switch to the correct password
@@ -1390,6 +1395,7 @@ some **BIG WARNINGS** specific to SMB/CIFS, in decreasing importance:
 * the smb backend is not fully integrated with vfs, meaning there could be security issues (path traversal). Please use `--smb-port` (see below) and [prisonparty](./bin/prisonparty.sh) or [bubbleparty](./bin/bubbleparty.sh)
   * account passwords work per-volume as expected, and so does account permissions (read/write/move/delete), but `--smbw` must be given to allow write-access from smb
   * [shadowing](#shadowing) probably works as expected but no guarantees
+* not compatible with pw-hashing or `--usernames`
 
 and some minor issues,
 * clients only see the first ~400 files in big folders;
@@ -2506,6 +2512,8 @@ you can provide passwords using header `PW: hunter2`, cookie `cppwd=hunter2`, ur
 
 > for basic-authentication, all of the following are accepted: `password` / `whatever:password` / `password:whatever` (the username is ignored)
 
+* unless you've enabled `--usernames`, then it's `PW: usr:pwd`, cookie `cppwd=usr:pwd`, url-param `?pw=usr:pwd`
+
 NOTE: curl will not send the original filename if you use `-T` combined with url-params! Also, make sure to always leave a trailing slash in URLs unless you want to override the filename
 
 
@@ -2720,6 +2728,8 @@ the default configs take about 0.4 sec and 256 MiB RAM to process a new password
 when generating hashes using `--ah-cli` for docker or systemd services, make sure it is using the same `--ah-salt` by:
 * inspecting the generated salt using `--show-ah-salt` in copyparty service configuration
 * setting the same `--ah-salt` in both environments
+
+> ⚠️ if you have enabled `--usernames` then provide the password as `username:password` when hashing it, for example `ed:hunter2`
 
 
 ## https

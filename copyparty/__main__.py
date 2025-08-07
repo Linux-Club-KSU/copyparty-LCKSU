@@ -918,6 +918,9 @@ def get_sects():
             copyparty will also hash and print any passwords that are non-hashed
             (password which do not start with '+') and then terminate afterwards
 
+            if you have enabled --accounts then the password
+            must be provided as username:password for hashing
+
             \033[36m--ah-alg\033[0m specifies the hashing algorithm and a
                list of optional comma-separated arguments:
 
@@ -1002,6 +1005,7 @@ def add_general(ap, nc, srvname):
     ap2.add_argument("-a", metavar="ACCT", type=u, action="append", help="\033[34mREPEATABLE:\033[0m add account, \033[33mUSER\033[0m:\033[33mPASS\033[0m; example [\033[32med:wark\033[0m]")
     ap2.add_argument("-v", metavar="VOL", type=u, action="append", help="\033[34mREPEATABLE:\033[0m add volume, \033[33mSRC\033[0m:\033[33mDST\033[0m:\033[33mFLAG\033[0m; examples [\033[32m.::r\033[0m], [\033[32m/mnt/nas/music:/music:r:aed\033[0m], see --help-accounts")
     ap2.add_argument("--grp", metavar="G:N,N", type=u, action="append", help="\033[34mREPEATABLE:\033[0m add group, \033[33mNAME\033[0m:\033[33mUSER1\033[0m,\033[33mUSER2\033[0m,\033[33m...\033[0m; example [\033[32madmins:ed,foo,bar\033[0m]")
+    ap2.add_argument("--usernames", action="store_true", help="require username and password for login; default is just password")
     ap2.add_argument("-ed", action="store_true", help="enable the ?dots url parameter / client option which allows clients to see dotfiles / hidden files (volflag=dots)")
     ap2.add_argument("--urlform", metavar="MODE", type=u, default="print,xm", help="how to handle url-form POSTs; see \033[33m--help-urlform\033[0m")
     ap2.add_argument("--wintitle", metavar="TXT", type=u, default="cpp @ $pub", help="server terminal title, for example [\033[32m$ip-10.1.2.\033[0m] or [\033[32m$ip-]")
@@ -1393,7 +1397,7 @@ def add_logging(ap):
     ap2.add_argument("--no-voldump", action="store_true", help="do not list volumes and permissions on startup")
     ap2.add_argument("--log-utc", action="store_true", help="do not use local timezone; assume the TZ env-var is UTC (tiny bit faster)")
     ap2.add_argument("--log-tdec", metavar="N", type=int, default=3, help="timestamp resolution / number of timestamp decimals")
-    ap2.add_argument("--log-badpwd", metavar="N", type=int, default=1, help="log failed login attempt passwords: 0=terse, 1=plaintext, 2=hashed")
+    ap2.add_argument("--log-badpwd", metavar="N", type=int, default=2, help="log failed login attempt passwords: 0=terse, 1=plaintext, 2=hashed")
     ap2.add_argument("--log-conn", action="store_true", help="debug: print tcp-server msgs")
     ap2.add_argument("--log-htp", action="store_true", help="debug: print http-server threadpool scaling")
     ap2.add_argument("--ihead", metavar="HEADER", type=u, action='append', help="print request \033[33mHEADER\033[0m; [\033[32m*\033[0m]=all")

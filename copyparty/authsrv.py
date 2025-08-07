@@ -2642,6 +2642,8 @@ class AuthSrv(object):
         self.re_pwd = None
         pwds = [re.escape(x) for x in self.iacct.keys()]
         pwds.extend(list(self.sesa))
+        if self.args.usernames:
+            pwds.extend([x.split(":", 1)[1] for x in pwds if ":" in x])
         if pwds:
             if self.ah.on:
                 zs = r"(\[H\] pw:.*|[?&]pw=)([^&]+)"
@@ -2942,6 +2944,9 @@ class AuthSrv(object):
             t = "minimum password length: %d characters"
             return False, t % (self.args.chpw_len,)
 
+        if self.args.usernames:
+            pw = "%s:%s" % (uname, pw)
+
         hpw = self.ah.hash(pw) if self.ah.on else pw
 
         if hpw == self.acct[uname]:
@@ -3033,6 +3038,12 @@ class AuthSrv(object):
         self.log("chpw: " + msg, 6)
 
     def setup_pwhash(self, acct: dict[str, str]) -> None:
+        if self.args.usernames:
+            for uname, pw in list(acct.items())[:]:
+                if pw.startswith("+") and len(pw) == 33:
+                    continue
+                acct[uname] = "%s:%s" % (uname, pw)
+
         self.ah = PWHash(self.args)
         if not self.ah.on:
             if self.args.ah_cli or self.args.ah_gen:

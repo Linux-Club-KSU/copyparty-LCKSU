@@ -83,7 +83,12 @@ class FtpAuth(DummyAuthorizer):
         uname = "*"
         if username != "anonymous":
             uname = ""
-            for zs in (password, username):
+            if args.usernames:
+                alts = ["%s:%s" % (username, password)]
+            else:
+                alts = password, username
+
+            for zs in alts:
                 zs = asrv.iacct.get(asrv.ah.hash(zs), "")
                 if zs:
                     uname = zs

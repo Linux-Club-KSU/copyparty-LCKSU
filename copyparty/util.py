@@ -2983,8 +2983,7 @@ def justcopy(
 
 
 def eol_conv(
-    fin: Generator[bytes, None, None],
-    conv: str
+    fin: Generator[bytes, None, None], conv: str
 ) -> Generator[bytes, None, None]:
     crlf = conv.lower() == "crlf"
     for buf in fin:
