@@ -62,6 +62,7 @@ from .util import (
     alltrace,
     atomic_move,
     b64dec,
+    eol_conv,
     exclude_dotfiles,
     formatdate,
     fsenc,
@@ -3678,6 +3679,9 @@ class HttpCli(object):
         p_field, _, p_data = next(self.parser.gen)
         if p_field != "body":
             raise Pebkac(400, "expected body, got {}".format(p_field))
+
+        if "txt_eol" in vfs.flags:
+            p_data = eol_conv(p_data, vfs.flags["txt_eol"])
 
         xbu = vfs.flags.get("xbu")
         if xbu:
