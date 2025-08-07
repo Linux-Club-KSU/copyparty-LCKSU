@@ -4667,7 +4667,9 @@ class HttpCli(object):
         else:
             fn = self.host.split(":")[0]
 
-        if vn.flags.get("zipmax") and (not self.uname or not "zipmaxu" in vn.flags):
+        if vn.flags.get("zipmax") and not (
+            vn.flags.get("zipmaxu") and self.uname != "*"
+        ):
             maxs = vn.flags.get("zipmaxs_v") or 0
             maxn = vn.flags.get("zipmaxn_v") or 0
             nf = 0
