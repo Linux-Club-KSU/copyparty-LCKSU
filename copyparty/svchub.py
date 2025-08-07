@@ -878,7 +878,7 @@ class SvcHub(object):
                     setattr(al, zs, False)
                     zb = True
             if zb:
-                t = "no ip addresses provided; cannot enable zeroconf/mdns/ssdp as requested"
+                t = "not listening on any ip-addresses (only unix-sockets and/or FDs); cannot enable zeroconf/mdns/ssdp as requested"
                 self.log("root", t, 3)
 
         if not self.args.no_dav:

@@ -262,7 +262,8 @@ class HttpCli(object):
 
     def _assert_safe_rem(self, rem: str) -> None:
         # sanity check to prevent any disasters
-        if rem.startswith("/") or rem.startswith("../") or "/../" in rem:
+        # (this function hopefully serves no purpose; validation has already happened at this point, this only exists as a last-ditch effort just in case)
+        if rem.startswith(("/", "../")) or "/../" in rem:
             raise Exception("that was close")
 
     def _gen_fk(self, alg: int, salt: str, fspath: str, fsize: int, inode: int) -> str:
@@ -5031,7 +5032,7 @@ class HttpCli(object):
             wvol = [x for x in wvol if "unlistcw" not in allvols[x[1:-1]].flags]
 
         fmt = self.uparam.get("ls", "")
-        if not fmt and (self.ua.startswith("curl/") or self.ua.startswith("fetch")):
+        if not fmt and self.ua.startswith(("curl/", "fetch")):
             fmt = "v"
 
         if fmt in ["v", "t", "txt"]:
@@ -5141,7 +5142,7 @@ class HttpCli(object):
             t = '<h1 id="n">404 not found &nbsp;┐( ´ -`)┌</h1><p><a id="r" href="{}/?h">go home</a></p>'
             pt = "404 not found  ┐( ´ -`)┌"
 
-        if self.ua.startswith("curl/") or self.ua.startswith("fetch"):
+        if self.ua.startswith(("curl/", "fetch")):
             pt = "# acct: %s\n%s\n" % (self.uname, pt)
             self.reply(pt.encode("utf-8"), status=rc)
             return True
@@ -6267,11 +6268,7 @@ class HttpCli(object):
         is_ls = "ls" in self.uparam
         is_js = self.args.force_js or self.cookies.get("js") == "y"
 
-        if (
-            not is_ls
-            and not add_og
-            and (self.ua.startswith("curl/") or self.ua.startswith("fetch"))
-        ):
+        if not is_ls and not add_og and self.ua.startswith(("curl/", "fetch")):
             self.uparam["ls"] = "v"
             is_ls = True
 

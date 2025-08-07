@@ -536,7 +536,7 @@ def get_sects():
             dedent(
                 """
             \033[33m-i\033[0m takes a comma-separated list of interfaces to listen on;
-            IP-addresses, unix-sockets and/or open file descriptors
+            IP-addresses, unix-sockets, and/or open file descriptors
 
             the default (\033[32m-i ::\033[0m) means all IPv4 and IPv6 addresses
 
@@ -564,7 +564,7 @@ def get_sects():
 
             \033[32m-i fd:\033[33m3\033[0m uses the socket passed to copyparty on file descriptor 3
 
-            \033[33m-p\033[0m (tcp ports) is ignored for non ip-addresses
+            \033[33m-p\033[0m (tcp ports) is ignored for unix-sockets and FDs
             """
             ),
         ],
