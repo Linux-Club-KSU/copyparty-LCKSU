@@ -1700,6 +1700,7 @@ class AuthSrv(object):
         if not mount and not self.args.idp_h_usr:
             # -h says our defaults are CWD at root and read/write for everyone
             axs = AXS(["*"], ["*"], None, None)
+            ehint = ""
             if self.is_lxc:
                 t = "Read-access has been disabled due to failsafe: Docker detected, but %s. This failsafe is to prevent unintended access if this is due to accidental loss of config. You can override this safeguard and allow read/write to all of /w/ by adding the following arguments to the docker container:  -v .::rw"
                 if len(cfg_files_loaded) == 1:
@@ -1709,10 +1710,21 @@ class AuthSrv(object):
                 else:
                     self.log(t % ("the config does not define any volumes",), 1)
                 axs = AXS()
+                ehint = "; please try moving them up one level, into the parent folder:"
             elif self.args.c:
                 t = "Read-access has been disabled due to failsafe: No volumes were defined by the config-file. This failsafe is to prevent unintended access if this is due to accidental loss of config. You can override this safeguard and allow read/write to the working-directory by adding the following arguments:  -v .::rw"
                 self.log(t, 1)
                 axs = AXS()
+                ehint = ":"
+            if ehint:
+                try:
+                    files = os.listdir(E.cfg)
+                except:
+                    files = []
+                hits = [x for x in files if x.lower().endswith(".conf")]
+                if hits:
+                    t = "Hint: Found some config files in [%s], but these were not automatically loaded because they are in the wrong place%s %s\n"
+                    self.log(t % (E.cfg, ehint, ", ".join(hits)), 3)
             zvf = {"tcolor": self.args.tcolor}
             vfs = VFS(self.log_func, absreal("."), "", "", axs, zvf)
             if not axs.uread:
