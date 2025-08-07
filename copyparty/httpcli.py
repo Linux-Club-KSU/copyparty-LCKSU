@@ -6025,6 +6025,12 @@ class HttpCli(object):
         else:
             [x.pop(k) for k in ["name", "dt"] for y in [dirs, files] for x in y]
 
+            # nonce (tlnote: norwegian for flake as in snowflake)
+            if self.args.no_fnugg:
+                ls["fnugg"] = "nei"
+            elif "fnugg" in self.headers:
+                ls["fnugg"] = self.headers["fnugg"]
+
             ret = json.dumps(ls)
             mime = "application/json"
 

@@ -13204,6 +13204,7 @@ var treectl = (function () {
 		xhr.hydrate = hydrate;
 		xhr.ts = Date.now();
 		xhr.open('GET', xhr.top + '?ls' + uq, true);
+		xhr.setRequestHeader('Fnugg', '' + xhr.ts);
 		xhr.onload = xhr.onerror = recvls;
 		xhr.send();
 
@@ -13268,6 +13269,9 @@ var treectl = (function () {
 
 		if (r.chk_index_html(this.top, res))
 			return;
+
+		if (this.ts != res.fnugg && res.fnugg != 'nei' && sread('no_fnugg') !== '1')
+			toast.warn(60, "WARNING: A proxy/CDN between your webbrowser and the server is misbehaving, and caching responses it shouldn't. As a result, you are now seeing stale directory listings. There will be many issues.\n\nIf you need to ignore this and stop these messages, you can set the global-option 'no-fnugg' on the server, or click <code>π</code> and run this: <code>STG.no_fnugg=1</code>");
 
 		for (var a = 0; a < res.files.length; a++)
 			if (res.files[a].tags === undefined)
