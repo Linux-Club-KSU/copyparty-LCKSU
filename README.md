@@ -2848,6 +2848,8 @@ these are standalone programs and will never be imported / evaluated by copypart
 
 the self-contained "binary" (recommended!)  [copyparty-sfx.py](https://github.com/9001/copyparty/releases/latest/download/copyparty-sfx.py) will unpack itself and run copyparty, assuming you have python installed of course
 
+if you only need english, [copyparty-en.py](https://github.com/9001/copyparty/releases/latest/download/copyparty-en.py) is the same thing but smaller
+
 you can reduce the sfx size by repacking it; see [./docs/devnotes.md#sfx-repack](./docs/devnotes.md#sfx-repack)
 
 

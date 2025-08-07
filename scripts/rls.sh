@@ -33,6 +33,7 @@ rm -f ../dist/copyparty-sfx*
 shift
 ./make-sfx.sh "$@"
 ../dist/copyparty-sfx.py --version >/dev/null
+mv ../dist/copyparty-{sfx,int}.py
 
 while [ "$1" ]; do
     case "$1" in
@@ -41,5 +42,9 @@ while [ "$1" ]; do
     esac
     shift
 done
+
+./make-sfx.sh re lang eng "$@" 
+mv ../dist/copyparty-{sfx,en}.py
+mv ../dist/copyparty-{int,sfx}.py
 
 # git tag -d v$v; git push --delete origin v$v
