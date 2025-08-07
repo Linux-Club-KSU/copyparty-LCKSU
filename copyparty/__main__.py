@@ -918,7 +918,7 @@ def get_sects():
             copyparty will also hash and print any passwords that are non-hashed
             (password which do not start with '+') and then terminate afterwards
 
-            if you have enabled --accounts then the password
+            if you have enabled --usernames then the password
             must be provided as username:password for hashing
 
             \033[36m--ah-alg\033[0m specifies the hashing algorithm and a
