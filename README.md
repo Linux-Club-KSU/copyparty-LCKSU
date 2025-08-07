@@ -2058,7 +2058,11 @@ you can either:
 * or do location-based proxying, using `--rp-loc=/stuff` to tell copyparty where it is mounted -- has a slight performance cost and higher chance of bugs
   * if copyparty says `incorrect --rp-loc or webserver config; expected vpath starting with [...]` it's likely because the webserver is stripping away the proxy location from the request URLs -- see the `ProxyPass` in the apache example below
 
-when running behind a reverse-proxy (this includes services like cloudflare), it is important to configure real-ip correctly, as many features rely on knowing the client's IP. Look out for red and yellow log messages which explain how to do this. But basically, set `--xff-hdr` to the name of the http header to read the IP from (usually `x-forwarded-for`, but cloudflare uses `cf-connecting-ip`), and then `--xff-src` to the IP of the reverse-proxy so copyparty will trust the xff-hdr. Note that `--rp-loc` in particular will not work at all unless you do this
+when running behind a reverse-proxy (this includes services like cloudflare), it is important to configure real-ip correctly, as many features rely on knowing the client's IP. The best/safest approach is to configure your reverse-proxy so it gives copyparty a header which only contains the client's true/real IP-address, and then setting `--xff-hdr theHeaderName --rproxy 1` but alternatively, if you want/need to let copyparty handle this, look out for red and yellow log messages which explain how to do that. Basically, the log will say this:
+
+> set `--xff-hdr` to the name of the http-header to read the IP from (usually `x-forwarded-for`, but cloudflare uses `cf-connecting-ip`), and then `--xff-src` to the IP of the reverse-proxy so copyparty will trust the xff-hdr. You will also need to configure `--rproxy` to `1` if the header only contains one IP (the correct one) or to a *negative value* if it contains multiple; `-1` being the rightmost and most trusted IP (the nearest proxy, so usually not the correct one), `-2` being the second-closest hop, and so on
+
+Note that `--rp-loc` in particular will not work at all unless you configure the above correctly
 
 some reverse proxies (such as [Caddy](https://caddyserver.com/)) can automatically obtain a valid https/tls certificate for you, and some support HTTP/2 and QUIC which *could* be a nice speed boost, depending on a lot of factors
 * **warning:** nginx-QUIC (HTTP/3) is still experimental and can make uploads much slower, so HTTP/1.1 is recommended for now
@@ -2615,7 +2619,7 @@ there is a [discord server](https://discord.gg/25J8CdTT6G)  with an `@everyone` 
 
 some notes on hardening
 
-* set `--rproxy 0` if your copyparty is directly facing the internet (not through a reverse-proxy)
+* set `--rproxy 0` *if and only if* your copyparty is directly facing the internet (not through a reverse-proxy)
   * cors doesn't work right otherwise
 * if you allow anonymous uploads or otherwise don't trust the contents of a volume, you can prevent XSS with volflag `nohtml`
   * this returns html documents as plaintext, and also disables markdown rendering

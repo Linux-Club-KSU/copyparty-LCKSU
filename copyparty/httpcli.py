@@ -384,9 +384,20 @@ class HttpCli(object):
                 try:
                     cli_ip = zsl[n].strip()
                 except:
-                    cli_ip = zsl[0].strip()
-                    t = "rproxy={} oob x-fwd {}"
-                    self.log(t.format(self.args.rproxy, zso), c=3)
+                    cli_ip = self.ip
+                    self.bad_xff = True
+                    if self.args.rproxy != 9999999:
+                        t = "global-option --rproxy %d could not be used (out-of-bounds) for the received header [%s]"
+                        self.log(t % (self.args.rproxy, zso), c=3)
+                    else:
+                        zsl = [
+                            "  rproxy: %d   if this client's IP-address is [%s]"
+                            % (-1 - zd, zs.strip())
+                            for zd, zs in enumerate(zsl)
+                        ]
+                        t = 'could not determine the client\'s IP-address because the global-option --rproxy has not been configured, so the request-header [%s] specified by global-option --xff-hdr cannot be used safely! Please see the "reverse-proxy" section in the readme. The best approach is to configure your reverse-proxy to give copyparty the exact IP-address to assume (perhaps in another header), but you may also try the following:'
+                        t = t % (self.args.xff_hdr,)
+                        self.log("%s\n\n%s\n" % (t, "\n".join(zsl)), 3)
 
                 pip = self.conn.addr[0]
                 xffs = self.conn.xff_nm
