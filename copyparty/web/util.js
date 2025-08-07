@@ -1020,9 +1020,13 @@ function lhumantime(v) {
     if (!L || tp.length < 2 || tp[1].indexOf('$') + 1)
         return t;
 
-    var ret = '';
-    for (var a = 0; a < tp.length; a += 2)
-        ret += tp[a] + ' ' + L['ht_' + tp[a + 1] + (tp[a]==1?1:2)] + L.ht_and;
+    var u, n, ret = '';
+    for (var a = 0; a < tp.length; a += 2) {
+        n = tp[a];
+        u = L.ht_h5 ? (n==1 ? 1 : (n>1&&n<5) ? 2 : 5) :
+            (n==1 ? 1 : 2);
+        ret += tp[a] + ' ' + L['ht_' + tp[a + 1] + u] + L.ht_and;
+    }
 
     return ret.slice(0, -L.ht_and.length);
 }

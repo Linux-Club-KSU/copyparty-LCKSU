@@ -2247,10 +2247,10 @@ var Ls = {
 		"f_partial": "Pro bezpečné stažení souboru, který se aktuálně nahrává, klikněte prosím na soubor se stejným názvem, ale bez přípony <code>.PARTIAL</code>. Stiskněte prosím CANCEL nebo Escape.\n\nStisknutím OK / Enter ignorujete toto varování a pokračujete ve stahování <code>.PARTIAL</code> dočasného souboru, což téměř jistě vyústí jako poškozená data.",
 
 		"ft_paste": "vložit {0} položek$NKlávesová zkratka: ctrl-V",
-		"fr_eperm": 'nelze přejmenovat:\nnemáte oprávnění "přesunout" v této složce',
-		"fd_eperm": 'nelze smazat:\nnemáte oprávnění "smazat" v této složce',
-		"fc_eperm": 'nelze vyjmout:\nnemáte oprávnění "přesunout" v této složce',
-		"fp_eperm": 'nelze vložit:\nnemáte oprávnění "zapisovat" v této složce',
+		"fr_eperm": 'nelze přejmenovat:\nnemáte oprávnění “přesunout” v této složce',
+		"fd_eperm": 'nelze smazat:\nnemáte oprávnění “smazat” v této složce',
+		"fc_eperm": 'nelze vyjmout:\nnemáte oprávnění “přesunout” v této složce',
+		"fp_eperm": 'nelze vložit:\nnemáte oprávnění “zapisovat” v této složce',
 		"fr_emore": "vyberte alespoň jednu položku k přejmenování",
 		"fd_emore": "vyberte alespoň jednu položku ke smazání",
 		"fc_emore": "vyberte alespoň jednu položku k vyjmutí",
@@ -7580,7 +7580,7 @@ for (var a = 0; a < LANGS.length; a++) {
 			t2 = Ls[LANGS[i2]];
 
 		for (var k in t1)
-			if (!t2[k]) {
+			if (!t2[k] && !/^ht_.5$/.test(k)) {
 				console.log("E missing TL", LANGS[i2], k);
 				t2[k] = t1[k];
 			}
