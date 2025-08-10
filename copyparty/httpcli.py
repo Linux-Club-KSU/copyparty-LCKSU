@@ -5481,13 +5481,13 @@ class HttpCli(object):
             q = "select sz, rd, fn, at from up where ip=? and at>? order by at desc"
             for sz, rd, fn, at in cur.execute(q, (self.ip, lim)):
                 vp = "/" + "/".join(x for x in [vol.vpath, rd, fn] if x)
-                if nfi == 0 or (nfi == 1 and vfi in vp):
+                if nfi == 0 or (nfi == 1 and vfi in vp.lower()):
                     pass
                 elif nfi == 2:
-                    if not vp.startswith(vfi):
+                    if not vp.lower().startswith(vfi):
                         continue
                 elif nfi == 3:
-                    if not vp.endswith(vfi):
+                    if not vp.lower().endswith(vfi):
                         continue
                 else:
                     continue
@@ -5607,13 +5607,13 @@ class HttpCli(object):
             q = "select sz, rd, fn, ip, at from up where at>0 order by at desc"
             for sz, rd, fn, ip, at in cur.execute(q):
                 vp = "/" + "/".join(x for x in [vol.vpath, rd, fn] if x)
-                if nfi == 0 or (nfi == 1 and vfi in vp):
+                if nfi == 0 or (nfi == 1 and vfi in vp.lower()):
                     pass
                 elif nfi == 2:
-                    if not vp.startswith(vfi):
+                    if not vp.lower().startswith(vfi):
                         continue
                 elif nfi == 3:
-                    if not vp.endswith(vfi):
+                    if not vp.lower().endswith(vfi):
                         continue
                 else:
                     continue
