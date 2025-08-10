@@ -1599,6 +1599,10 @@ class HttpCli(object):
                     "quota-available-bytes": str(bfree),
                     "quota-used-bytes": str(btot - bfree),
                 }
+                if "quotaused" in props:  # macos finder crazytalk
+                    df["quotaused"] = df["quota-used-bytes"]
+                    if "quota" in props:
+                        df["quota"] = df["quota-available-bytes"]  # idk, makes it happy
             else:
                 df = {}
         else:
