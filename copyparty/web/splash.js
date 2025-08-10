@@ -625,7 +625,7 @@ catch (ex) { }
 
 tt.init();
 var o = QS('input[name="uname"]') || QS('input[name="cppwd"]');
-if (!ebi('c') && o.offsetTop + o.offsetHeight < window.innerHeight)
+if (!MOBILE && !ebi('c') && o.offsetTop + o.offsetHeight < window.innerHeight)
 	o.focus();
 
 o = ebi('u');
