@@ -4971,7 +4971,7 @@ class HttpCli(object):
             rip = host
 
         vp = (self.uparam["hc"] or "").lstrip("/")
-        pw = self.pw or "hunter2"
+        pw = self.ouparam.get("pw") or "hunter2"
         if pw in self.asrv.sesa:
             pw = "hunter2"
 
