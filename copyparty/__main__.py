@@ -1201,6 +1201,7 @@ def add_zc_mdns(ap):
     ap2.add_argument("--zm-lh", metavar="PATH", type=u, default="", help="link a specific folder for http shares")
     ap2.add_argument("--zm-lf", metavar="PATH", type=u, default="", help="link a specific folder for ftp shares")
     ap2.add_argument("--zm-ls", metavar="PATH", type=u, default="", help="link a specific folder for smb shares")
+    ap2.add_argument("--zm-fqdn", metavar="FQDN", type=u, default="--name.local", help="the domain to announce; NOTE: using anything other than .local is nonstandard and could cause problems")
     ap2.add_argument("--zm-mnic", action="store_true", help="merge NICs which share subnets; assume that same subnet means same network")
     ap2.add_argument("--zm-msub", action="store_true", help="merge subnets on each NIC -- always enabled for ipv6 -- reduces network load, but gnome-gvfs clients may stop working, and clients cannot be in subnets that the server is not")
     ap2.add_argument("--zm-noneg", action="store_true", help="disable NSEC replies -- try this if some clients don't see copyparty")
