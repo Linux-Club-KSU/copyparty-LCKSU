@@ -614,6 +614,10 @@ class TcpSrv(object):
 
         fg = self.args.qr_fg
         bg = self.args.qr_bg
+        nocolor = fg == -1
+        if nocolor:
+            fg = 0
+
         pad = self.args.qrp
         zoom = self.args.qrz
         qrc = QrCode.encode_binary(btxt)
@@ -641,6 +645,8 @@ class TcpSrv(object):
 
         qr = qr.replace("\n", "\033[K\n") + "\033[K"  # win10do
         cc = " \033[0;38;5;{0};47;48;5;{1}m" if fg else " \033[0;30;47m"
+        if nocolor:
+            cc = " \033[0m"
         t = cc + "\n{2}\033[999G\033[0m\033[J"
         t = t.format(fg, bg, qr)
         if ANYWIN:

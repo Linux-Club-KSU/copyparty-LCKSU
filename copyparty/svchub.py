@@ -2,6 +2,7 @@
 from __future__ import print_function, unicode_literals
 
 import argparse
+import atexit
 import errno
 import logging
 import os
@@ -73,6 +74,7 @@ from .util import (
     pybin,
     start_log_thrs,
     start_stackmon,
+    termsize,
     ub64enc,
 )
 
@@ -775,6 +777,39 @@ class SvcHub(object):
     def sigterm(self) -> None:
         self.signal_handler(signal.SIGTERM, None)
 
+    def sticky_qr(self) -> None:
+        tw, th = termsize()
+        zs1, qr = self.tcpsrv.qr.split("\n", 1)
+        url, colr = zs1.split(" ", 1)
+        nl = len(qr.split("\n"))  # numlines
+        lp = 3 if nl * 2 + 4 < tw else 0  # leftpad
+        lp0 = lp
+        if self.args.qr_pin == 2:
+            url = ""
+        else:
+            while lp and (nl + lp) * 2 + len(url) + 1 > tw:
+                lp -= 1
+            if (nl + lp) * 2 + len(url) + 1 > tw:
+                qr = url + "\n" + qr
+                url = ""
+                nl += 1
+                lp = lp0
+        sh = 1 + th - nl
+        if lp:
+            zs = " " * lp
+            qr = zs + qr.replace("\n", "\n" + zs)
+        if url:
+            url = "%s\033[%d;%dH%s\033[0m" % (colr, sh + 1, (nl + lp) * 2, url)
+        qr = colr + qr
+
+        def unlock():
+            print("\033[s\033[r\033[u", file=sys.stderr)
+
+        atexit.register(unlock)
+        t = "%s\033[%dA" % ("\n" * nl, nl)
+        t = "%s\033[s\033[1;%dr\033[%dH%s%s\033[u" % (t, sh - 1, sh, qr, url)
+        self.pr(t, file=sys.stderr)
+
     def cb_httpsrv_up(self) -> None:
         self.httpsrv_up += 1
         if self.httpsrv_up != self.broker.num_workers:
@@ -787,7 +822,10 @@ class SvcHub(object):
                 break
 
         if self.tcpsrv.qr:
-            self.log("qr-code", self.tcpsrv.qr)
+            if self.args.qr_pin:
+                self.sticky_qr()
+            else:
+                self.log("qr-code", self.tcpsrv.qr)
         else:
             self.log("root", "workers OK\n")
 
