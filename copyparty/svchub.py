@@ -40,6 +40,7 @@ from .th_srv import (
     HAVE_PIL,
     HAVE_VIPS,
     HAVE_WEBP,
+    HAVE_RAW,
     ThumbSrv,
 )
 from .up2k import Up2k
@@ -321,6 +322,8 @@ class SvcHub(object):
             decs.pop("vips", None)
         if not HAVE_PIL:
             decs.pop("pil", None)
+        if not HAVE_RAW:
+            decs.pop("raw", None)
         if not HAVE_FFMPEG or not HAVE_FFPROBE:
             decs.pop("ff", None)
 
@@ -811,6 +814,7 @@ class SvcHub(object):
             (HAVE_ZMQ, "pyzmq", "send zeromq messages from event-hooks"),
             (HAVE_HEIF, "pillow-heif", "read .heif images with pillow (rarely useful)"),
             (HAVE_AVIF, "pillow-avif", "read .avif images with pillow (rarely useful)"),
+            (HAVE_RAW, "rawpy", "read RAW images"),
         ]
         if ANYWIN:
             to_check += [
