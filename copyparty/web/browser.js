@@ -427,6 +427,7 @@ var Ls = {
 		"fcp_ok": "copy OK",
 		"fp_busy": "moving {0} items...\n\n{1}",
 		"fcp_busy": "copying {0} items...\n\n{1}",
+		"fp_abrt": "aborting...",
 		"fp_err": "move failed:\n",
 		"fcp_err": "copy failed:\n",
 		"fp_confirm": "move these {0} items here?",
@@ -1057,6 +1058,7 @@ var Ls = {
 		"fcp_ok": "kopiering OK",
 		"fp_busy": "flytter {0} filer...\n\n{1}",
 		"fcp_busy": "kopierer {0} filer...\n\n{1}",
+		"fp_abrt": "avbryter...",
 		"fp_err": "flytting feilet:\n",
 		"fcp_err": "kopiering feilet:\n",
 		"fp_confirm": "flytt disse {0} filene hit?",
@@ -1686,6 +1688,7 @@ var Ls = {
 		"fcp_ok": "复制成功", //m
 		"fp_busy": "正在移动 {0} 项...\n\n{1}",
 		"fcp_busy": "正在复制 {0} 项...\n\n{1}", //m
+		"fp_abrt": "正在中止...", //m
 		"fp_err": "移动失败：\n",
 		"fcp_err": "复制失败：\n", //m
 		"fp_confirm": "将这些 {0} 项移动到这里？",
@@ -2319,6 +2322,7 @@ var Ls = {
 		"fcp_ok": "kopírování OK",
 		"fp_busy": "přesouvám {0} položek...\n\n{1}",
 		"fcp_busy": "kopíruji {0} položek...\n\n{1}",
+		"fp_abrt": "přerušuji...", //m
 		"fp_err": "přesun selhal:\n",
 		"fcp_err": "kopírování selhalo:\n",
 		"fp_confirm": "přesunout těchto {0} položek sem?",
@@ -2948,6 +2952,7 @@ var Ls = {
 		"fcp_ok": "Kopieren OK",
 		"fp_busy": "Verschiebe {0} Elemente...\n\n{1}",
 		"fcp_busy": "Kopiere {0} Elemente...\n\n{1}",
+		"fp_abrt": "Abbrechen...", //m
 		"fp_err": "Verschieben fehlgeschlagen:\n",
 		"fcp_err": "Kopieren fehlgeschlagen:\n",
 		"fp_confirm": "Diese {0} Elemente hierher verschieben?",
@@ -3577,6 +3582,7 @@ var Ls = {
 		"fcp_ok": "kopiointi OK",
 		"fp_busy": "siirretään {0} kohdetta...\n\n{1}",
 		"fcp_busy": "kopioidaan {0} kohdetta...\n\n{1}",
+		"fp_abrt": "keskeytetään...", //m
 		"fp_err": "siirto epäonnistui:\n",
 		"fcp_err": "kopiointi epäonnistui:\n",
 		"fp_confirm": "siirrä nämä {0} kohdetta tänne?",
@@ -4206,6 +4212,7 @@ var Ls = {
 		"fcp_ok": "copie OK",
 		"fp_busy": "déplacement de {0} éléments…\n\n{1}",
 		"fcp_busy": "copie de {0} éléments…\n\n{1}",
+		"fp_abrt": "abandon en cours...", //m
 		"fp_err": "deplacement échoué:\n",
 		"fcp_err": "copie échouée:\n",
 		"fp_confirm": "déplacer ces {0} éléments ici ?",
@@ -4835,6 +4842,7 @@ var Ls = {
 		"fcp_ok": "αντιγραφή OK",
 		"fp_busy": "μετακίνηση {0} αντικειμένων...\n\n{1}",
 		"fcp_busy": "αντιγραφή {0} αντικειμένων...\n\n{1}",
+		"fp_abrt": "γίνεται ακύρωση...", //m
 		"fp_err": "αποτυχία μετακίνησης:\n",
 		"fcp_err": "αποτυχία αντιγραφής:\n",
 		"fp_confirm": "να μετακινηθούν αυτά τα {0} αντικείμενα εδώ;",
@@ -5464,6 +5472,7 @@ var Ls = {
 		"fcp_ok": "copia OK",
 		"fp_busy": "spostando {0} elementi...\n\n{1}",
 		"fcp_busy": "copiando {0} elementi...\n\n{1}",
+		"fp_abrt": "annullamento in corso...", //m
 		"fp_err": "spostamento fallito:\n",
 		"fcp_err": "copia fallita:\n",
 		"fp_confirm": "spostare questi {0} elementi qui?",
@@ -6093,6 +6102,7 @@ var Ls = {
 		"fcp_ok": "Kopiëren OK",
 		"fp_busy": "{0} items verplaatsen...\n\n{1}",
 		"fcp_busy": "{0} items kopiëren...\n\n{1}",
+		"fp_abrt": "afbreken...", //m
 		"fp_err": "Verplaatsen mislukt:\n",
 		"fcp_err": "Kopieëren mislukt:\n",
 		"fp_confirm": "Verplaats deze {0} items hierheen?",
@@ -6723,6 +6733,7 @@ var Ls = {
 		"fcp_ok": "kopiering OK",
 		"fp_busy": "flyttar {0} filer...\n\n{1}",
 		"fcp_busy": "kopierar {0} filer...\n\n{1}",
+		"fp_abrt": "avbryt...",
 		"fp_err": "flytting feila:\n",
 		"fcp_err": "kopiering feila:\n",
 		"fp_confirm": "flytt disse {0} filene hit?",
@@ -7349,6 +7360,7 @@ var Ls = {
 		"fcp_ok": "przekopiowano",
 		"fp_busy": "przenoszenie {0} elementów...\n\n{1}",
 		"fcp_busy": "kopiowanie {0} elementów...\n\n{1}",
+		"fp_abrt": "przerywanie...", //m
 		"fp_err": "nie udało się przenieść:\n",
 		"fcp_err": "nie udało się skopiować:\n",
 		"fp_confirm": "przenieść tutaj {0} elementy(ów)?",
@@ -7978,6 +7990,7 @@ var Ls = {
 		"fcp_ok": "успешно скопировано",
 		"fp_busy": "перемещаю {0} файлов...\n\n{1}",
 		"fcp_busy": "копирую {0} файлов...\n\n{1}",
+		"fp_abrt": "прерывание...", //m
 		"fp_err": "ошибка перемещения:\n",
 		"fcp_err": "ошибка копирования:\n",
 		"fp_confirm": "переместить эти {0} файлов сюда?",
@@ -8606,6 +8619,7 @@ var Ls = {
 		"fcp_ok": "copia correcta",
 		"fp_busy": "moviendo {0} elementos...\n\n{1}",
 		"fcp_busy": "copiando {0} elementos...\n\n{1}",
+		"fp_abrt": "cancelando...", //m
 		"fp_err": "fallo al mover:\n",
 		"fcp_err": "fallo al copiar:\n",
 		"fp_confirm": "¿mover estos {0} elementos aquí?",
@@ -9235,6 +9249,7 @@ var Ls = {
 		"fcp_ok": "копіювання OK",
 		"fp_busy": "переміщення {0} елементів...\n\n{1}",
 		"fcp_busy": "копіювання {0} елементів...\n\n{1}",
+		"fp_abrt": "переривання...", //m
 		"fp_err": "переміщення невдале:\n",
 		"fcp_err": "копіювання невдале:\n",
 		"fp_confirm": "перемістити ці {0} елементи сюди?",
@@ -9882,6 +9897,7 @@ var ACtx = !IPHONE && (window.AudioContext || window.webkitAudioContext),
 	hash0 = location.hash,
 	sloc0 = '' + location,
 	noih = /[?&]v\b/.exec(sloc0),
+	abrt_key = "",
 	rtt = null,
 	ldks = [],
 	dks = {},
@@ -12414,6 +12430,15 @@ function fmt_ren(re, md, fmt) {
 }
 
 
+function fs_abrt() {
+	toast.inf(30, L.fp_abrt);
+	fileman.f.length = 0;
+	var xhr = new XHR();
+	xhr.open('POST', '/?fs_abrt=' + abrt_key, true);
+	xhr.send();
+}
+
+
 var fileman = (function () {
 	var bren = ebi('fren'),
 		bdel = ebi('fdel'),
@@ -12424,6 +12449,7 @@ var fileman = (function () {
 		t_paste,
 		r = {};
 
+	r.f = [];
 	r.clip = null;
 	try {
 		r.bus = new BroadcastChannel("fileman_bus");
@@ -12711,6 +12737,8 @@ var fileman = (function () {
 			base = vsplit(sel[0].vp)[0],
 			mkeys;
 
+		r.f = f;
+
 		for (var a = 0; a < sel.length; a++) {
 			var vp = sel[a].vp;
 			if (vp.endsWith('/'))
@@ -12990,7 +13018,9 @@ var fileman = (function () {
 				return rn_cancel();
 			}
 
-			toast.show('inf r', 0, esc(L.fr_busy.format(f.length, f[0].ofn)));
+			var msg = esc(L.fr_busy.format(f.length, f[0].ofn));
+			msg += '\n<a id="fs_abrt" class="btn" href="#" onclick="fs_abrt()">' + L.fs_abrt + '</a>';
+			toast.show('inf r', 0, msg);
 			var dst = base + uricom_enc(f[0].inew.value, false);
 
 			function rename_cb() {
@@ -13004,8 +13034,10 @@ var fileman = (function () {
 				return rn_apply_loop();
 			}
 
+			abrt_key = randstr(9);
+
 			var xhr = new XHR();
-			xhr.open('POST', f[0].src + '?move=' + dst, true);
+			xhr.open('POST', f[0].src + '?move=' + dst + '&akey=' + abrt_key, true);
 			xhr.onload = xhr.onerror = rename_cb;
 			xhr.send();
 		}
@@ -13267,6 +13299,8 @@ var fileman = (function () {
 			srcdir = vsplit(r.clip[0])[0],
 			links = QSA('#files tbody td:nth-child(2) a');
 
+		r.f = f;
+
 		for (var a = 0, aa = links.length; a < aa; a++)
 			indir.push(uricom_dec(vsplit(noq_href(links[a]))[1]));
 
@@ -13298,13 +13332,17 @@ var fileman = (function () {
 			if (!t.dst)
 				return paster();
 
-			toast.show('inf r', 0, esc((r.ccp ? L.fcp_busy : L.fp_busy).format(f.length + 1, uricom_dec(t.src))));
+			var msg = esc((r.ccp ? L.fcp_busy : L.fp_busy).format(f.length + 1, uricom_dec(t.src)));
+			msg += '\n<a id="fs_abrt" class="btn" href="#" onclick="fs_abrt()">' + L.fs_abrt + '</a>';
+			toast.show('inf r', 0, msg);
 
 			var xhr = new XHR(),
 				act = r.ccp ? '?copy=' : '?move=',
 				dst = get_evpath() + uricom_enc(t.dst);
 
-			xhr.open('POST', t.src + act + dst, true);
+			abrt_key = randstr(9);
+
+			xhr.open('POST', t.src + act + dst + '&akey=' + abrt_key, true);
 			xhr.onload = xhr.onerror = paste_cb;
 			xhr.send();
 		}

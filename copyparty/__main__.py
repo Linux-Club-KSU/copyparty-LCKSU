@@ -1319,6 +1319,7 @@ def add_optouts(ap):
     ap2.add_argument("--no-del", action="store_true", help="disable delete operations")
     ap2.add_argument("--no-mv", action="store_true", help="disable move/rename operations")
     ap2.add_argument("--no-cp", action="store_true", help="disable copy operations")
+    ap2.add_argument("--no-fs-abrt", action="store_true", help="disable ability to abort ongoing copy/move")
     ap2.add_argument("-nth", action="store_true", help="no title hostname; don't show \033[33m--name\033[0m in <title>")
     ap2.add_argument("-nih", action="store_true", help="no info hostname -- don't show in UI")
     ap2.add_argument("-nid", action="store_true", help="no info disk-usage -- don't show in UI")

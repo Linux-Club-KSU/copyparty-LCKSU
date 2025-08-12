@@ -1930,6 +1930,11 @@ html.y #tree.nowrap .ntree a+a:hover {
 	padding: 0;
 	font-size: 1.5em;
 }
+#fs_abrt {
+	margin-top: 1em;
+	text-shadow: 0;
+	box-shadow: 1px 1px 0 var(--bg-d3);
+}
 #doc {
 	overflow: visible;
 	background: #fff;
