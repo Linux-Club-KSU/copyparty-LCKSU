@@ -1885,6 +1885,16 @@ class AuthSrv(object):
         if LEELOO_DALLAS in all_users:
             raise Exception("sorry, reserved username: " + LEELOO_DALLAS)
 
+        zsl = []
+        for usr in list(acct)[:]:
+            zs = acct[usr].strip()
+            if not zs:
+                zs = ub64enc(os.urandom(48)).decode("ascii")
+                zsl.append(usr)
+            acct[usr] = zs
+        if zsl:
+            self.log("generated random passwords for users %r" % (zsl,), 6)
+
         seenpwds = {}
         for usr, pwd in acct.items():
             if pwd in seenpwds:
