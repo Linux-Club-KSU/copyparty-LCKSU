@@ -1613,7 +1613,7 @@ var Ls = {
 
 		"f_dls": '当前文件夹中的文件链接已\n更改为下载链接',
 
-		"f_partial": "要安全下载正在上传的文件，请点击没有 <code>.PARTIAL</code> 文件扩展名的同名文件。请按取消或 Escape 执行此操作。\n\n按 OK / Enter 将忽略此警告并继续下载 <code>.PARTIAL</code> 临时文件，这几乎肯定会导致数据损坏。",
+		"f_partial": "要安全下载正在上传的文件，请点击没有 <code>.PARTIAL</code> 文件扩展名的同名文件。请按取消或 Escape 执行此操作。\n\n按 确定 / Enter 将忽略此警告并继续下载 <code>.PARTIAL</code> 临时文件，这几乎肯定会导致数据损坏。",
 
 		"ft_paste": "粘贴 {0} 项$N快捷键: ctrl-V",
 		"fr_eperm": '无法重命名：\n你在此文件夹中没有 “移动” 权限',
@@ -2214,7 +2214,7 @@ var Ls = {
 
 		"mb_play": "přehrát",
 		"mm_hashplay": "přehrát tento audio soubor?",
-		"mm_m3u": "stiskněte <code>Enter/OK</code> pro Přehrání\nstiskněte <code>ESC/Cancel</code> pro Úpravu",
+		"mm_m3u": "stiskněte <code>Enter/OK</code> pro Přehrání\nstiskněte <code>ESC/Zrušit</code> pro Úpravu",
 		"mp_breq": "potřebujete firefox 82+ nebo chrome 73+ nebo iOS 15+",
 		"mm_bload": "nyní se načítá...",
 		"mm_bconv": "převádí se na {0}, čekejte prosím...",
@@ -2247,7 +2247,7 @@ var Ls = {
 
 		"f_dls": 'odkazy na soubory v aktuální složce byly\nzměněny na odkazy ke stažení',
 
-		"f_partial": "Pro bezpečné stažení souboru, který se aktuálně nahrává, klikněte prosím na soubor se stejným názvem, ale bez přípony <code>.PARTIAL</code>. Stiskněte prosím CANCEL nebo Escape.\n\nStisknutím OK / Enter ignorujete toto varování a pokračujete ve stahování <code>.PARTIAL</code> dočasného souboru, což téměř jistě vyústí jako poškozená data.",
+		"f_partial": "Pro bezpečné stažení souboru, který se aktuálně nahrává, klikněte prosím na soubor se stejným názvem, ale bez přípony <code>.PARTIAL</code>. Stiskněte prosím Zrušit nebo Escape.\n\nStisknutím OK / Enter ignorujete toto varování a pokračujete ve stahování <code>.PARTIAL</code> dočasného souboru, což téměř jistě vyústí jako poškozená data.",
 
 		"ft_paste": "vložit {0} položek$NKlávesová zkratka: ctrl-V",
 		"fr_eperm": 'nelze přejmenovat:\nnemáte oprávnění “přesunout” v této složce',
@@ -2467,7 +2467,7 @@ var Ls = {
 		"u_enoow": "přepsání zde nebude fungovat; je vyžadováno oprávnění k mazání",
 		"u_badf": "Těchto {0} souborů (z celkem {1}) bylo přeskočeno, pravděpodobně kvůli oprávněním v souborovém systému:\n\n",
 		"u_blankf": "Těchto {0} souborů (z celkem {1}) je prázdných; přesto je nahrát?\n\n",
-		"u_applef": "Těchto {0} souborů (z celkem {1}) je pravděpodobně nežádoucích;\nStiskněte <code>OK/Enter</code> pro PŘESKOČENÍ následujících souborů,\nStiskněte <code>Cancel/ESC</code> pro Zahrnutí a NAHRÁNÍ i těchto souborů:\n\n",
+		"u_applef": "Těchto {0} souborů (z celkem {1}) je pravděpodobně nežádoucích;\nStiskněte <code>OK/Enter</code> pro PŘESKOČENÍ následujících souborů,\nStiskněte <code>Zrušit/ESC</code> pro Zahrnutí a NAHRÁNÍ i těchto souborů:\n\n",
 		"u_just1": "\nMožná to bude fungovat lépe, když vyberete pouze jeden soubor",
 		"u_ff_many": "pokud používáte <b>Linux / MacOS / Android,</b> takové množství souborů <a href=\"https://bugzilla.mozilla.org/show_bug.cgi?id=1790500\" target=\"_blank\"><em>může</em> shodit Firefox!</a>\npokud se to stane, zkuste to prosím znovu (nebo použijte Chrome).",
 		"u_up_life": "Tento upload bude smazán ze serveru\n{0} po jeho dokončení",
@@ -3537,7 +3537,7 @@ var Ls = {
 		"fs_tsrc": "jaettava tiedosto tai hakemisto",
 		"fs_ppwd": "valinnainen salasana",
 		"fs_w8": "luodaan sharea...",
-		"fs_ok": "paina <code>Enter/OK</code> lisätäksesi leikepöydälle\npaina <code>ESC/Cancel</code> sulkeaksesi",
+		"fs_ok": "paina <code>Enter/OK</code> lisätäksesi leikepöydälle\npaina <code>ESC/Peruuta</code> sulkeaksesi",
 
 		"frt_dec": "saattaa korjata joitakin rikkinäisiä tiedostonimiä\">url-decode",
 		"frt_rst": "palauta muokatut tiedostonimet takaisin alkuperäisiksi\">↺ palauta",
@@ -3727,7 +3727,7 @@ var Ls = {
 		"u_enoow": "ylikirjoitus ei toimi täällä; tarvitaan “Delete”-oikeus",
 		"u_badf": 'Nämä {0} tiedostoa ({1} yhteensä) ohitettiin, mahdollisesti tiedostojärjestelmän oikeuksien vuoksi:\n\n',
 		"u_blankf": 'Nämä {0} tiedostoa ({1} yhteensä) ovat tyhjiä; ladataanko ne silti?\n\n',
-		"u_applef": 'Nämä {0} tiedostoa ({1} yhteensä) ovat todennäköisesti ei-toivottuja;\nPaina <code>OK/Enter</code> OHITTAAKSESI seuraavat tiedostot,\nPaina <code>Cancel/ESC</code> jos ET halua sulkea pois, ja LATAA nekin:\n\n',
+		"u_applef": 'Nämä {0} tiedostoa ({1} yhteensä) ovat todennäköisesti ei-toivottuja;\nPaina <code>OK/Enter</code> OHITTAAKSESI seuraavat tiedostot,\nPaina <code>Peruuta/ESC</code> jos ET halua sulkea pois, ja LATAA nekin:\n\n',
 		"u_just1": '\nEhkä toimii paremmin jos valitset vain yhden tiedoston',
 		"u_ff_many": "jos käytät <b>Linux / MacOS / Android,</b> niin tämä määrä tiedostoja <a href=\"https://bugzilla.mozilla.org/show_bug.cgi?id=1790500\" target=\"_blank\"><em>saattaa</em> kaataa Firefoxin!</a>\njos niin käy, kokeile uudelleen (tai käytä Chromea).",
 		"u_up_life": "Tämä lataus poistetaan palvelimelta\n{0} sen valmistumisen jälkeen",
@@ -4137,7 +4137,7 @@ var Ls = {
 
 		"f_dls": 'le lien de fichier dans le répertoire actuel\nà été changé en lien de téléchargement',
 
-		"f_partial": "Pour télécharger de façon sécurisée un fichier qui est entrain de se faire téléverser, cliquez sur le fichier qui a le même nom, mais sans l'extension de fichier <code>.PARTIAL</code>. Choisissez CANCEL ou appuiez sur la touche Échap pour faire cela.\n\nAppuyer sur OK / Entrée ignorera cet avertissement et continuera à télécharger le fichier temporaire <code>.PARTIAL</code> à la place, ce qui donnera presque certainement des données corrompues.",
+		"f_partial": "Pour télécharger de façon sécurisée un fichier qui est entrain de se faire téléverser, cliquez sur le fichier qui a le même nom, mais sans l'extension de fichier <code>.PARTIAL</code>. Choisissez ANNULER ou appuiez sur la touche Échap pour faire cela.\n\nAppuyer sur OK / Entrée ignorera cet avertissement et continuera à télécharger le fichier temporaire <code>.PARTIAL</code> à la place, ce qui donnera presque certainement des données corrompues.",
 
 		"ft_paste": "coller {0} éléments$NHotkey: ctrl-V",
 		"fr_eperm": 'impossible de renommer:\n vous n\'avez pas la permission “move” dans ce dossier',
@@ -4357,7 +4357,7 @@ var Ls = {
 		"u_enoow": "l'écrasage ne fonctionnera pas ici; besoin de permissions de suppression",
 		"u_badf": 'Ces {0} fichiers (sur {1} au total) ont été ignorés, probablement en raison de permissions système de fichiers:\n\n',
 		"u_blankf": 'Ces {0} fichiers (sur {1} au total) sont vides; les téléverser quand même ?\n\n',
-		"u_applef": 'Ces {0} fichiers (sur {1} au total) sont probablement indésirables;\nAppuyez sur <code>OK/Enter</code> pour IGNORER les fichiers suivants,\nAppuyez sur <code>Cancel/Échap</code> pour NE PAS exclure, et TÉLÉVERSER ceux-ci également:\n\n',
+		"u_applef": 'Ces {0} fichiers (sur {1} au total) sont probablement indésirables;\nAppuyez sur <code>OK/Enter</code> pour IGNORER les fichiers suivants,\nAppuyez sur <code>Annuler/Échap</code> pour NE PAS exclure, et TÉLÉVERSER ceux-ci également:\n\n',
 		"u_just1": '\nPeut-être que cela fonctionne mieux si vous sélectionnez juste un fichier',
 		"u_ff_many": "si vous utilisez <b>Linux / MacOS / Android,</b> alors ce nombre de fichiers <a href=\"https://bugzilla.mozilla.org/show_bug.cgi?id=1790500\" target=\"_blank\"><em>peut</em> faire planter Firefox!</a>\nSi cela se produit, veuillez réessayer (ou utiliser Chrome).",
 		"u_up_life": "Ce téléversement va être supprimé du serveur\n{0} après son achèvement",
@@ -4734,7 +4734,7 @@ var Ls = {
 
 		"mb_play": "παίξε",
 		"mm_hashplay": "να παίξω αυτό το αρχείο ήχου;",
-		"mm_m3u": "πάτα <code>Enter/OK</code> για Αναπαραγωγή\nπάτα <code>ESC/Άκυρο</code> για Επεξεργασία",
+		"mm_m3u": "πάτα <code>Enter/Εντάξει</code> για Αναπαραγωγή\nπάτα <code>ESC/Άκυρο</code> για Επεξεργασία",
 		"mp_breq": "χρειάζεται firefox 82+ ή chrome 73+ ή iOS 15+",
 		"mm_bload": "φορτώνει...",
 		"mm_bconv": "μετατροπή σε {0}, περίμενε...",
@@ -4767,7 +4767,7 @@ var Ls = {
 
 		"f_dls": 'οι σύνδεσμοι αρχείων στον τρέχοντα φάκελο έχουν\nμετατραπεί σε συνδέσμους λήψης',
 
-		"f_partial": "Για να κατεβάσεις με ασφάλεια ένα αρχείο που ανεβαίνει, κλίκαρε το αρχείο με το ίδιο όνομα, αλλά χωρίς την κατάληξη <code>.PARTIAL</code>. Πάτα Άκυρο ή Escape για να σταματήσεις.\n\nΠάτα OK / Enter αν αγνοείς την προειδοποίηση και κατέβασε το <code>.PARTIAL</code> αρχείο, που σχεδόν σίγουρα θα είναι κατεστραμμένο.",
+		"f_partial": "Για να κατεβάσεις με ασφάλεια ένα αρχείο που ανεβαίνει, κλίκαρε το αρχείο με το ίδιο όνομα, αλλά χωρίς την κατάληξη <code>.PARTIAL</code>. Πάτα Άκυρο ή Escape για να σταματήσεις.\n\nΠάτα Εντάξει / Enter αν αγνοείς την προειδοποίηση και κατέβασε το <code>.PARTIAL</code> αρχείο, που σχεδόν σίγουρα θα είναι κατεστραμμένο.",
 
 		"ft_paste": "επικόλλησε {0} αντικείμενα$NΠλήκτρο συντόμευσης: ctrl-V",
 		"fr_eperm": 'δεν μπορεί να μετονομαστεί:\nδεν έχεις δικαίωμα “μετακίνησης” σε αυτόν το φάκελο',
@@ -4797,7 +4797,7 @@ var Ls = {
 		"fs_tsrc": "το αρχείο ή ο φάκελος προς κοινή χρήση",
 		"fs_ppwd": "προαιρετικός κωδικός",
 		"fs_w8": "δημιουργία κοινής χρήσης...",
-		"fs_ok": "πάτα <code>Enter/OK</code> για Πρόχειρο\nπάτα <code>ESC/Άκυρο</code> για Κλείσιμο",
+		"fs_ok": "πάτα <code>Enter/Εντάξει</code> για Πρόχειρο\nπάτα <code>ESC/Άκυρο</code> για Κλείσιμο",
 
 		"frt_dec": "μπορεί να διορθώσει μερικές περιπτώσεις κατεστραμμένων ονομάτων αρχείων\">αποκωδικοποίηση url",
 		"frt_rst": "επανέφερε τα ονόματα αρχείων στα αρχικά τους\">↺ επαναφορά",
@@ -4987,7 +4987,7 @@ var Ls = {
 		"u_enoow": "δεν μπορείς να κάνεις αντικατάσταση εδώ· χρειάζεται δικαίωμα Διαγραφής",
 		"u_badf": "Αυτά τα {0} αρχεία (από {1} συνολικά) παραλείφθηκαν, πιθανώς λόγω δικαιωμάτων συστήματος αρχείων:\n\n",
 		"u_blankf": "Αυτά τα {0} αρχεία (από {1} συνολικά) είναι άδεια / κενά· να τα μεταφορτώσω έτσι κι αλλιώς;\n\n",
-		"u_applef": "Αυτά τα {0} αρχεία (από {1} συνολικά) πιθανώς δεν είναι επιθυμητά;\nΠάτα <code>OK/Enter</code> για ΝΑ ΑΓΝΟΗΘΟΥΝ τα παρακάτω αρχεία,\nΠάτα <code>Cancel/ESC</code> για ΝΑ ΜΗΝ ΑΠΟΚΛΕΙΣΤΟΥΝ και να ΜΕΤΑΦΟΡΤΩΘΟΎΝ κι αυτά:\n\n",
+		"u_applef": "Αυτά τα {0} αρχεία (από {1} συνολικά) πιθανώς δεν είναι επιθυμητά;\nΠάτα <code>Εντάξει/Enter</code> για ΝΑ ΑΓΝΟΗΘΟΥΝ τα παρακάτω αρχεία,\nΠάτα <code>Άκυρο/ESC</code> για ΝΑ ΜΗΝ ΑΠΟΚΛΕΙΣΤΟΥΝ και να ΜΕΤΑΦΟΡΤΩΘΟΎΝ κι αυτά:\n\n",
 		"u_just1": "\nΊσως δουλέψει καλύτερα αν επιλέξεις μόνο ένα αρχείο",
 		"u_ff_many": "αν χρησιμοποιείς <b>Linux / MacOS / Android,</b> τότε τόσα αρχεία <a href=\"https://bugzilla.mozilla.org/show_bug.cgi?id=1790500\" target=\"_blank\"><em>μπορεί</em> να κατάρρευση του Firefox!</a>\nαν γίνει αυτό, δοκίμασε ξανά (ή χρησιμοποίησε τον Chrome).",
 		"u_up_life": "Αυτή η μεταφόρτωση θα διαγραφεί από το διακομιστή\n{0} μετά την ολοκλήρωσή της",
@@ -5994,7 +5994,7 @@ var Ls = {
 
 		"mb_play": "Afspelen",
 		"mm_hashplay": "Deze audio bestand afspelen?",
-		"mm_m3u": "Druk op <code>Enter/OK</code> om af te spelen\nDruk op <code>ESC/Cancel</code> om te bewerken",
+		"mm_m3u": "Druk op <code>Enter/OK</code> om af te spelen\nDruk op <code>ESC/Annuleren</code> om te bewerken",
 		"mp_breq": "Heeft firefox 82+ of chrome 73+ of iOS 15+",
 		"mm_bload": "Aan het laden...",
 		"mm_bconv": "Opmzetten naar {0}, even geduld...",
@@ -6057,7 +6057,7 @@ var Ls = {
 		"fs_tsrc": "Het bestand of de map die u wilt delen",
 		"fs_ppwd": "Optioneel wachtwoord",
 		"fs_w8": "Delen...",
-		"fs_ok": "Druk op <code>Enter/OK</code> naar klembord te zetten\Druk op <code>ESC/Cancel</code> om te sluiten",
+		"fs_ok": "Druk op <code>Enter/OK</code> naar klembord te zetten\Druk op <code>ESC/Annuleren</code> om te sluiten",
 
 		"frt_dec": "Kan sommige gevallen van gebroken bestandsnamen oplossen\">url-decode",
 		"frt_rst": "Gewijzigde bestandsnamen terugzetten naar de oorspronkelijke namen\">↺ reset",
@@ -6247,7 +6247,7 @@ var Ls = {
 		"u_enoow": "Overschrijven zal hier niet werken; je heb verwijder toestemming nodig",
 		"u_badf": 'Deze {0} bestanden (van {1} totaal) zijn overgeslagen, mogelijk door bestandssysteemmachtigingen:\n\n',
 		"u_blankf": 'Deze {0} bestanden (van {1} totaal) zijn leeg; alsnog uploaden?\n\n',
-		"u_applef": 'Deze {0} bestanden (van {1} totaal) zijn waarschijnlijk ongewenst;\nKlik op <code>OK/Enter</code> om de volgende bestanden over te slaan,\Klik op <code>Cancel/ESC</code> niet uit te sluiten en deze ook te uploaden:\n\n',
+		"u_applef": 'Deze {0} bestanden (van {1} totaal) zijn waarschijnlijk ongewenst;\nKlik op <code>OK/Enter</code> om de volgende bestanden over te slaan,\Klik op <code>Annuleren/ESC</code> niet uit te sluiten en deze ook te uploaden:\n\n',
 		"u_just1": '\nMisschien werkt het beter als je slechts één bestand selecteert',
 		"u_ff_many": "Als je <b>Linux / MacOS / Android,</b> gebruikt dan <em>kan</em> deze hoeveelheid bestanden <a href=\"https://bugzilla.mozilla.org/show_bug.cgi?id=1790500\" target=\"_blank\">Firefox crashen!</a>\nals dat gebeurt, probeer het dan opnieuw (of gebruik Chrome).",
 		"u_up_life": "Deze upload wordt verwijderd van de server\n{0} nadat het is voltooid",
@@ -7252,7 +7252,7 @@ var Ls = {
 
 		"mb_play": "odtwórz",
 		"mm_hashplay": "odtworzyć ten plik audio?",
-		"mm_m3u": "naciśnij <code>Enter/OK</code>, aby odtworzyć\nnaciśnij <code>ESC/Cancel</code>, aby edytować",
+		"mm_m3u": "naciśnij <code>Enter/OK</code>, aby odtworzyć\nnaciśnij <code>ESC/Anuluj</code>, aby edytować",
 		"mp_breq": "wymagany jest Firefox 82+, Chrome 73+ lub iOS 15+",
 		"mm_bload": "wczytywanie...",
 		"mm_bconv": "konwertowanie do {0}, proszę czekać...",
@@ -7945,7 +7945,7 @@ var Ls = {
 		"fs_tsrc": "путь к файлу или папке, которыми нужно поделиться",
 		"fs_ppwd": "пароль (необязательно)",
 		"fs_w8": "создаю доступ...",
-		"fs_ok": "нажмите <code>Enter/OK</code>, чтобы скопировать\nнажмите <code>ESC/Cancel</code>, чтобы закрыть",
+		"fs_ok": "нажмите <code>Enter/OK</code>, чтобы скопировать\nнажмите <code>ESC/Отмена</code>, чтобы закрыть",
 
 		"frt_dec": "может исправить некоторые случаи с некорректными именами файлов\">декодировать url",
 		"frt_rst": "сбросить изменённые имена обратно к оригинальным\">↺ сброс",
@@ -9771,7 +9771,7 @@ var Ls = {
 
 		"mb_play": "відтворити",
 		"mm_hashplay": "відтворити цей аудіо файл?",
-		"mm_m3u": "натисніть <code>Enter/OK</code> для відтворення\nнатисніть <code>ESC/Cancel</code> для редагування",
+		"mm_m3u": "натисніть <code>Enter/Гаразд</code> для відтворення\nнатисніть <code>ESC/Скасувати</code> для редагування",
 		"mp_breq": "потрібен firefox 82+ або chrome 73+ або iOS 15+",
 		"mm_bload": "зараз завантажується...",
 		"mm_bconv": "конвертується в {0}, будь ласка, зачекайте...",
@@ -9804,7 +9804,7 @@ var Ls = {
 
 		"f_dls": 'посилання на файли в поточній папці були\nзмінені на посилання для завантаження',
 
-		"f_partial": "Щоб безпечно завантажити файл, який зараз завантажується, будь ласка, клацніть на файл, який має таке саме ім'я, але без розширення <code>.PARTIAL</code>. Будь ласка, натисніть CANCEL або Escape, щоб зробити це.\n\nНатиснення OK / Enter проігнорує це попередження і продовжить завантаження <code>.PARTIAL</code> робочого файлу замість цього, що майже напевно дасть вам пошкоджені дані.",
+		"f_partial": "Щоб безпечно завантажити файл, який зараз завантажується, будь ласка, клацніть на файл, який має таке саме ім'я, але без розширення <code>.PARTIAL</code>. Будь ласка, натисніть Скасувати або Escape, щоб зробити це.\n\nНатиснення Гаразд / Enter проігнорує це попередження і продовжить завантаження <code>.PARTIAL</code> робочого файлу замість цього, що майже напевно дасть вам пошкоджені дані.",
 
 		"ft_paste": "вставити {0} елементів$NГаряча клавіша: ctrl-V",
 		"fr_eperm": 'не можу перейменувати:\nу вас немає дозволу “переміщення“ в цій папці',
@@ -9834,7 +9834,7 @@ var Ls = {
 		"fs_tsrc": "файл або папка для спільного доступу",
 		"fs_ppwd": "необов'язковий пароль",
 		"fs_w8": "створення спільного доступу...",
-		"fs_ok": "натисніть <code>Enter/OK</code> для копіювання до буфера\nнатисніть <code>ESC/Cancel</code> для закриття",
+		"fs_ok": "натисніть <code>Enter/Гаразд</code> для копіювання до буфера\nнатисніть <code>ESC/Скасувати</code> для закриття",
 
 		"frt_dec": "може виправити деякі випадки пошкоджених імен файлів\">url-decode",
 		"frt_rst": "скинути змінені імена файлів назад до оригінальних\">↺ reset",
@@ -10024,7 +10024,7 @@ var Ls = {
 		"u_enoow": "перезапис не працюватиме тут; потрібен дозвіл на видалення",
 		"u_badf": 'Ці {0} файли (з {1} загальних) були пропущені, можливо, через дозволи файлової системи:\n\n',
 		"u_blankf": 'Ці {0} файли (з {1} загальних) порожні; все одно завантажити їх?\n\n',
-		"u_applef": 'Ці {0} файли (з {1} загальних), ймовірно, небажані;\nНатисніть <code>OK/Enter</code> щоб ПРОПУСТИТИ наступні файли,\nНатисніть <code>Cancel/ESC</code> щоб НЕ виключати, і ЗАВАНТАЖИТИ їх також:\n\n',
+		"u_applef": 'Ці {0} файли (з {1} загальних), ймовірно, небажані;\nНатисніть <code>Гаразд/Enter</code> щоб ПРОПУСТИТИ наступні файли,\nНатисніть <code>Скасувати/ESC</code> щоб НЕ виключати, і ЗАВАНТАЖИТИ їх також:\n\n',
 		"u_just1": '\nМожливо, це спрацює краще, якщо ви виберете лише один файл',
 		"u_ff_many": "якщо ви використовуєте <b>Linux / MacOS / Android,</b> то така кількість файлів <a href=\"https://bugzilla.mozilla.org/show_bug.cgi?id=1790500\" target=\"_blank\"><em>може</em> завісити Firefox!</a>\nякщо це станеться, будь ласка, спробуйте знову (або використовуйте Chrome).",
 		"u_up_life": "Це завантаження буде видалено з сервера\n{0} після його завершення",
