@@ -704,7 +704,7 @@ class HttpCli(object):
             cookies["b"] = ""
 
         vn, rem = self.asrv.vfs.get(self.vpath, self.uname, False, False)
-        if "xdev" in vn.flags or "xvol" in vn.flags:
+        if vn.realpath and ("xdev" in vn.flags or "xvol" in vn.flags):
             ap = vn.canonical(rem)
             avn = vn.chk_ap(ap)
         else:
