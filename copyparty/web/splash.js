@@ -17,6 +17,11 @@ var Ls = {
 		"j1": "k304 bryter tilkoplingen for hver HTTP 304. Dette hjelper mot visse mellomtjenere som kan sette seg fast / plutselig slutter å laste sider, men det reduserer også ytelsen betydelig",
 		"k1": "nullstill innstillinger",
 		"l1": "logg inn:",
+		"ls3": "logg inn",
+		"lu4": "brukernavn",
+		"lp4": "passord",
+		"lo3": "logg ut “{0}” overalt",
+		"lo2": "avslutter økten på alle nettlesere",
 		"m1": "velkommen tilbake,",
 		"n1": "404: filen finnes ikke &nbsp;┐( ´ -`)┌",
 		"o1": 'eller kanskje du ikke har tilgang? prøv et passord eller <a href="' + SR + '/?h">gå hjem</a>',
@@ -46,6 +51,7 @@ var Ls = {
 	"eng": {
 		"d2": "shows the state of all active threads",
 		"e2": "reload config files (accounts/volumes/volflags),$Nand rescan all e2ds volumes$N$Nnote: any changes to global settings$Nrequire a full restart to take effect",
+		"lo2": "ends the session on all browsers",
 		"u2": "time since the last server write$N( upload / rename / ... )$N$N17d = 17 days$N1h23 = 1 hour 23 minutes$N4m56 = 4 minutes 56 seconds",
 		"v2": "use this server as a local HDD",
 		"ta1": "fill in your new password first",
@@ -68,6 +74,11 @@ var Ls = {
 		"j1": "k304 会在每个 HTTP 304 时断开连接。这有助于避免某些代理服务器卡住或突然停止加载页面，但也会显著降低性能。",
 		"k1": "重置设置",
 		"l1": "登录：",
+        "ls3": "登录", //m
+        "lu4": "用户名", //m
+        "lp4": "密码", //m
+		"lo3": "在所有地方注销 {0}", //m
+		"lo2": "这将结束在所有浏览器中的会话", //m
 		"m1": "欢迎回来，",
 		"n1": "404: 文件不存在 &nbsp;┐( ´ -`)┌",
 		"o1": '或者你可能没有权限？尝试输入密码或 <a href="' + SR + '/?h">回家</a>',
@@ -110,6 +121,11 @@ var Ls = {
 		"j1": "povolení k304 odpojí vašeho klienta při každém HTTP 304, což může zabránit některým chybovým proxy serverům, aby se zasekly (náhle nenačítaly stránky), <em>ale</em> také to obecně zpomalí věci",
 		"k1": "resetovat nastavení klienta",
 		"l1": "přihlaste se pro více:",
+        "ls3": "přihlásit se", //m
+        "lu4": "uživatelské jméno", //m
+        "lp4": "heslo", //m
+		"lo3": "odhlásit “{0}” všude", //m
+		"lo2": "tímto ukončíte relaci ve všech prohlížečích", //m
 		"m1": "vítej zpět,",
 		"n1": "404 nenalezeno &nbsp;┐( ´ -`)┌",
 		"o1": 'nebo možná nemáš přístup -- zkus heslo nebo <a href="' + SR + '/?h">jdi domů</a>',
@@ -151,6 +167,11 @@ var Ls = {
 		"j1": "k304 trennt die Clientverbindung bei jedem HTTP 304, was Bugs mit problematischen Proxies vorbeugen kann (z.B. nicht ladenden Seiten), macht Dinge aber generell langsamer",
 		"k1": "Client-Einstellungen zurücksetzen",
 		"l1": "Melde dich an für mehr:",
+        "ls3": "Anmelden", //m
+        "lu4": "Benutzername", //m
+        "lp4": "Passwort", //m
+		"lo3": "“{0}” überall abmelden", //m
+		"lo2": "Dies beendet die Sitzung in allen Browsern", //m
 		"m1": "Willkommen zurück,",
 		"n1": "404 Nicht gefunden &nbsp;┐( ´ -`)┌",
 		"o1": 'or maybe you don\'t have access -- try a password or <a href="' + SR + '/?h">go home</a>',
@@ -192,6 +213,11 @@ var Ls = {
 		"j1": "k304 katkaisee yhteytesi jokaisella HTTP 304:llä, mikä voi estää joitain bugisia välityspalvelimia jumittumasta/lopettamasta sivujen lataamista, <em>mutta</em> se myös vähentää suorituskykyä",
 		"k1": "nollaa asetukset",
 		"l1": "kirjaudu sisään:",
+        "ls3": "kirjaudu sisään", //m
+        "lu4": "käyttäjätunnus", //m
+        "lp4": "salasana", //m
+		"lo3": "kirjaa “{0}” ulos kaikkialta", //m
+		"lo2": "tämä lopettaa istunnon kaikissa selaimissa", //m
 		"m1": "tervetuloa takaisin,",
 		"n1": "404: ei löytynyt mitään &nbsp;┐( ´ -`)┌",
 		"o1": 'tai ehkä sinulla ei vain ole käyttöoikeuksia? kokeile salasanaa tai <a href="' + SR + '/?h">mene kotiin</a>',
@@ -234,6 +260,11 @@ var Ls = {
 		"j1": "activer k304 va déconnecter votre client sur chaque HTTP 304, ce qui peut éviter à certains proxies défectueux de rester bloqués (les pages ne se chargent soudainement plus), <em>mais</em> cela ralentira également les choses en général",
 		"k1": "réinitialiser les paramètres du client",
 		"l1": "connectez-vous pour en savoir plus :",
+        "ls3": "se connecter", //m
+        "lu4": "nom d'utilisateur", //m
+        "lp4": "mot de passe", //m
+		"lo3": "déconnecter “{0}” partout", //m
+		"lo2": "cela mettra fin à la session sur tous les navigateurs", //m
 		"m1": "heureux de vous revoir,",
 		"n1": "404 introuvable &nbsp;┐( ´ -`)┌",
 		"o1": 'ou peut-être que vous n\'y avez pas accès -- essayer un mot de passe ou <a href="' + SR + '/?h">aller à la page d\'accueil</a>',
@@ -275,6 +306,11 @@ var Ls = {
 		"j1": "η ενεργοποίηση του k304 θα αποσυνδέσει το πρόγραμμα πελάτη σου σε κάθε HTTP 304, κάτι που μπορεί να αποτρέψει κάποια προβληματικά proxies από το να κολλάνε (να μην φορτώνουν ξαφνικά σελίδες), <em>αλλά</em> θα κάνει τα πράγματα, γενικά πιο αργά",
 		"k1": "επαναφορά ρυθμίσεων στο πρόγραμμα πελάτη",
 		"l1": "συνδέσου για περισσότερα:",
+        "ls3": "σύνδεση", //m
+        "lu4": "όνομα χρήστη", //m
+        "lp4": "κωδικός πρόσβασης", //m
+		"lo3": "αποσύνδεση του “{0}” από παντού", //m
+		"lo2": "αυτό θα τερματίσει τη συνεδρία σε όλους τους περιηγητές", //m
 		"m1": "καλώς ήρθες,",
 		"n1": "404 δεν βρέθηκε &nbsp;┐( ´ -`)┌",
 		"o1": '´η μήπως δεν έχεις πρόσβαση -- δοκίμασε έναν κωδικό <a href="' + SR + '/?h">πήγαινε στην αρχική</a>',
@@ -316,6 +352,11 @@ var Ls = {
 		"j1": "k304 interrompe la connessione per ogni HTTP 304. Questo aiuta contro alcuni proxy difettosi che possono bloccarsi o smettere improvvisamente di caricare pagine, ma riduce notevolmente le prestazioni",
 		"k1": "resetta impostazioni",
 		"l1": "accedi:",
+        "ls3": "accedi", //m
+        "lu4": "nome utente", //m
+        "lp4": "password", //m
+		"lo3": "disconnetti “{0}” ovunque", //m
+		"lo2": "questo terminerà la sessione su tutti i browser", //m
 		"m1": "bentornato,",
 		"n1": "404: file non trovato &nbsp;┐( ´ -`)┌",
 		"o1": "oppure forse non hai accesso? prova una password o <a href=\"SR/?h\">torna alla home</a>",
@@ -358,6 +399,11 @@ var Ls = {
 		"j1": "k304를 활성화하면 모든 HTTP 304 응답 시 클라이언트 연결이 끊어집니다. 이는 일부 프록시가 멈추는 현상(갑자기 페이지가 로드되지 않음)을 방지할 수 있지만, <em>대신 전반적인 속도는 느려집니다.</em>",
 		"k1": "클라이언트 설정 초기화",
 		"l1": "로그인하기:",
+        "ls3": "로그인", //m
+        "lu4": "사용자 이름", //m
+        "lp4": "비밀번호", //m
+		"lo3": "{0}을(를) 모든 곳에서 로그아웃", //m
+		"lo2": "이 작업은 모든 브라우저에서 세션을 종료합니다", //m
 		"m1": "또 오셨네요,",
 		"n1": "404 찾을 수 없음 &nbsp;┐( ´ -`)┌",
 		"o1": "또는 접근 권한이 없을 수 있습니다. 비밀번호를 입력하거나 <a href=\"' + SR + '/?h\">홈으로 이동</a>하세요",
@@ -400,6 +446,11 @@ var Ls = {
 		"j1": "k304 verbreekt de verbinding voor elke HTTP 304. Dit helpt tegen bepaalde proxy servers die kunnen vastlopen/plotseling stoppen met het laden van pagina's, maar het vermindert ook de prestaties aanzienlijk",
 		"k1": "Instellingen resetten",
 		"l1": "Inloggen:",
+        "ls3": "inloggen", //m
+        "lu4": "gebruikersnaam", //m
+        "lp4": "wachtwoord", //m
+		"lo3": "“{0}” overal afmelden", //m
+		"lo2": "dit zal de sessie in alle browsers beëindigen", //m
 		"m1": "Welkom terug,",
 		"n1": "404: bestand bestaat niet &nbsp;┐( ´ -`)┌",
 		"o1": 'of misschien heb je geen toegang? probeer een wachtwoord of <a href="' + SR + '/?h">ga naar startscherm</a>',
@@ -442,6 +493,11 @@ var Ls = {
 		"j1": "k304 bryt tilkoplinga for kvar HTTP 304. Dette hjelp mot visse mellomtjenarar som kan sette seg fast / plutselig sluttar å laste sider, men det sett óg ytinga ned betydelig",
 		"k1": "nullstill innstillinger",
 		"l1": "logg inn:",
+        "ls3": "logg inn",
+        "lu4": "brukarnamn",
+        "lp4": "passord",
+		"lo3": "logg ut “{0}” overalt",
+		"lo2": "avslutt økta på alle nettlesarar",
 		"m1": "velkomen attende,",
 		"n1": "404: filen finnast ikkje &nbsp;┐( ´ -`)┌",
 		"o1": 'eller kanskje du ikkje har høve? prøv eit passord eller <a href="' + SR + '/?h">gå heim</a>',
@@ -484,6 +540,11 @@ var Ls = {
 		"j1": "włączenie k304 będzie odłączało klienta przy każdorazowym otrzymaniu kodu HTTP 304, co może zapobiec wieszaniu się wadliwych proxy, <em>ale</em> spowolni ogólne działanie",
 		"k1": "zresetuj ustawienia klienta",
 		"l1": "zaloguj się po więcej:",
+        "ls3": "zaloguj się", //m
+        "lu4": "nazwa użytkownika", //m
+        "lp4": "hasło", //m
+		"lo3": "wyloguj “{0}” wszędzie", //m
+		"lo2": "spowoduje to zakończenie sesji we wszystkich przeglądarkach", //m
 		"m1": "Witaj,",
 		"n1": "404 nie znaleziono &nbsp;┐( ´ -`)┌",
 		"o1": 'lub możesz nie mieć dostępu -- spróbuj wprowadzić hasło lub <a href="' + SR + '/?h">przejdź do strony głównej</a>',
@@ -526,6 +587,11 @@ var Ls = {
 		"j1": "activar k304 desconectará tu cliente en cada HTTP 304, lo que puede evitar que algunos proxies con errores se atasquen (dejando de cargar páginas de repente), <em>pero</em> también ralentizará las cosas en general",
 		"k1": "restablecer config. de cliente",
 		"l1": "inicia sesión para más:",
+        "ls3": "iniciar sesión", //m
+        "lu4": "nombre de usuario", //m
+        "lp4": "contraseña", //m
+		"lo3": "cerrar sesión de “{0}” en todas partes", //m
+		"lo2": "esto finalizará la sesión en todos los navegadores", //m
 		"m1": "bienvenido de nuevo,",
 		"n1": "404 no encontrado &nbsp;┐( ´ -`)┌",
 		"o1": '¿o quizás no tienes acceso? -- prueba con una contraseña o <a href=\"' + SR + '/?h\">vuelve al inicio</a>',
@@ -568,6 +634,11 @@ var Ls = {
 		"j1": "med k304 aktiverad kommer klienten att koppla bort sig vid varje HTTP 304-fel, vilket kan hindra vissa buggiga proxyservrar från att fastna (sidor slutar ladda), <em>men</em> saker kommer också att bli långsammare i allmänhet",
 		"k1": "återställ klientinställningar",
 		"l1": "logga in för att se mer:",
+        "ls3": "logga in", //m
+        "lu4": "användarnamn", //m
+        "lp4": "lösenord", //m
+		"lo3": "logga ut “{0}” överallt", //m
+		"lo2": "avsluta sessionen i alla webbläsare", //m
 		"m1": "välkommen tillbaka,",
 		"n1": "404 hittades inte &nbsp;┐( ´ -`)┌",
 		"o1": 'eller så har du kanske inte tillgång -- prova ett lösenord eller <a href="' + SR + '/?h">åk hem</a>',
@@ -610,6 +681,11 @@ var Ls = {
 		"j1": "увімкнення k304 буде відключати ваш клієнт при кожному HTTP 304, що може запобігти зависанню деяких глючних проксі (раптово перестають завантажувати сторінки), <em>але</em> це також зробить усе повільнішим загалом",
 		"k1": "скинути налаштування клієнта",
 		"l1": "авторизуйтесь для інших опцій:",
+        "ls3": "увійти", //m
+        "lu4": "ім'я користувача", //m
+        "lp4": "пароль", //m
+		"lo3": "вийти з облікового запису “{0}” всюди", //m
+		"lo2": "це завершить сеанс у всіх браузерах", //m
 		"m1": "з поверненням,",
 		"n1": "404 не знайдено &nbsp;┐( ´ -`)┌",
 		"o1": 'або у вас немає доступу -- спробуйте авторизуватися або <a href="' + SR + '/?h">повернутися на головну</a>',
@@ -652,6 +728,11 @@ var Ls = {
 		"j1": "включённый k304 будет отключать вас при получении HTTP 304, что может помочь при работе с некоторыми глючными прокси (перестают загружаться страницы), <em>но</em> это также сделает работу клиента медленнее",
 		"k1": "сбросить локальные настройки",
 		"l1": "авторизуйтесь для других опций:",
+        "ls3": "войти", //m
+        "lu4": "имя пользователя", //m
+        "lp4": "пароль", //m
+		"lo3": "выйти из “{0}” везде", //m
+		"lo2": "это завершит сеанс во всех браузерах", //m
 		"m1": "с возвращением,",
 		"n1": "404 не найдено &nbsp;┐( ´ -`)┌",
 		"o1": 'или у вас нет доступа -- попробуйте авторизоваться или <a href="' + SR + '/?h">вернуться на главную</a>',
@@ -696,7 +777,14 @@ for (var k in (d || {})) {
 			o[a].innerHTML = d[k];
 		else if (f == 2)
 			o[a].setAttribute("tt", d[k]);
+		else if (f == 3)
+			o[a].setAttribute("value", d[k]);
+		else if (f == 4)
+			o[a].setAttribute("placeholder", " " + d[k]);
 }
+var o1 = ebi('lo'), o2 = ebi('un');
+if (o1 && o2 && d.lo3)
+	o1.setAttribute("value", d.lo3.format(o2.textContent));
 
 try {
 	if (is_idp) {

@@ -22,7 +22,7 @@
 			<p id="b">howdy stranger &nbsp; <small>(you're not logged in)</small></p>
 		{%- else %}
 			<a id="c" href="{{ r }}/?pw=x" class="logout">logout</a>
-			<p><span id="m">welcome back,</span> <strong>{{ this.uname|e }}</strong></p>
+			<p><span id="m">welcome back,</span> <strong id="un">{{ this.uname|e }}</strong></p>
 		{%- endif %}
 		{%- endif %}
 
@@ -168,6 +168,13 @@
 
 			<li><a id="af" href="{{ r }}/?ru">show recent uploads</a></li>
 			<li><a id="k" href="{{ r }}/?reset" class="r" onclick="localStorage.clear();return true">reset client settings</a></li>
+
+			{%- if this.uname != '*' %}
+			<li><form method="post" enctype="multipart/form-data">
+				<input type="hidden" name="act" value="logout" />
+				<input type="submit" id="lo" value="logout “{{ this.uname|e }}” everywhere" />
+			</form></li>
+			{% endif %}
 		</ul>
 
 	</div>
