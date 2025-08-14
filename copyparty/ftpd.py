@@ -285,9 +285,12 @@ class FtpFs(AbstractedFS):
             # returning 550 is library-default and suitable
             raise FSE("No such file or directory")
 
-        avfs = vfs.chk_ap(ap, st)
-        if not avfs:
-            raise FSE("Permission denied", 1)
+        if vfs.realpath:
+            avfs = vfs.chk_ap(ap, st)
+            if not avfs:
+                raise FSE("Permission denied", 1)
+        else:
+            avfs = vfs
 
         self.cwd = nwd
         (
@@ -492,7 +495,11 @@ class FtpHandler(FTPHandler):
     def ftp_STOR(self, file: str, mode: str = "w") -> Any:
         # Optional[str]
         vp = join(self.fs.cwd, file).lstrip("/")
-        ap, vfs, rem = self.fs.v2a(vp, w=True)
+        try:
+            ap, vfs, rem = self.fs.v2a(vp, w=True)
+        except Exception as ex:
+            self.respond("550 %s" % (ex,), logging.info)
+            return
         self.vfs_map[ap] = vp
         xbu = vfs.flags.get("xbu")
         if xbu and not runhook(
