@@ -368,7 +368,7 @@ def parse_ffprobe(txt: str) -> tuple[dict[str, tuple[int, Any]], dict[str, list[
     return zd, md
 
 
-def get_cover_from_epub(log: "NamedLogger", abspath: str) -> IO[bytes] | None:
+def get_cover_from_epub(log: "NamedLogger", abspath: str) -> Optional[IO[bytes]]:
     import zipfile
 
     from .dxml import parse_xml
@@ -418,7 +418,9 @@ def get_cover_from_epub(log: "NamedLogger", abspath: str) -> IO[bytes] | None:
         return z.open(adjusted_cover_path)
 
 
-def _get_cover_from_epub2(log: "NamedLogger", package_root, package_ns) -> str | None:
+def _get_cover_from_epub2(
+    log: "NamedLogger", package_root, package_ns
+) -> Optional[str]:
     # <meta name="cover" content="id-to-cover-image"> in <metadata>, then
     # <item> in <manifest>
     cover_id = package_root.find("./metadata/meta[@name='cover']", package_ns).get(
