@@ -158,7 +158,7 @@ class Cfg(Namespace):
         ex = "hash_mt hsortn qdel safe_dedup srch_time tail_fd tail_rate u2abort u2j u2sz"
         ka.update(**{k: 1 for k in ex.split()})
 
-        ex = "au_vol dl_list mtab_age reg_cap s_thead s_tbody tail_tmax tail_who th_convt ups_who zip_who"
+        ex = "ac_convt au_vol dl_list mtab_age reg_cap s_thead s_tbody tail_tmax tail_who th_convt ups_who zip_who"
         ka.update(**{k: 9 for k in ex.split()})
 
         ex = "ctl_re db_act forget_ip idp_cookie idp_store k304 loris no304 nosubtle qr_pin re_maxage rproxy rsp_jtr rsp_slp s_wr_slp snap_wri theme themes turbo u2ow zipmaxn zipmaxs"

@@ -2220,7 +2220,7 @@ class AuthSrv(object):
                 if k in vol.flags:
                     vol.flags[k] = int(vol.flags[k])
 
-            zs = "convt tail_fd tail_rate tail_tmax"
+            zs = "aconvt convt tail_fd tail_rate tail_tmax"
             for k in zs.split():
                 if k in vol.flags:
                     vol.flags[k] = float(vol.flags[k])

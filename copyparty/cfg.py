@@ -68,6 +68,7 @@ def vf_bmap() -> dict[str, str]:
 def vf_vmap() -> dict[str, str]:
     """argv-to-volflag: simple values"""
     ret = {
+        "ac_convt": "aconvt",
         "no_hash": "nohash",
         "no_idx": "noidx",
         "re_maxage": "scan",
@@ -260,7 +261,8 @@ flagcats = {
         "thsize": "thumbnail res; WxH",
         "crop": "center-cropping (y/n/fy/fn)",
         "th3x": "3x resolution (y/n/fy/fn)",
-        "convt": "conversion timeout in seconds",
+        "convt": "convert-to-image timeout in seconds",
+        "aconvt": "convert-to-audio timeout in seconds",
         "ext_th=s=/b.png": "use /b.png as thumbnail for file-extension s",
     },
     "handlers\n(better explained in --help-handlers)": {

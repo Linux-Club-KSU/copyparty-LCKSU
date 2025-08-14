@@ -662,11 +662,11 @@ class ThumbSrv(object):
             ]
 
         cmd += [fsenc(tpath)]
-        self._run_ff(cmd, vn)
+        self._run_ff(cmd, vn, "convt")
 
-    def _run_ff(self, cmd: list[bytes], vn: VFS, oom: int = 400) -> None:
+    def _run_ff(self, cmd: list[bytes], vn: VFS, kto: str, oom: int = 400) -> None:
         # self.log((b" ".join(cmd)).decode("utf-8"))
-        ret, _, serr = runcmd(cmd, timeout=vn.flags["convt"], nice=True, oom=oom)
+        ret, _, serr = runcmd(cmd, timeout=vn.flags[kto], nice=True, oom=oom)
         if not ret:
             return
 
@@ -748,7 +748,7 @@ class ThumbSrv(object):
         # fmt: on
 
         cmd += [fsenc(tpath)]
-        self._run_ff(cmd, vn)
+        self._run_ff(cmd, vn, "convt")
 
         if "pngquant" in vn.flags:
             wtpath = tpath + ".png"
@@ -809,7 +809,7 @@ class ThumbSrv(object):
                 b"-y", fsenc(infile),
             ]
             # fmt: on
-            self._run_ff(cmd, vn)
+            self._run_ff(cmd, vn, "convt")
 
         fc = "[0:a:0]aresample=48000{},showspectrumpic=s="
         if "3" in fmt:
@@ -851,7 +851,7 @@ class ThumbSrv(object):
             ]
 
         cmd += [fsenc(tpath)]
-        self._run_ff(cmd, vn)
+        self._run_ff(cmd, vn, "convt")
 
     def conv_mp3(self, abspath: str, tpath: str, fmt: str, vn: VFS) -> None:
         quality = self.args.q_mp3.lower()
@@ -890,7 +890,7 @@ class ThumbSrv(object):
             fsenc(tpath)
         ]
         # fmt: on
-        self._run_ff(cmd, vn, oom=300)
+        self._run_ff(cmd, vn, "aconvt", oom=300)
 
     def conv_flac(self, abspath: str, tpath: str, fmt: str, vn: VFS) -> None:
         if self.args.no_acode or not self.args.allow_flac:
@@ -915,7 +915,7 @@ class ThumbSrv(object):
             fsenc(tpath)
         ]
         # fmt: on
-        self._run_ff(cmd, vn, oom=300)
+        self._run_ff(cmd, vn, "aconvt", oom=300)
 
     def conv_wav(self, abspath: str, tpath: str, fmt: str, vn: VFS) -> None:
         if self.args.no_acode or not self.args.allow_wav:
@@ -950,7 +950,7 @@ class ThumbSrv(object):
             fsenc(tpath)
         ]
         # fmt: on
-        self._run_ff(cmd, vn, oom=300)
+        self._run_ff(cmd, vn, "aconvt", oom=300)
 
     def conv_opus(self, abspath: str, tpath: str, fmt: str, vn: VFS) -> None:
         if self.args.no_acode or not self.args.q_opus:
@@ -1006,7 +1006,7 @@ class ThumbSrv(object):
             fsenc(tpath)
         ]
         # fmt: on
-        self._run_ff(cmd, vn, oom=300)
+        self._run_ff(cmd, vn, "aconvt", oom=300)
 
     def _conv_caf(
         self,
@@ -1046,7 +1046,7 @@ class ThumbSrv(object):
             fsenc(tmp_opus)
         ]
         # fmt: on
-        self._run_ff(cmd, vn, oom=300)
+        self._run_ff(cmd, vn, "aconvt", oom=300)
 
         # iOS fails to play some "insufficiently complex" files
         # (average file shorter than 8 seconds), so of course we
@@ -1073,7 +1073,7 @@ class ThumbSrv(object):
                 fsenc(tpath)
             ]
             # fmt: on
-            self._run_ff(cmd, vn, oom=300)
+            self._run_ff(cmd, vn, "aconvt", oom=300)
 
         else:
             # simple remux should be safe
@@ -1092,7 +1092,7 @@ class ThumbSrv(object):
                 fsenc(tpath)
             ]
             # fmt: on
-            self._run_ff(cmd, vn, oom=300)
+            self._run_ff(cmd, vn, "aconvt", oom=300)
 
         try:
             wunlink(self.log, tmp_opus, vn.flags)
