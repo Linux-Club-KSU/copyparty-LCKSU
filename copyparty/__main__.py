@@ -609,6 +609,9 @@ def get_sects():
             if no accounts or volumes are configured,
             current folder will be read/write for everyone
 
+            the group @acct will always have every user with an account
+            (the name of that group can be changed with --grp-all)
+
             consider the config file for more flexible account/volume management,
             including dynamic reload at runtime (and being more readable w)
             """
@@ -1163,6 +1166,7 @@ def add_auth(ap):
     ap2.add_argument("--ses-db", metavar="PATH", type=u, default=ses_db, help="where to store the sessions database (if you run multiple copyparty instances, make sure they use different DBs)")
     ap2.add_argument("--ses-len", metavar="CHARS", type=int, default=20, help="session key length; default is 120 bits ((20//4)*4*6)")
     ap2.add_argument("--no-ses", action="store_true", help="disable sessions; use plaintext passwords in cookies")
+    ap2.add_argument("--grp-all", metavar="NAME", type=u, default="acct", help="the name of the auto-generated group which contains every username which is known")
     ap2.add_argument("--ipu", metavar="CIDR=USR", type=u, action="append", help="\033[34mREPEATABLE:\033[0m users with IP matching \033[33mCIDR\033[0m are auto-authenticated as username \033[33mUSR\033[0m; example: [\033[32m172.16.24.0/24=dave]")
 
 

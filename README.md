@@ -513,6 +513,8 @@ examples:
   * replacing the `g` permission with `wg` would let anonymous users upload files, but not see the required filekey to access it
   * replacing the `g` permission with `wG` would let anonymous users upload files, receiving a working direct link in return
 
+if you want to grant access to all users who are logged in, the group `acct` will always contain all known users, so for example `-v /mnt/music:music:r,@acct`
+
 anyone trying to bruteforce a password gets banned according to `--ban-pw`; default is 24h ban for 9 failed attempts in 1 hour
 
 and if you want to use config files instead of commandline args (good!) then here's the same examples as a configfile; save it as `foobar.conf` and use it like this: `python copyparty-sfx.py -c foobar.conf`
@@ -538,6 +540,7 @@ and if you want to use config files instead of commandline args (good!) then her
   accs:
     r: u1, u2  # only these accounts can read,
     r: @g1     # (exactly the same, just with a group instead)
+    r: @acct   # (alternatively, ALL users who are logged in)
     rw: u3     # and only u3 can read-write
 
 [/inc]

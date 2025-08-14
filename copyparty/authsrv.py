@@ -1099,6 +1099,9 @@ class AuthSrv(object):
             if rejected:
                 continue
 
+            if gn == self.args.grp_all:
+                gn = ""
+
             # if ap/vp has a user/group placeholder, make sure to keep
             # track so the same user/group is mapped when setting perms;
             # otherwise clear un/gn to indicate it's a regular volume
@@ -1208,6 +1211,7 @@ class AuthSrv(object):
         self.load_idp_db(bool(self.idp_accs))
         ret = {un: gns[:] for un, gns in self.idp_accs.items()}
         ret.update({zs: [""] for zs in acct if zs not in ret})
+        grps[self.args.grp_all] = list(ret.keys())
         for gn, uns in grps.items():
             for un in uns:
                 try:
