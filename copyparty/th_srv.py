@@ -86,7 +86,10 @@ try:
         if os.environ.get("PRTY_NO_PIL_HEIF"):
             raise Exception()
 
-        from pyheif_pillow_opener import register_heif_opener
+        try:
+            from pillow_heif import register_heif_opener
+        except ImportError:
+            from pyheif_pillow_opener import register_heif_opener
 
         register_heif_opener()
         HAVE_HEIF = True

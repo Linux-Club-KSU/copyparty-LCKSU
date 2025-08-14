@@ -354,7 +354,7 @@ pip install mutagen  # audio metadata
 pip install pyftpdlib  # ftp server
 pip install partftpy  # tftp server
 pip install impacket  # smb server -- disable Windows Defender if you REALLY need this on windows
-pip install Pillow pyheif-pillow-opener  # thumbnails
+pip install Pillow pillow-heif  # thumbnails
 pip install pyvips  # faster thumbnails
 pip install psutil  # better cleanup of stuck metadata parsers on windows 
 pip install black==21.12b0 click==8.0.2 bandit pylint flake8 isort mypy  # vscode tooling
