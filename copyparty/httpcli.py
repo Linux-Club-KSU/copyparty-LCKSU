@@ -562,7 +562,7 @@ class HttpCli(object):
 
         zso = self.headers.get("cookie")
         if zso:
-            if len(zso) > 8192:
+            if len(zso) > self.args.cookie_cmax:
                 self.loud_reply("cookie header too big", status=400)
                 return False
             zsll = [x.split("=", 1) for x in zso.split(";") if "=" in x]
@@ -570,11 +570,15 @@ class HttpCli(object):
             cookie_pw = cookies.get("cppws") or cookies.get("cppwd") or ""
             if "b" in cookies and "b" not in uparam:
                 uparam["b"] = cookies["b"]
+            if len(cookies) > self.args.cookie_nmax:
+                self.loud_reply("too many cookies", status=400)
         else:
             cookies = {}
             cookie_pw = ""
 
-        if len(uparam) > 10 or len(cookies) > 50:
+        if len(uparam) > 12:
+            t = "http-request rejected; num.params: %d %r"
+            self.log(t % (len(uparam), self.req), 3)
             self.loud_reply("u wot m8", status=400)
             return False
 
