@@ -1377,7 +1377,7 @@ html.y #ops svg circle {
 .opview select,
 .opview input[type=text] {
 	color: var(--fg);
-	background: var(--bg-u5);
+	background: var(--txt-bg);
 	border: none;
 	box-shadow: 0 0 2px var(--txt-sh);
 	border-bottom: 1px solid #999;
@@ -1388,6 +1388,7 @@ html.y #ops svg circle {
 .opview select {
 	padding: .3em;
 	margin: .2em .4em;
+	background: var(--bg-u3);
 }
 .opview input.err {
 	color: var(--err-fg);
