@@ -3602,7 +3602,7 @@ def runihook(
     verbose: bool,
     cmd: str,
     vol: "VFS",
-    ups: list[tuple[str, int, int, str, str, str, int]],
+    ups: list[tuple[str, int, int, str, str, str, int, str]],
 ) -> bool:
     _, chk, fork, jtxt, wait, sp_ka, acmd = _parsehook(log, cmd)
     bcmd = [sfsenc(x) for x in acmd]

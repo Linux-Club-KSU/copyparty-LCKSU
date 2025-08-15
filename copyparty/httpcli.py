@@ -5501,6 +5501,10 @@ class HttpCli(object):
             and ("*" in x.axs.uwrite or self.uname in x.axs.uwrite or x == shr_dbv)
         ]
 
+        q = ""
+        qp = (0,)
+        q_c = -1
+
         for vol in allvols:
             cur = idx.get_cur(vol)
             if not cur:
@@ -5508,9 +5512,23 @@ class HttpCli(object):
 
             nfk, fk_alg = fk_vols.get(vol) or (0, 0)
 
+            zi = vol.flags["unp_who"]
+            if q_c != zi:
+                q_c = zi
+                q = "select sz, rd, fn, at from up where "
+                if zi == 1:
+                    q += "ip=? and un=?"
+                    qp = (self.ip, self.uname, lim)
+                elif zi == 2:
+                    q += "ip=?"
+                    qp = (self.ip, lim)
+                if zi == 3:
+                    q += "un=?"
+                    qp = (self.uname, lim)
+                q += " and at>? order by at desc"
+
             n = 2000
-            q = "select sz, rd, fn, at from up where ip=? and at>? order by at desc"
-            for sz, rd, fn, at in cur.execute(q, (self.ip, lim)):
+            for sz, rd, fn, at in cur.execute(q, qp):
                 vp = "/" + "/".join(x for x in [vol.vpath, rd, fn] if x)
                 if nfi == 0 or (nfi == 1 and vfi in vp.lower()):
                     pass
@@ -5635,8 +5653,8 @@ class HttpCli(object):
                 continue
 
             n = 1000
-            q = "select sz, rd, fn, ip, at from up where at>0 order by at desc"
-            for sz, rd, fn, ip, at in cur.execute(q):
+            q = "select sz, rd, fn, ip, at, un from up where at>0 order by at desc"
+            for sz, rd, fn, ip, at, un in cur.execute(q):
                 vp = "/" + "/".join(x for x in [vol.vpath, rd, fn] if x)
                 if nfi == 0 or (nfi == 1 and vfi in vp.lower()):
                     pass
@@ -5657,6 +5675,7 @@ class HttpCli(object):
                     "sz": sz,
                     "ip": ip,
                     "at": at,
+                    "un": un,
                     "nfk": nfk,
                     "adm": adm,
                 }
@@ -5701,12 +5720,16 @@ class HttpCli(object):
                 adm = rv.pop("adm")
                 if not adm:
                     rv["ip"] = "(You)" if rv["ip"] == self.ip else "(?)"
+                    if rv["un"] not in ("*", self.uname):
+                        rv["un"] = "(?)"
         else:
             for rv in ret:
                 adm = rv.pop("adm")
                 if not adm:
                     rv["ip"] = "(You)" if rv["ip"] == self.ip else "(?)"
                     rv["at"] = 0
+                    if rv["un"] not in ("*", self.uname):
+                        rv["un"] = "(?)"
 
         if self.is_vproxied:
             for v in ret:
@@ -6628,13 +6651,15 @@ class HttpCli(object):
             tags = {k: v for k, v in r}
 
             if is_admin:
-                q = "select ip, at from up where rd=? and fn=?"
+                q = "select ip, at, un from up where rd=? and fn=?"
                 try:
-                    zs1, zs2 = icur.execute(q, erd_efn).fetchone()
+                    zs1, zs2, zs3 = icur.execute(q, erd_efn).fetchone()
                     if zs1:
                         tags["up_ip"] = zs1
                     if zs2:
                         tags[".up_at"] = zs2
+                    if zs3:
+                        tags["up_by"] = zs3
                 except:
                     pass
             elif add_up_at:
@@ -6655,7 +6680,7 @@ class HttpCli(object):
 
             lmte = list(mte)
             if self.can_admin:
-                lmte.extend(("up_ip", ".up_at"))
+                lmte.extend(("up_by", "up_ip", ".up_at"))
 
             if "nodirsz" not in vf:
                 tagset.add(".files")
