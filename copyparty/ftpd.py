@@ -409,8 +409,12 @@ class FtpFs(AbstractedFS):
             return st
 
     def utime(self, path: str, timeval: float) -> None:
-        ap = self.rv2a(path, w=True)[0]
-        return bos.utime(ap, (timeval, timeval))
+        try:
+            ap = self.rv2a(path, w=True)[0]
+            return bos.utime(ap, (int(time.time()), int(timeval)))
+        except Exception as ex:
+            logging.error("ftp.utime: %s, %r", ex, ex)
+            raise
 
     def lstat(self, path: str) -> os.stat_result:
         ap = self.rv2a(path)[0]
