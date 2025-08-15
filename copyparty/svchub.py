@@ -243,7 +243,7 @@ class SvcHub(object):
             t = "WARNING: --th-ram-max is very small (%.2f GiB); will not be able to %s"
             self.log("root", t % (args.th_ram_max, zs), 3)
 
-        if args.chpw and args.idp_h_usr:
+        if args.chpw and args.have_idp_hdrs:
             t = "ERROR: user-changeable passwords is incompatible with IdP/identity-providers; you must disable either --chpw or --idp-h-usr"
             self.log("root", t, 1)
             raise Exception(t)
@@ -268,7 +268,7 @@ class SvcHub(object):
             args.no_ses = True
             args.shr = ""
 
-        if args.idp_store and args.idp_h_usr:
+        if args.idp_store and args.have_idp_hdrs:
             self.setup_db("idp")
 
         if not self.args.no_ses:
@@ -1011,9 +1011,22 @@ class SvcHub(object):
             al.sus_urls = None
 
         al.xff_hdr = al.xff_hdr.lower()
-        al.idp_h_usr = al.idp_h_usr.lower()
+        al.idp_h_usr = [x.lower() for x in al.idp_h_usr or []]
         al.idp_h_grp = al.idp_h_grp.lower()
         al.idp_h_key = al.idp_h_key.lower()
+
+        al.idp_hm_usr_p = {}
+        for zs0 in al.idp_hm_usr or []:
+            try:
+                sep = zs0[:1]
+                hn, zs1, zs2 = zs0[1:].split(sep)
+                hn = hn.lower()
+                if hn in al.idp_hm_usr_p:
+                    al.idp_hm_usr_p[hn][zs1] = zs2
+                else:
+                    al.idp_hm_usr_p[hn] = {zs1: zs2}
+            except:
+                raise Exception("invalid --idp-hm-usr [%s]" % (zs0,))
 
         al.ftp_ipa_nm = build_netmap(al.ftp_ipa or al.ipa, True)
         al.tftp_ipa_nm = build_netmap(al.tftp_ipa or al.ipa, True)

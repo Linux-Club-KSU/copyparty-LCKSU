@@ -164,13 +164,13 @@ class Cfg(Namespace):
         ex = "ctl_re db_act forget_ip idp_cookie idp_store k304 loris no304 nosubtle qr_pin re_maxage rproxy rsp_jtr rsp_slp s_wr_slp snap_wri theme themes turbo u2ow zipmaxn zipmaxs"
         ka.update(**{k: 0 for k in ex.split()})
 
-        ex = "ah_alg bname chmod_f chpw_db doctitle df exit favico idp_h_usr ipa html_head lg_sba lg_sbf log_fk md_sba md_sbf name og_desc og_site og_th og_title og_title_a og_title_v og_title_i shr tcolor textfiles txt_eol unlist vname xff_src zipmaxt R RS SR"
+        ex = "ah_alg bname chmod_f chpw_db doctitle df exit favico ipa html_head lg_sba lg_sbf log_fk md_sba md_sbf name og_desc og_site og_th og_title og_title_a og_title_v og_title_i shr tcolor textfiles txt_eol unlist vname xff_src zipmaxt R RS SR"
         ka.update(**{k: "" for k in ex.split()})
 
         ex = "ban_403 ban_404 ban_422 ban_pw ban_pwc ban_url spinner"
         ka.update(**{k: "no" for k in ex.split()})
 
-        ex = "ext_th grp on403 on404 xac xad xar xau xban xbc xbd xbr xbu xiu xm"
+        ex = "ext_th grp idp_h_usr idp_hm_usr on403 on404 xac xad xar xau xban xbc xbd xbr xbu xiu xm"
         ka.update(**{k: [] for k in ex.split()})
 
         ex = "exp_lg exp_md"

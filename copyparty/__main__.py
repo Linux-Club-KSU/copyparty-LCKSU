@@ -614,6 +614,36 @@ def get_sects():
 
             consider the config file for more flexible account/volume management,
             including dynamic reload at runtime (and being more readable w)
+
+            see \033[32m--help-auth\033[0m for ways to provide the password in requests;
+            see \033[32m--help-idp\033[0m for replacing it with SSO and auth-middlewares
+            """
+            ),
+        ],
+        [
+            "auth",
+            "how to login from a client",
+            dedent(
+                """
+            different ways to provide the password so you become authenticated:
+
+            login with the ui:
+              go to \033[36mhttp://127.0.0.1:3923/?h\033[0m and login there
+
+            send the password in the '\033[36mPW\033[0m' http-header:
+              \033[36mPW: \033[35mhunter2\033[0m
+            or if you have \033[33m--accounts\033[0m enabled,
+              \033[36mPW: \033[35med:hunter2\033[0m
+
+            send the password in the URL itself:
+              \033[36mhttp://127.0.0.1:3923/\033[35m?pw=hunter2\033[0m
+            or if you have \033[33m--accounts\033[0m enabled,
+              \033[36mhttp://127.0.0.1:3923/\033[35m?pw=ed:hunter2\033[0m
+
+            use basic-authentication:
+              \033[36mhttp://\033[35med:hunter2\033[36m@127.0.0.1:3923/\033[0m
+            which should be the same as this header:
+              \033[36mAuthorization: Basic \033[35mZWQ6aHVudGVyMg==\033[0m
             """
             ),
         ],
@@ -763,6 +793,36 @@ def get_sects():
             so it's recommended to use the \033[36mf\033[0m flag unless you really need
             to wait for the hook to finish before continuing (without \033[36mf\033[0m
             the upload speed can easily drop to 10% for small files)"""
+            ),
+        ],
+        [
+            "idp",
+            "replacing the login system with fancy middleware",
+            dedent(
+                """
+            if you already have a centralized service which handles
+            user-authentication for other services already, you can
+            integrate copyparty with that for automatic login
+
+            if the middleware is providing the username in an http-header
+            named '\033[35mtheUsername\033[0m' then do this: \033[36m--idp-h-usr theUsername\033[0m
+
+            if the middleware is providing a list of groups in the header
+            named '\033[35mtheGroups\033[0m' then do this: \033[36m--idp-h-grp theGroup\033[0m
+
+            if the list of groups is separated by '\033[35m%\033[0m' then \033[36m--idp-gsep %\033[0m
+
+            if the middleware is providing a header named '\033[35mAccount\033[0m'
+            and the value is '\033[35malice@forest.net\033[0m' but the username is
+            actually '\033[35mmarisa\033[0m' then do this for each user:
+            \033[36m--idp-hm-usr ^Account^alice@forest.net^marisa\033[0m
+            (the separator '\033[35m^\033[0m' can be any character)
+
+            make ABSOLUTELY SURE that the header can only be set by your
+            middleware and not by clients! and, as an extra precaution,
+            send a header named '\033[36mfinalmasterspark\033[0m' (a secret keyword)
+            and then \033[36m--idp-h-key finalmasterspark\033[0m to require that
+            """
             ),
         ],
         [
@@ -1153,7 +1213,8 @@ def add_auth(ap):
     idp_db = os.path.join(E.cfg, "idp.db")
     ses_db = os.path.join(E.cfg, "sessions.db")
     ap2 = ap.add_argument_group("IdP / identity provider / user authentication options")
-    ap2.add_argument("--idp-h-usr", metavar="HN", type=u, default="", help="bypass the copyparty authentication checks if the request-header \033[33mHN\033[0m contains a username to associate the request with (for use with authentik/oauth/...)\n\033[1;31mWARNING:\033[0m if you enable this, make sure clients are unable to specify this header themselves; must be washed away and replaced by a reverse-proxy")
+    ap2.add_argument("--idp-h-usr", metavar="HN", type=u, action="append", help="\033[34mREPEATABLE:\033[0m bypass the copyparty authentication checks if the request-header \033[33mHN\033[0m contains a username to associate the request with (for use with authentik/oauth/...)\n\033[1;31mWARNING:\033[0m if you enable this, make sure clients are unable to specify this header themselves; must be washed away and replaced by a reverse-proxy")
+    ap2.add_argument("--idp-hm-usr", metavar="TXT", type=u, action="append", help="\033[34mREPEATABLE:\033[0m bypass the copyparty authentication checks if the request-header \033[33mHN\033[0m is provided, and its value exists in a mapping defined by this option; see --help-idp")
     ap2.add_argument("--idp-h-grp", metavar="HN", type=u, default="", help="assume the request-header \033[33mHN\033[0m contains the groupname of the requesting user; can be referenced in config files for group-based access control")
     ap2.add_argument("--idp-h-key", metavar="HN", type=u, default="", help="optional but recommended safeguard; your reverse-proxy will insert a secret header named \033[33mHN\033[0m into all requests, and the other IdP headers will be ignored if this header is not present")
     ap2.add_argument("--idp-gsep", metavar="RE", type=u, default="|:;+,", help="if there are multiple groups in \033[33m--idp-h-grp\033[0m, they are separated by one of the characters in \033[33mRE\033[0m")
@@ -1168,6 +1229,7 @@ def add_auth(ap):
     ap2.add_argument("--no-ses", action="store_true", help="disable sessions; use plaintext passwords in cookies")
     ap2.add_argument("--grp-all", metavar="NAME", type=u, default="acct", help="the name of the auto-generated group which contains every username which is known")
     ap2.add_argument("--ipu", metavar="CIDR=USR", type=u, action="append", help="\033[34mREPEATABLE:\033[0m users with IP matching \033[33mCIDR\033[0m are auto-authenticated as username \033[33mUSR\033[0m; example: [\033[32m172.16.24.0/24=dave]")
+    ap2.add_argument("--have-idp-hdrs", type=u, default="", help=argparse.SUPPRESS)
 
 
 def add_chpw(ap):

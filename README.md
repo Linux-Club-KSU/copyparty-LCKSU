@@ -91,6 +91,7 @@ made in Norway 🇳🇴
     * [handlers](#handlers) - redefine behavior with plugins ([examples](./bin/handlers/))
     * [ip auth](#ip-auth) - autologin based on IP range (CIDR)
     * [identity providers](#identity-providers) - replace copyparty passwords with oauth and such
+        * [generic header auth](#generic-header-auth) - other ways to auth by header
     * [user-changeable passwords](#user-changeable-passwords) - if permitted, users can change their own passwords
     * [using the cloud as storage](#using-the-cloud-as-storage) - connecting to an aws s3 bucket and similar
     * [hiding from google](#hiding-from-google) - tell search engines you don't wanna be indexed
@@ -1913,6 +1914,20 @@ there is a [docker-compose example](./docs/examples/docker/idp-authelia-traefik)
 a more complete example of the copyparty configuration options [look like this](./docs/examples/docker/idp/copyparty.conf)
 
 but if you just want to let users change their own passwords, then you probably want [user-changeable passwords](#user-changeable-passwords) instead
+
+
+### generic header auth
+
+other ways to auth by header
+
+if you have a middleware which adds a header with a user identifier, for example tailscale's `Tailscale-User-Login: alice.m@forest.net` then you can automatically auth as `alice` by defining that mapping with `--idp-hm-usr '^Tailscale-User-Login^alice.m@forest.net^alice'` or the following config file:
+
+```yaml
+[global]
+  idp-hm-usr: ^Tailscale-User-Login^alice.m@forest.net^alice
+```
+
+repeat the whole `idp-hm-usr` option to add more mappings
 
 
 ## user-changeable passwords

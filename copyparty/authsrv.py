@@ -1689,6 +1689,8 @@ class AuthSrv(object):
                     self.log("\n{0}\n{1}{0}".format(t, "\n".join(slns)))
                     raise
 
+        self.args.have_idp_hdrs = bool(self.args.idp_h_usr or self.args.idp_hm_usr)
+
         self.setup_pwhash(acct)
         defpw = acct.copy()
         self.setup_chpw(acct)
@@ -1701,7 +1703,7 @@ class AuthSrv(object):
 
             mount = cased
 
-        if not mount and not self.args.idp_h_usr:
+        if not mount and not self.args.have_idp_hdrs:
             # -h says our defaults are CWD at root and read/write for everyone
             axs = AXS(["*"], ["*"], None, None)
             ehint = ""
@@ -1874,7 +1876,7 @@ class AuthSrv(object):
 
         if missing_users:
             zs = ", ".join(k for k in sorted(missing_users))
-            if self.args.idp_h_usr:
+            if self.args.have_idp_hdrs:
                 t = "the following users are unknown, and assumed to come from IdP: "
                 self.log(t + zs, c=6)
             else:
@@ -2551,7 +2553,7 @@ class AuthSrv(object):
             if not self.args.no_voldump:
                 self.log(t)
 
-            if have_e2d or self.args.idp_h_usr:
+            if have_e2d or self.args.have_idp_hdrs:
                 t = self.chk_sqlite_threadsafe()
                 if t:
                     self.log("\n\033[{}\033[0m\n".format(t))
@@ -2841,7 +2843,7 @@ class AuthSrv(object):
     def load_idp_db(self, quiet=False) -> None:
         # mutex me
         level = self.args.idp_store
-        if level < 2 or not self.args.idp_h_usr:
+        if level < 2 or not self.args.have_idp_hdrs:
             return
 
         assert sqlite3  # type: ignore  # !rm
@@ -2898,7 +2900,7 @@ class AuthSrv(object):
         n = []
         q = "insert into us values (?,?,?)"
         accs = list(self.acct)
-        if self.args.idp_h_usr and self.args.idp_cookie:
+        if self.args.have_idp_hdrs and self.args.idp_cookie:
             accs.extend(self.idp_accs.keys())
         for uname in accs:
             if uname not in ases:

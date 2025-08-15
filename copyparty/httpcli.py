@@ -624,8 +624,22 @@ class HttpCli(object):
             or "*"
         )
 
-        if self.args.idp_h_usr:
-            idp_usr = self.headers.get(self.args.idp_h_usr) or ""
+        if self.args.have_idp_hdrs:
+            idp_usr = ""
+            if self.args.idp_hm_usr:
+                for hn, hmv in self.args.idp_hm_usr_p.items():
+                    zs = self.headers.get(hn)
+                    if zs:
+                        for zs1, zs2 in hmv.items():
+                            if zs == zs1:
+                                idp_usr = zs2
+                                break
+                    if idp_usr:
+                        break
+            for hn in self.args.idp_h_usr:
+                if idp_usr:
+                    break
+                idp_usr = self.headers.get(hn)
             if idp_usr:
                 idp_grp = (
                     self.headers.get(self.args.idp_h_grp) or ""
