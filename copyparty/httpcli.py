@@ -695,8 +695,14 @@ class HttpCli(object):
                 else:
                     self.log("unknown username: %r" % (idp_usr,), 1)
 
-        if self.args.ipu and self.uname == "*":
-            self.uname = self.conn.ipu_iu[self.conn.ipu_nm.map(self.ip)]
+        if self.args.have_ipu_or_ipr:
+            if self.args.ipu and self.uname == "*":
+                self.uname = self.conn.ipu_iu[self.conn.ipu_nm.map(self.ip)]
+            ipr = self.conn.hsrv.ipr
+            if ipr and self.uname in ipr:
+                if not ipr[self.uname].map(self.ip):
+                    self.log("username [%s] rejected by --ipr" % (self.uname,), 3)
+                    self.uname = "*"
 
         self.rvol = self.asrv.vfs.aread[self.uname]
         self.wvol = self.asrv.vfs.awrite[self.uname]

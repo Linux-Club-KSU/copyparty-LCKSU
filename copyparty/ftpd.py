@@ -96,6 +96,10 @@ class FtpAuth(DummyAuthorizer):
 
         if args.ipu and uname == "*":
             uname = args.ipu_iu[args.ipu_nm.map(ip)]
+        if args.ipr and uname in args.ipr_u:
+            if not args.ipr_u[uname].map(ip):
+                logging.warning("username [%s] rejected by --ipr", uname)
+                uname = "*"
 
         if not uname or not (asrv.vfs.aread.get(uname) or asrv.vfs.awrite.get(uname)):
             g = self.hub.gpwd

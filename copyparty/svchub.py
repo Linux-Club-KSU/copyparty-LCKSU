@@ -66,6 +66,7 @@ from .util import (
     build_netmap,
     expat_ver,
     gzip,
+    load_ipr,
     load_ipu,
     lock_file,
     min_ex,
@@ -259,6 +260,10 @@ class SvcHub(object):
             setattr(args, "ipu_iu", iu)
             setattr(args, "ipu_nm", nm)
 
+        if args.ipr:
+            ipr = load_ipr(self.log, args.ipr, True)
+            setattr(args, "ipr_u", ipr)
+
         for zs in "ah_salt fk_salt dk_salt".split():
             if getattr(args, "show_%s" % (zs,)):
                 self.log("root", "effective %s is %s" % (zs, getattr(args, zs)))
@@ -432,6 +437,9 @@ class SvcHub(object):
                 getattr(args, zs).mutex = threading.Lock()
             except:
                 pass
+        if args.ipr:
+            for nm in args.ipr_u.values():
+                nm.mutex = threading.Lock()
 
     def _db_onfail_ses(self) -> None:
         self.args.no_ses = True

@@ -2954,6 +2954,27 @@ def load_ipu(
     return ip_u, nm
 
 
+def load_ipr(
+    log: "RootLogger", iprs: list[str], defer_mutex: bool = False
+) -> dict[str, NetMap]:
+    ret = {}
+    for ipr in iprs:
+        try:
+            zs, uname = ipr.split("=")
+            cidrs = zs.split(",")
+        except:
+            t = "\n  invalid value %r for argument --ipr; must be CIDR[,CIDR[,...]]=UNAME (192.168.0.0/16=amelia)"
+            raise Exception(t % (ipr,))
+        try:
+            nm = NetMap(["::"], cidrs, True, True, defer_mutex)
+        except Exception as ex:
+            t = "failed to translate --ipr into netmap, probably due to invalid config: %r"
+            log("root", t % (ex,), 1)
+            raise
+        ret[uname] = nm
+    return ret
+
+
 def yieldfile(fn: str, bufsz: int) -> Generator[bytes, None, None]:
     readsz = min(bufsz, 128 * 1024)
     with open(fsenc(fn), "rb", bufsz) as f:

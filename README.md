@@ -90,6 +90,7 @@ made in Norway 🇳🇴
         * [upload events](#upload-events) - the older, more powerful approach ([examples](./bin/mtag/))
     * [handlers](#handlers) - redefine behavior with plugins ([examples](./bin/handlers/))
     * [ip auth](#ip-auth) - autologin based on IP range (CIDR)
+        * [restrict to ip](#restrict-to-ip) - limit a user to certain IP ranges (CIDR)
     * [identity providers](#identity-providers) - replace copyparty passwords with oauth and such
         * [generic header auth](#generic-header-auth) - other ways to auth by header
     * [user-changeable passwords](#user-changeable-passwords) - if permitted, users can change their own passwords
@@ -1895,6 +1896,20 @@ for example, if everyone with an IP that starts with `192.168.123` should automa
 repeat the option to map additional subnets
 
 **be careful with this one!** if you have a reverseproxy, then you definitely want to make sure you have [real-ip](#real-ip) configured correctly, and it's probably a good idea to nullmap the reverseproxy's IP just in case; so if your reverseproxy is sending requests from `172.24.27.9` then that would be `--ipu=172.24.27.9/32=`
+
+
+### restrict to ip
+
+limit a user to certain IP ranges (CIDR)  , using the global-option `--ipr`
+
+for example, if the user `spartacus` should get rejected if they're not connecting from an IP that starts with `192.168.123` or `172.16`, then you can either specify `--ipr=192.168.123.0/24,172.16.0.0/16=spartacus` as a commandline option, or put this in a config file:
+
+```yaml
+[global]
+  ipr: 192.168.123.0/24,172.16.0.0/16=spartacus
+```
+
+repeat the option to map additional users
 
 
 ## identity providers

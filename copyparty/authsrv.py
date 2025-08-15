@@ -1690,6 +1690,7 @@ class AuthSrv(object):
                     raise
 
         self.args.have_idp_hdrs = bool(self.args.idp_h_usr or self.args.idp_hm_usr)
+        self.args.have_ipu_or_ipr = bool(self.args.ipu or self.args.ipr)
 
         self.setup_pwhash(acct)
         defpw = acct.copy()

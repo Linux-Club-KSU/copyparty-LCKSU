@@ -1229,7 +1229,9 @@ def add_auth(ap):
     ap2.add_argument("--no-ses", action="store_true", help="disable sessions; use plaintext passwords in cookies")
     ap2.add_argument("--grp-all", metavar="NAME", type=u, default="acct", help="the name of the auto-generated group which contains every username which is known")
     ap2.add_argument("--ipu", metavar="CIDR=USR", type=u, action="append", help="\033[34mREPEATABLE:\033[0m users with IP matching \033[33mCIDR\033[0m are auto-authenticated as username \033[33mUSR\033[0m; example: [\033[32m172.16.24.0/24=dave]")
+    ap2.add_argument("--ipr", metavar="CIDR=USR", type=u, action="append", help="\033[34mREPEATABLE:\033[0m username \033[33mUSR\033[0m can only connect from an IP matching one or more \033[33mCIDR\033[0m (comma-sep.); example: [\033[32m192.168.123.0/24,172.16.0.0/16=dave]")
     ap2.add_argument("--have-idp-hdrs", type=u, default="", help=argparse.SUPPRESS)
+    ap2.add_argument("--have-ipu-or-ipr", type=u, default="", help=argparse.SUPPRESS)
 
 
 def add_chpw(ap):
