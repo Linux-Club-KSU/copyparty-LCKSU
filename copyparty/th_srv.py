@@ -612,7 +612,7 @@ class ThumbSrv(object):
 
     def conv_ffmpeg(self, abspath: str, tpath: str, fmt: str, vn: VFS) -> None:
         self.wait4ram(0.2, tpath)
-        ret, _ = ffprobe(abspath, int(vn.flags["convt"] / 2))
+        ret, _, _, _ = ffprobe(abspath, int(vn.flags["convt"] / 2))
         if not ret:
             return
 
@@ -623,6 +623,17 @@ class ThumbSrv(object):
             dur = ret[".dur"][1] if ".dur" in ret else 4
             seek = [b"-ss", "{:.0f}".format(dur / 3).encode("utf-8")]
 
+        self._ffmpeg_im(abspath, tpath, fmt, vn, seek, b"0:v:0")
+
+    def _ffmpeg_im(
+        self,
+        abspath: str,
+        tpath: str,
+        fmt: str,
+        vn: VFS,
+        seek: list[bytes],
+        imap: bytes,
+    ) -> None:
         scale = "scale={0}:{1}:force_original_aspect_ratio="
         if "f" in fmt:
             scale += "decrease,setsar=1:1"
@@ -641,7 +652,7 @@ class ThumbSrv(object):
         cmd += seek
         cmd += [
             b"-i", fsenc(abspath),
-            b"-map", b"0:v:0",
+            b"-map", imap,
             b"-vf", bscale,
             b"-frames:v", b"1",
             b"-metadata:s:v:0", b"rotate=0",
@@ -710,7 +721,7 @@ class ThumbSrv(object):
         raise sp.CalledProcessError(ret, (cmd[0], b"...", cmd[-1]))
 
     def conv_waves(self, abspath: str, tpath: str, fmt: str, vn: VFS) -> None:
-        ret, _ = ffprobe(abspath, int(vn.flags["convt"] / 2))
+        ret, _, _, _ = ffprobe(abspath, int(vn.flags["convt"] / 2))
         if "ac" not in ret:
             raise Exception("not audio")
 
@@ -769,10 +780,30 @@ class ThumbSrv(object):
             else:
                 atomic_move(self.log, wtpath, tpath, vn.flags)
 
+    def conv_emb_cv(
+        self, abspath: str, tpath: str, fmt: str, vn: VFS, strm: dict[str, Any]
+    ) -> None:
+        self.wait4ram(0.2, tpath)
+        self._ffmpeg_im(
+            abspath, tpath, fmt, vn, [], b"0:" + strm["index"].encode("ascii")
+        )
+
     def conv_spec(self, abspath: str, tpath: str, fmt: str, vn: VFS) -> None:
-        ret, _ = ffprobe(abspath, int(vn.flags["convt"] / 2))
+        ret, raw, strms, ctnr = ffprobe(abspath, int(vn.flags["convt"] / 2))
         if "ac" not in ret:
             raise Exception("not audio")
+
+        want_spec = vn.flags.get("th_spec_p", 1)
+        if want_spec < 2:
+            for strm in strms:
+                if (
+                    strm.get("codec_type") == "video"
+                    and strm.get("DISPOSITION:attached_pic") == "1"
+                ):
+                    return self.conv_emb_cv(abspath, tpath, fmt, vn, strm)
+
+        if not want_spec:
+            raise Exception("spectrograms forbidden by volflag")
 
         fext = abspath.split(".")[-1].lower()
 
@@ -859,7 +890,7 @@ class ThumbSrv(object):
             raise Exception("disabled in server config")
 
         self.wait4ram(0.2, tpath)
-        tags, rawtags = ffprobe(abspath, int(vn.flags["convt"] / 2))
+        tags, rawtags, _, _ = ffprobe(abspath, int(vn.flags["convt"] / 2))
         if "ac" not in tags:
             raise Exception("not audio")
 
@@ -897,7 +928,7 @@ class ThumbSrv(object):
             raise Exception("flac not permitted in server config")
 
         self.wait4ram(0.2, tpath)
-        tags, rawtags = ffprobe(abspath, int(vn.flags["convt"] / 2))
+        tags, _, _, _ = ffprobe(abspath, int(vn.flags["convt"] / 2))
         if "ac" not in tags:
             raise Exception("not audio")
 
@@ -922,7 +953,7 @@ class ThumbSrv(object):
             raise Exception("wav not permitted in server config")
 
         self.wait4ram(0.2, tpath)
-        tags, rawtags = ffprobe(abspath, int(vn.flags["convt"] / 2))
+        tags, _, _, _ = ffprobe(abspath, int(vn.flags["convt"] / 2))
         if "ac" not in tags:
             raise Exception("not audio")
 
@@ -957,7 +988,7 @@ class ThumbSrv(object):
             raise Exception("disabled in server config")
 
         self.wait4ram(0.2, tpath)
-        tags, rawtags = ffprobe(abspath, int(vn.flags["convt"] / 2))
+        tags, rawtags, _, _ = ffprobe(abspath, int(vn.flags["convt"] / 2))
         if "ac" not in tags:
             raise Exception("not audio")
 

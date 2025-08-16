@@ -208,7 +208,7 @@ def au_unpk(
 
 def ffprobe(
     abspath: str, timeout: int = 60
-) -> tuple[dict[str, tuple[int, Any]], dict[str, list[Any]]]:
+) -> tuple[dict[str, tuple[int, Any]], dict[str, list[Any]], list[Any], dict[str, Any]]:
     cmd = [
         b"ffprobe",
         b"-hide_banner",
@@ -222,8 +222,17 @@ def ffprobe(
     return parse_ffprobe(so)
 
 
-def parse_ffprobe(txt: str) -> tuple[dict[str, tuple[int, Any]], dict[str, list[Any]]]:
-    """ffprobe -show_format -show_streams"""
+def parse_ffprobe(
+    txt: str,
+) -> tuple[dict[str, tuple[int, Any]], dict[str, list[Any]], list[Any], dict[str, Any]]:
+    """
+    txt: output from ffprobe -show_format -show_streams
+    returns:
+     * normalized tags
+     * original/raw tags
+     * list of streams
+     * format props
+    """
     streams = []
     fmt = {}
     g = {}
@@ -316,7 +325,7 @@ def parse_ffprobe(txt: str) -> tuple[dict[str, tuple[int, Any]], dict[str, list[
                 ret[rk] = v1
 
     if ret.get("vc") == "ansi":  # shellscript
-        return {}, {}
+        return {}, {}, [], {}
 
     for strm in streams:
         for sk, sv in strm.items():
@@ -365,7 +374,7 @@ def parse_ffprobe(txt: str) -> tuple[dict[str, tuple[int, Any]], dict[str, list[
     zero = int("0")
     zd = {k: (zero, v) for k, v in ret.items()}
 
-    return zd, md
+    return zd, md, streams, fmt
 
 
 def get_cover_from_epub(log: "NamedLogger", abspath: str) -> Optional[IO[bytes]]:
@@ -706,7 +715,7 @@ class MTag(object):
         if not bos.path.isfile(abspath):
             return {}
 
-        ret, md = ffprobe(abspath, self.args.mtag_to)
+        ret, md, _, _ = ffprobe(abspath, self.args.mtag_to)
 
         if self.args.mtag_vv:
             for zd in (ret, dict(md)):

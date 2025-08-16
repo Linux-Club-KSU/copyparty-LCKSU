@@ -112,6 +112,7 @@ def vf_vmap() -> dict[str, str]:
         "tail_tmax",
         "tail_who",
         "tcolor",
+        "th_spec_p",
         "txt_eol",
         "unlist",
         "u2abort",
@@ -264,6 +265,7 @@ flagcats = {
         "th3x": "3x resolution (y/n/fy/fn)",
         "convt": "convert-to-image timeout in seconds",
         "aconvt": "convert-to-audio timeout in seconds",
+        "th_spec_p=1": "make spectrograms? 0=never 1=fallback 2=always",
         "ext_th=s=/b.png": "use /b.png as thumbnail for file-extension s",
     },
     "handlers\n(better explained in --help-handlers)": {
