@@ -1263,10 +1263,13 @@ function sethash(hv) {
 
 function dl_file(url) {
     console.log('DL [%s]', url);
-    var o = mknod('a');
+    qsr('#dlfth');
+    var o = mknod('a', 'dlfth');
     o.setAttribute('href', url);
     o.setAttribute('download', '');
-    o.click();
+    document.body.appendChild(o);
+    ebi('dlfth').click();
+    qsr('#dlfth');
 }
 
 
