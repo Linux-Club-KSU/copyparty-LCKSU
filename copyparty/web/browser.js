@@ -15108,7 +15108,8 @@ var showfile = (function () {
 	};
 
 	r.mktree = function () {
-		var crumbs = linksplit(get_evpath()).join('<span>/</span>'),
+		var top = get_evpath().slice(SR.length),
+			crumbs = linksplit(top).join('<span>/</span>'),
 			html = ['<li class="bn">' + L.tv_lst + '<br />' + crumbs + '</li>'];
 		for (var a = 0; a < r.files.length; a++) {
 			var file = r.files[a];
@@ -16846,13 +16847,22 @@ var treectl = (function () {
 		}
 		ebi('treeul').setAttribute('ts', ts);
 
+		if (SR && !top0) {
+			var x = SR.slice(1).split('/');
+			while (x[0]) {
+				res = res['k' + x.shift()];
+				if (!res)
+					throw 'invalid --rp-loc (or bug?)';
+			}
+		}
+
 		var top = (top0 == '.' ? dst : top0).split('?')[0],
 			name = uricom_dec(top.split('/').slice(-2)[0]),
 			rtop = top.replace(/^\/+/, ""),
-			html = parsetree(res, rtop);
+			html = parsetree(res, rtop.slice(SR.length));
 
 		if (!top0) {
-			html = '<li><a href="#">-</a><a href="/">[root]</a>\n<ul>' + html;
+			html = '<li><a href="#">-</a><a href="' + SR + '/">[root]</a>\n<ul>' + html;
 			if (rst || !ebi('treeul').getElementsByTagName('li').length)
 				ebi('treeul').innerHTML = html + '</ul></li>';
 		}
@@ -16995,10 +17005,6 @@ var treectl = (function () {
 			return;
 		}
 		var href = this.getAttribute('href');
-		if (R && !href.startsWith(SR)) {
-			location = href;
-			return;
-		}
 		r.reqls(href, true);
 		r.dir_cb = tree_scrollto;
 		thegrid.setvis(true);
@@ -17466,7 +17472,7 @@ var treectl = (function () {
 				url = '/' + (top ? top + uek : uek) + '/',
 				sym = res[kk] ? '-' : '+',
 				link = '<a href="#">' + sym + '</a><a href="' +
-					url + kdk + '">' + hek + '</a>';
+					SR + url + kdk + '">' + hek + '</a>';
 
 			if (res[kk]) {
 				var subtree = parsetree(res[kk], url.slice(1));
