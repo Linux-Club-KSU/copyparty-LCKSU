@@ -881,6 +881,15 @@ class VFS(object):
                 return None
 
         if "xvol" in self.flags:
+            self_ap = self.realpath + os.sep
+            if aps.startswith(self_ap):
+                vp = aps[len(self_ap) :]
+                if ANYWIN:
+                    vp = vp.replace(os.sep, "/")
+                vn2, _ = self._find(vp)
+                if self == vn2:
+                    return self
+
             all_aps = self.shr_all_aps or self.root.all_aps
 
             for vap, vns in all_aps:
