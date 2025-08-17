@@ -436,6 +436,40 @@ def args_from_cfg(cfg_path: str) -> list[str]:
     return ret
 
 
+def expand_cfg(argv) -> list[str]:
+    if CFG_DEF:
+        supp = args_from_cfg(CFG_DEF[0])
+        argv = supp + argv
+
+    n = spins = 0
+    while n < len(argv):
+        if not n:
+            if spins % 1000 == 999:
+                t = "still expanding config files... giving up after %d more"
+                print(t % (9999 - spins))
+            if spins > 9999:
+                t = "got stuck expanding config files; do you have a config-file which imports itself? this is where I gave up:\n%r"
+                raise Exception(t % (argv[:1000]))
+        v1 = argv[n]
+        v1v = v1[2:].lstrip("=")
+        try:
+            v2 = argv[n + 1]
+        except:
+            v2 = ""
+
+        if v1 == "-c" and v2 and os.path.isfile(v2):
+            argv = argv[:n] + args_from_cfg(v2) + argv[n + 2 :]
+            spins += 1
+            n = 0
+        elif v1.startswith("-c") and v1v and os.path.isfile(v1v):
+            argv = argv[:n] + args_from_cfg(v1v) + argv[n + 1 :]
+            spins += 1
+            n = 0
+        else:
+            n += 1
+    return argv
+
+
 def sighandler(sig: Optional[int] = None, frame: Optional[FrameType] = None) -> None:
     msg = [""] * 5
     for th in threading.enumerate():
@@ -1845,20 +1879,7 @@ def main(argv: Optional[list[str]] = None) -> None:
 
     ensure_webdeps()
 
-    if CFG_DEF:
-        supp = args_from_cfg(CFG_DEF[0])
-        argv.extend(supp)
-
-    for k, v in zip(argv[1:], argv[2:]):
-        if k == "-c" and os.path.isfile(v):
-            supp = args_from_cfg(v)
-            argv.extend(supp)
-
-    for k in argv[1:]:
-        v = k[2:]
-        if k.startswith("-c") and v and os.path.isfile(v):
-            supp = args_from_cfg(v)
-            argv.extend(supp)
+    argv = expand_cfg(argv)
 
     deprecated: list[tuple[str, str]] = [
         ("--salt", "--warksalt"),
