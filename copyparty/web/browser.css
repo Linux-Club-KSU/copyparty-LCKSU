@@ -2126,6 +2126,13 @@ html.noscroll .sbar::-webkit-scrollbar {
 	vertical-align: middle;
 	transition: transform .23s, left .23s, top .23s, width .23s, height .23s;
 }
+html.bb_fsc .full-image img,
+html.bb_fsc .full-image video {
+	max-height: 100%;
+}
+html.bb_fsc figcaption {
+	display: none;
+}
 .full-image img.nt,
 .full-image video.nt {
 	transition: none;
