@@ -439,7 +439,7 @@ def args_from_cfg(cfg_path: str) -> list[str]:
 def expand_cfg(argv) -> list[str]:
     if CFG_DEF:
         supp = args_from_cfg(CFG_DEF[0])
-        argv = supp + argv
+        argv = argv[:1] + supp + argv[1:]
 
     n = 0
     while n < len(argv):
