@@ -1464,7 +1464,14 @@ class SvcHub(object):
 
             fmt = "\033[36m%s \033[33m%-21s \033[0m%s\n"
             if self.no_ansi:
-                fmt = "%s %-21s %s\n"
+                if c == 1:
+                    fmt = "%s %-21s CRIT: %s\n"
+                elif c == 3:
+                    fmt = "%s %-21s WARN: %s\n"
+                elif c == 6:
+                    fmt = "%s %-21s  BTW: %s\n"
+                else:
+                    fmt = "%s %-21s  LOG: %s\n"
                 if "\033" in msg:
                     msg = RE_ANSI.sub("", msg)
                 if "\033" in src:
