@@ -1,4 +1,27 @@
 ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  
+# 2025-0810-1226  `v1.19.1`  archlinux fix
+
+## 🧪 new features
+
+* new translations:
+  * #486 French (thx @Tr3yWay996, @Packingdustry, @Alee14, @jakubiakfr, @Equinoxs!) e9ddfccf 7aa21483 b87f8f1b
+  * #463 Polish (thx @pufereq and @daimond113!) 392a4db5
+  * #537 Nynorsk (thx @chinatsu!) 3931bc27
+* #549 custom mdns domain 3c78c6a8
+
+## 🩹 bugfixes
+
+* #539 FTP glitches when running on windows 8ba98877
+* #555 global-config didn't load through PRTY_CONFIG (thx @icxes!) 074e106e
+* macos: could take a while to establish webdav connection from finder a01870b7
+* ux:
+  * dropdown colors 347cf6a5
+  * case-sensitivity in filters e5e82295
+  * iOS being too enthusiastic about using saved passwords 03acd65e
+
+
+
+▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  
 # 2025-0807-2213  `v1.19.0`  usernames
 
 ## 🧪 new features
