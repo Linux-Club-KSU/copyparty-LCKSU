@@ -68,7 +68,7 @@ currently up to date with [awesome-selfhosted](https://github.com/awesome-selfho
 * [kodbox](https://github.com/kalcaddle/kodbox) ([review](#kodbox)) appears to be a fantastic alternative if you're not worried about running chinese software, with several advantages over copyparty
   * but anything you want to share must be moved into the kodbox filesystem
 * [seafile](https://github.com/haiwen/seafile) ([review](#seafile)) and [nextcloud](https://github.com/nextcloud/server) ([review](#nextcloud)) could be decent alternatives if you need something heavier than copyparty
-  * but their [license](https://snyk.io/learn/agpl-license/) is [problematic](https://opensource.google/documentation/reference/using/agpl-policy)
+  * but their [license (AGPL)](https://snyk.io/learn/agpl-license/) is [thorny](https://opensource.google/documentation/reference/using/agpl-policy)
   * and copyparty is way better at uploads in particular (resumable, accelerated)
   * and anything you want to share must be moved into the respective filesystems
 * [filebrowser](https://github.com/filebrowser/filebrowser) ([review](#filebrowser)) and [dufs](https://github.com/sigoden/dufs) ([review](#dufs)) are simpler copyparties but with a settings gui
@@ -123,7 +123,7 @@ symbol legend,
 | ----------------------- | - | - | - | - | - | - | - | - | - | - | - | - | - |
 | intuitive UX            |   | ╱ | █ | █ | █ |   | █ | █ | █ | █ | █ | █ | █ |
 | config GUI              |   | █ | █ | █ | █ |   |   | █ | █ | █ |   | █ | █ |
-| good documentation      |   |   |   | █ | █ | █ | █ |   |   | █ | █ | ╱ | ╱ |
+| good documentation      |   |   | █ | █ | █ | █ | █ |   |   | █ | █ | ╱ | ╱ |
 | runs on iOS             | ╱ |   |   |   |   | ╱ |   |   |   |   |   |   |   |
 | runs on Android         | █ |   | █ |   |   | █ |   |   |   |   |   |   |   |
 | runs on WinXP           | █ | █ |   |   |   | █ |   |   |   |   |   |   |   |
@@ -395,9 +395,9 @@ symbol legend,
 
 | feature / software      | a | b | c | d | e | f | g | h | i | j | k | l | m |
 | ----------------------- | - | - | - | - | - | - | - | - | - | - | - | - | - |
-| OS alert on upload      | █ |   |   |   |   |   |   |   |   | ╱ |   | ╱ |   |
-| discord                 | █ |   |   |   |   |   |   |   |   | ╱ |   | ╱ |   |
-| ┗ announce uploads      | █ |   |   |   |   |   |   |   |   |   |   | ╱ |   |
+| OS alert on upload      | ╱ |   |   |   |   |   |   |   |   | ╱ |   | ╱ |   |
+| discord                 | ╱ |   |   |   |   |   |   |   |   | ╱ |   | ╱ |   |
+| ┗ announce uploads      | ╱ |   |   |   |   |   |   |   |   |   |   | ╱ |   |
 | ┗ custom embeds         |   |   |   |   |   |   |   |   |   |   |   | ╱ |   |
 | sharex                  | █ |   |   | █ |   | █ | ╱ | █ |   |   |   |   |   |
 | flameshot               |   |   |   |   |   | █ |   |   |   |   |   |   |   |
