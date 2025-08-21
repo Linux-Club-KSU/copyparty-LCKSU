@@ -267,7 +267,7 @@ also see [comparison to similar software](./docs/versus.md)
     * ☑ play video files as audio (converted on server)
     * ☑ create and play [m3u8 playlists](#playlists)
   * ☑ image gallery with webm player
-  * ☑ [textfile browser](#textfile-viewer) with syntax hilighting
+  * ☑ [textfile browser](#textfile-viewer) with syntax highlighting
     * ☑ realtime streaming of growing files (logfiles and such)
   * ☑ [thumbnails](#thumbnails)
     * ☑ ...of images using Pillow, pyvips, or FFmpeg
@@ -834,7 +834,7 @@ the up2k UI is the epitome of polished intuitive experiences:
 * `[🔎]` switch between upload and [file-search](#file-search) mode
   * ignore `[🔎]` if you add files by dragging them into the browser
 
-and then theres the tabs below it,
+and then there's the tabs below it,
 * `[ok]` is the files which completed successfully
 * `[ng]` is the ones that failed / got rejected (already exists, ...)
 * `[done]` shows a combined list of `[ok]` and `[ng]`, chronological order
@@ -1066,7 +1066,7 @@ plays almost every audio format there is  (if the server has FFmpeg installed fo
 
 the following audio formats are usually always playable, even without FFmpeg: `aac|flac|m4a|mp3|ogg|opus|wav`
 
-some hilights:
+some highlights:
 * OS integration; control playback from your phone's lockscreen ([windows](https://user-images.githubusercontent.com/241032/233213022-298a98ba-721a-4cf1-a3d4-f62634bc53d5.png) // [iOS](https://user-images.githubusercontent.com/241032/142711926-0700be6c-3e31-47b3-9928-53722221f722.png) // [android](https://user-images.githubusercontent.com/241032/233212311-a7368590-08c7-4f9f-a1af-48ccf3f36fad.png))
 * shows the audio waveform in the seekbar
 * not perfectly gapless but can get really close (see settings + eq below); good enough to enjoy gapless albums as intended
@@ -2171,7 +2171,7 @@ when connecting the reverse-proxy to `127.0.0.1` instead (the basic and/or old-f
 
 in summary, `haproxy > caddy > traefik > nginx > apache > lighttpd`, and use uds when possible (traefik does not support it yet)
 
-* if these results are bullshit because my config exampels are bad, please submit corrections!
+* if these results are bullshit because my config examples are bad, please submit corrections!
 
 
 ## permanent cloudflare tunnel

@@ -572,7 +572,7 @@ symbol legend,
 * ✅ file tags; file discussions!?
 * ✅ video transcoding
 * ✅ unzip uploaded archives
-* ✅ IDE with syntax hilighting
+* ✅ IDE with syntax highlighting
 * ✅ wysiwyg editor for openoffice files
 
 ## [filebrowser](https://github.com/filebrowser/filebrowser)
