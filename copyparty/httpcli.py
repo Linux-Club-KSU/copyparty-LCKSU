@@ -394,10 +394,10 @@ class HttpCli(object):
                         zsl = [
                             "  rproxy: %d   if this client's IP-address is [%s]"
                             % (-1 - zd, zs.strip())
-                            for zd, zs in enumerate(zsl)
+                            for zd, zs in enumerate(zsl[::-1])
                         ]
-                        t = 'could not determine the client\'s IP-address because the global-option --rproxy has not been configured, so the request-header [%s] specified by global-option --xff-hdr cannot be used safely! Please see the "reverse-proxy" section in the readme. The best approach is to configure your reverse-proxy to give copyparty the exact IP-address to assume (perhaps in another header), but you may also try the following:'
-                        t = t % (self.args.xff_hdr,)
+                        t = 'could not determine the client\'s IP-address because the global-option --rproxy has not been configured, so the request-header [%s] specified by global-option --xff-hdr cannot be used safely! The raw header value was [%s]. Please see the "reverse-proxy" section in the readme. The best approach is to configure your reverse-proxy to give copyparty the exact IP-address to assume (perhaps in another header), but you may also try the following:'
+                        t = t % (self.args.xff_hdr, zso)
                         self.log("%s\n\n%s\n" % (t, "\n".join(zsl)), 3)
 
                 pip = self.conn.addr[0]
