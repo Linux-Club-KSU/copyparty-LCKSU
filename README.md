@@ -112,6 +112,7 @@ made in Norway 🇳🇴
 * [packages](#packages) - the party might be closer than you think
     * [arch package](#arch-package) - `pacman -S copyparty` (in [arch linux extra](https://archlinux.org/packages/extra/any/copyparty/))
     * [fedora package](#fedora-package) - does not exist yet
+    * [homebrew formulae](#homebrew-formulae) - `brew install copyparty ffmpeg`
     * [nix package](#nix-package) - `nix profile install github:9001/copyparty`
     * [nixos module](#nixos-module)
 * [browser support](#browser-support) - TLDR: yes
@@ -1320,6 +1321,14 @@ some recommended FTP / FTPS clients; `wark` = example password:
 * `lftp -u k,wark -p 3921 127.0.0.1 -e ls`
 * `lftp -u k,wark -p 3990 127.0.0.1 -e 'set ssl:verify-certificate no; ls'`
 
+config file example, which restricts FTP to only use ports 3921 and 12000-12099 so all of those ports must be opened in your firewall:
+
+```yaml
+[global]
+  ftp: 3921
+  ftp-pr: 12000-12099
+```
+
 
 ## webdav server
 
@@ -2331,6 +2340,15 @@ after installing, start either the system service or the user service and naviga
 ## fedora package
 
 does not exist yet;  there are rumours that it is being packaged! keep an eye on this space...
+
+
+## homebrew formulae
+
+`brew install copyparty ffmpeg`  -- https://formulae.brew.sh/formula/copyparty
+
+should work on all macs (both intel and apple silicon) and all relevant macos versions
+
+the homebrew package is maintained by the homebrew team (thanks!)
 
 
 ## nix package
