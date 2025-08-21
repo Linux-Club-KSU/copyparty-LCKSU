@@ -170,7 +170,7 @@ class Cfg(Namespace):
         ex = "ban_403 ban_404 ban_422 ban_pw ban_pwc ban_url spinner"
         ka.update(**{k: "no" for k in ex.split()})
 
-        ex = "ext_th grp idp_h_usr idp_hm_usr ipr on403 on404 xac xad xar xau xban xbc xbd xbr xbu xiu xm"
+        ex = "ext_th grp idp_h_usr idp_hm_usr ipr on403 on404 qr_file xac xad xar xau xban xbc xbd xbr xbu xiu xm"
         ka.update(**{k: [] for k in ex.split()})
 
         ex = "exp_lg exp_md"
