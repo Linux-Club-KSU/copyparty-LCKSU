@@ -636,6 +636,8 @@ class TcpSrv(object):
         halfc = "\033[40;48;5;{0}m{1}\033[47;48;5;{2}m"
         if not fg:
             halfc = "\033[0;40m{1}\033[0;47m"
+        if nocolor:
+            halfc = "\033[0;7m{1}\033[0m"
 
         def ansify(m: re.Match) -> str:
             return halfc.format(fg, " " * len(m.group(1)), bg)
