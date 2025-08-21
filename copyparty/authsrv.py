@@ -1328,6 +1328,10 @@ class AuthSrv(object):
                 zt = split_cfg_ln(ln)
                 for zs, za in zt.items():
                     zs = zs.lstrip("-")
+                    if "=" in zs:
+                        t = "WARNING: found an option named [%s] in your [global] config; did you mean to say [%s: %s] instead?"
+                        zs1, zs2 = zs.split("=", 1)
+                        self.log(t % (zs, zs1, zs2), 3)
                     if za is True:
                         self._e("└─argument [{}]".format(zs))
                     else:
@@ -1337,6 +1341,10 @@ class AuthSrv(object):
             if cat == cata:
                 try:
                     u, p = [zs.strip() for zs in ln.split(":", 1)]
+                    if "=" in u and not p:
+                        t = "WARNING: found username [%s] in your [accounts] config; did you mean to say [%s: %s] instead?"
+                        zs1, zs2 = u.split("=", 1)
+                        self.log(t % (u, zs1, zs2), 3)
                     self._l(ln, 5, "account [{}], password [{}]".format(u, p))
                     acct[u] = p
                 except:
@@ -1407,6 +1415,10 @@ class AuthSrv(object):
                     zd = split_cfg_ln(ln)
                     fstr = ""
                     for sk, sv in zd.items():
+                        if "=" in sk:
+                            t = "WARNING: found a volflag named [%s] in your config; did you mean to say [%s: %s] instead?"
+                            zs1, zs2 = sk.split("=", 1)
+                            self.log(t % (sk, zs1, zs2), 3)
                         bad = re.sub(r"[a-z0-9_-]", "", sk).lstrip("-")
                         if bad:
                             err = "bad characters [{}] in volflag name [{}]; "
