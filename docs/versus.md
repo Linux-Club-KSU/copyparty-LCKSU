@@ -140,7 +140,7 @@ symbol legend,
 * `zero setup` = you can get a mostly working setup by just launching the app, without having to install any software or configure whatever
 * `a`/copyparty remarks:
   * no gui for server settings; only for client-side stuff
-  * can theoretically run on iOS / iPads using [iSH](https://ish.app/), but only the iPad will offer sufficient multitasking i think
+  * runs on iOS / iPads using [a-Shell](https://holzschu.github.io/a-Shell_iOS/) (pretty good) or [iSH](https://ish.app/) (very slow) but cannot run in the background and is not able to share all of your phone storage (just a separate dedicated folder)
   * [android app](https://f-droid.org/en/packages/me.ocv.partyup/) is for uploading only
   * no iOS app but has [shortcuts](https://github.com/9001/copyparty#ios-shortcuts) for easy uploading
 * `b`/hfs2 runs on linux through wine

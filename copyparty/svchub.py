@@ -819,6 +819,10 @@ class SvcHub(object):
         t = "%s\033[s\033[1;%dr\033[%dH%s%s\033[u" % (t, sh - 1, sh, qr, url)
         self.pr(t, file=sys.stderr)
 
+    def sleepy_qr(self):
+        time.sleep(self.args.qr_wait)
+        self.log("qr-code", self.tcpsrv.qr)
+
     def cb_httpsrv_up(self) -> None:
         self.httpsrv_up += 1
         if self.httpsrv_up != self.broker.num_workers:
@@ -834,7 +838,10 @@ class SvcHub(object):
             if self.args.qr_pin:
                 self.sticky_qr()
             else:
-                self.log("qr-code", self.tcpsrv.qr)
+                if self.args.qr_wait:
+                    Daemon(self.sleepy_qr, "qr_w8")
+                else:
+                    self.log("qr-code", self.tcpsrv.qr)
         else:
             self.log("root", "workers OK\n")
 

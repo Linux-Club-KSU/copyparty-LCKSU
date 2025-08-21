@@ -141,6 +141,7 @@ made in Norway 🇳🇴
     * [copyparty.exe](#copypartyexe) - download [copyparty.exe](https://github.com/9001/copyparty/releases/latest/download/copyparty.exe) (win8+) or [copyparty32.exe](https://github.com/9001/copyparty/releases/latest/download/copyparty32.exe) (win7+)
     * [zipapp](#zipapp) - another emergency alternative, [copyparty.pyz](https://github.com/9001/copyparty/releases/latest/download/copyparty.pyz)
 * [install on android](#install-on-android)
+* [install on iOS](#install-on-iOS)
 * [reporting bugs](#reporting-bugs) - ideas for context to include, and where to submit them
 * [devnotes](#devnotes) - for build instructions etc, see [./docs/devnotes.md](./docs/devnotes.md)
 
@@ -155,6 +156,7 @@ just run **[copyparty-sfx.py](https://github.com/9001/copyparty/releases/latest/
 * or if you cannot install python, you can use [copyparty.exe](#copypartyexe) instead
 * or install [on arch](#arch-package) ╱ [on NixOS](#nixos-module) ╱ [through nix](#nix-package)
 * or if you are on android, [install copyparty in termux](#install-on-android)
+* or maybe an iPhone or iPad? [install in a-Shell on iOS](#install-on-iOS)
 * or maybe you have a [synology nas / dsm](./docs/synology-dsm.md)
 * or if you have [uv](https://docs.astral.sh/uv/) installed, run `uv tool run copyparty`
 * or if your computer is messed up and nothing else works, [try the pyz](#zipapp)
@@ -241,7 +243,7 @@ also see [comparison to similar software](./docs/versus.md)
   * ☑ [upnp / zeroconf / mdns / ssdp](#zeroconf)
   * ☑ [event hooks](#event-hooks) / script runner
   * ☑ [reverse-proxy support](https://github.com/9001/copyparty#reverse-proxy)
-  * ☑ cross-platform (Windows, Linux, Macos, Android, FreeBSD, arm32/arm64, ppc64le, s390x, risc-v/riscv64)
+  * ☑ cross-platform (Windows, Linux, Macos, Android, iOS, FreeBSD, arm32/arm64, ppc64le, s390x, risc-v/riscv64)
 * upload
   * ☑ basic: plain multipart, ie6 support
   * ☑ [up2k](#uploading): js, resumable, multithreaded
@@ -2632,6 +2634,8 @@ there is no iPhone app, but  the following shortcuts are almost as good:
   * can download links and rehost the target file on copyparty (see first comment inside the shortcut)
   * pics become lowres if you share from gallery to shortcut, so better to launch the shortcut and pick stuff from there
 
+if you want to run the copyparty server on your iPhone or iPad, see [install on iOS](#install-on-iOS)
+
 
 # performance
 
@@ -2963,6 +2967,27 @@ after the initial setup, you can launch copyparty at any time by running `copypa
 if you want thumbnails (photos+videos) and you're okay with spending another 132 MiB of storage, `pkg install ffmpeg && python3 -m pip install --user -U pillow`
 
 * or if you want to use `vips` for photo-thumbs instead, `pkg install libvips && python -m pip install --user -U wheel && python -m pip install --user -U pyvips && (cd /data/data/com.termux/files/usr/lib/; ln -s libgobject-2.0.so{,.0}; ln -s libvips.so{,.42})`
+
+
+# install on iOS
+
+first install one of the following:
+* [a-Shell mini](https://apps.apple.com/us/app/a-shell-mini/id1543537943) gives you the essential features
+* [a-Shell](https://apps.apple.com/us/app/a-shell/id1473805438) also enables audio transcoding and better thubmnails
+
+and then copypaste the following command into `a-Shell`:
+
+```sh
+curl https://github.com/9001/copyparty/raw/refs/heads/hovudstraum/contrib/setup-ashell.sh | sh
+```
+
+what this does:
+* creates a basic [config file](#accounts-and-volumes) named `cpc` which you can edit with `vim cpc`
+* adds the command `cpp` to launch copyparty with that config file
+
+known issues:
+* cannot run in the background; it needs to be on-screen to accept connections / uploads / downloads
+* the best way to exit copyparty is to swipe away the app
 
 
 # reporting bugs

@@ -1114,6 +1114,7 @@ def add_qr(ap, tty):
     ap2.add_argument("--qrp", metavar="CELLS", type=int, default=4, help="padding (spec says 4 or more, but 1 is usually fine)")
     ap2.add_argument("--qrz", metavar="N", type=int, default=0, help="[\033[32m1\033[0m]=1x, [\033[32m2\033[0m]=2x, [\033[32m0\033[0m]=auto (try [\033[32m2\033[0m] on broken fonts)")
     ap2.add_argument("--qr-pin", metavar="N", type=int, default=0, help="sticky/pin the qr-code to always stay on-screen; [\033[32m0\033[0m]=disabled, [\033[32m1\033[0m]=with-url, [\033[32m2\033[0m]=just-qr")
+    ap2.add_argument("--qr-wait", metavar="SEC", type=float, default=0, help="wait \033[33mSEC\033[0m before printing the qr-code to the log")
 
 
 def add_fs(ap):
