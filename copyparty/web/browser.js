@@ -13420,9 +13420,11 @@ function eval_hash() {
 			d.onclick = function (e) {
 				ev(e);
 				if (a)
-					QS(treectl.hidden ? '#path a:nth-last-child(2)' : '#treeul a.hl').focus();
+					d = QS(treectl.hidden ? '#path a:nth-last-child(2)' : '#treeul a.hl');
 				else
-					QS(thegrid.en ? '#ggrid a' : '#files tbody tr[tabindex]').focus();
+					d = QS(thegrid.en ? '#ggrid a' : '#files tbody tr[tabindex]');
+				if (d)
+					d.focus();
 			};
 		})(a);
 

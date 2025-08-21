@@ -571,6 +571,7 @@ pre, code, tt, #doc, #doc>code {
 	overflow: hidden;
 	width: 0;
 	height: 0;
+	left: -10em;
 	color: var(--bg);
 }
 html .ayjump:focus {
