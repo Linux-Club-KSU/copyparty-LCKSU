@@ -1297,6 +1297,12 @@ print a qr-code [(screenshot)](https://user-images.githubusercontent.com/241032/
 * `--qrl lootbox/?pw=hunter2` appends to the url, linking to the `lootbox` folder with password `hunter2`
 * `--qrz 1` forces 1x zoom instead of autoscaling to fit the terminal size
   * 1x may render incorrectly on some terminals/fonts, but 2x should always work
+* `--qr-pin 1` makes the qr-code stick to the bottom of the console (never scrolls away)
+* `--qr-file qr.txt:1:2` writes a small qr-code to `qr.txt`
+* `--qr-file qr.txt:2:2` writes a big qr-code to `qr.txt`
+* `--qr-file qr.svg:1:2` writes a vector-graphics qr-code to `qr.svg`
+* `--qr-file qr.png:8:4:333333:ffcc55` writes an 8x-magnified yellow-on-gray `qr.png`
+* `--qr-file qr.png:8:4::ffffff` writes an 8x-magnified white-on-transparent `qr.png`
 
 it uses the server hostname if [mdns](#mdns) is enabled, otherwise it'll use your external ip (default route) unless `--qri` specifies a specific ip-prefix or domain
 

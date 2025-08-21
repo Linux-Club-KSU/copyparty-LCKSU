@@ -1,4 +1,55 @@
 ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  
+# 2025-0817-1556  `v1.19.4`  take two (fix cfg vols)
+
+## ℹ️ this upgrade is a one-way ticket
+
+* your up2k database (`.hist/up2k.db`), used by the `e2d` filesystem indexing feature, **will be upgraded to a new format** which older copyparty versions cannot read. A backup of each database will be created automatically, named `up2k.db.bak.SOMETHING.v5`. If you need to downgrade to a previous version: Shutdown copyparty, delete these files: `up2k.db up2k.db-shm up2k.db-wal` and then copy `up2k.db.bak.*.v5` to `up2k.db`
+
+## 🧪 new features
+
+* new translations:
+  * #551 Swedish (thx @Bevinsky!) d676a86f
+  * #551 Korean (thx @nyqui!) 4e878d2f
+* #581 new theme: phi95 (thx @varphi-online!) d8662aeb
+* #567 .raw image thumbnails (thx @ar-nelson!) 0177a9b4
+  * available in docker-images `iv` and `dj`
+* #561 epub thumbnails (thx @Scotsguy!) 9435e6b2
+* #252 music thumbnails use embdded coverart if available 98d117b8
+  * thumbnails folder `.hist/th` must be deleted to take effect
+* #530 show username of uploaders in file listings; requires `a` (admin) permission 4df033ec
+* #604 a new group `@acct` which automatically contains all known usernames 68907eaf
+* controlpanel has a dedicated "logout all sessions" button, similar to the logout-link in the browser f4a3fba2
+* #397 accounts can be restricted to certian IPs 62e072a2
+* #504 automatic login through tailscale auth a4649d1e
+* #533 sticky qr-code with `--qr-pin 1` 1ebe06f5
+* #572 button to abort copy/move 715d374e
+* #618 "download selected files" didn't work on firefox 52 (winxp) dcc6b1b4
+* max number of cookies to allow can be configured 6303effe
+  * good if you have too many selfhosted services on one domain (but will beware of the spec-mandataed max length of the cookie field!)
+
+## 🩹 bugfixes
+
+* fix xvol/xdev edgecases:
+  * #603 rootless vfs 554cc2f3 
+  * false-positive with overlapping volumes d9046f7e
+* #573 ftp: attempting an upload into read-only folder no longer kills the connection 3aa8b7aa
+* #306 adjust navpane for `--rp-loc` (location-based proxying)
+* #556 more sensible config expansion order f4727f8e
+  * #624 ...which broke things bf1fdcab
+* the video player now stays fullscreen between videos 782e2f1d
+* heif thumbnailing with libvips
+
+## 🔧 other changes
+
+* #253 build nix-packages from source (thx @toast003, @chinponya!) 187cae25
+* #616 logfiles will have a plaintext severity column if `--no-ansi` d4cf42e7
+* #598 separate option `--ac-convt` for audio transcoding timeout d5623057
+* #596 users with a blank password gets a strong random-generated one 7f448750
+* copyparty.exe: upgrade to python 3.13.7
+
+
+
+▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  
 # 2025-0810-1226  `v1.19.1`  archlinux fix
 
 ## 🧪 new features
