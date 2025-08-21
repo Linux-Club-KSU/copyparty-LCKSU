@@ -433,7 +433,7 @@ class SvcHub(object):
 
         # create netmaps early to avoid firewall gaps,
         # but the mutex blocks multiprocessing startup
-        for zs in "ipu_iu ftp_ipa_nm tftp_ipa_nm".split():
+        for zs in "ipu_nm ftp_ipa_nm tftp_ipa_nm".split():
             try:
                 getattr(args, zs).mutex = threading.Lock()
             except:

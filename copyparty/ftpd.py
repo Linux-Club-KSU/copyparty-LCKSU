@@ -68,13 +68,13 @@ class FtpAuth(DummyAuthorizer):
         if ip.startswith("::ffff:"):
             ip = ip[7:]
 
-        ip = ipnorm(ip)
+        ipn = ipnorm(ip)
         bans = self.hub.bans
-        if ip in bans:
-            rt = bans[ip] - time.time()
+        if ipn in bans:
+            rt = bans[ipn] - time.time()
             if rt < 0:
                 logging.info("client unbanned")
-                del bans[ip]
+                del bans[ipn]
             else:
                 raise AuthenticationFailed("banned")
 
