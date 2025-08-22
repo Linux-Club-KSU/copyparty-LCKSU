@@ -112,6 +112,8 @@ E_ACCESS = _ens("EACCES WSAEACCES")
 E_UNREACH = _ens("EHOSTUNREACH WSAEHOSTUNREACH ENETUNREACH WSAENETUNREACH")
 
 IP6ALL = "0:0:0:0:0:0:0:0"
+IP6_LL = ("fe8", "fe9", "fea", "feb")
+IP64_LL = ("fe8", "fe9", "fea", "feb", "169.254")
 
 
 try:

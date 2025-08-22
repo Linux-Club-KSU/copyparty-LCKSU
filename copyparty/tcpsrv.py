@@ -16,6 +16,7 @@ from .util import (
     E_ADDR_NOT_AVAIL,
     E_UNREACH,
     HAVE_IPV6,
+    IP6_LL,
     IP6ALL,
     VF_CAREFUL,
     Netdev,
@@ -140,12 +141,12 @@ class TcpSrv(object):
         # keep IPv6 LL-only nics
         ll_ok: set[str] = set()
         for ip, nd in self.netdevs.items():
-            if not ip.startswith("fe80"):
+            if not ip.startswith(IP6_LL):
                 continue
 
             just_ll = True
             for ip2, nd2 in self.netdevs.items():
-                if nd == nd2 and ":" in ip2 and not ip2.startswith("fe80"):
+                if nd == nd2 and ":" in ip2 and not ip2.startswith(IP6_LL):
                     just_ll = False
 
             if just_ll or self.args.ll:
@@ -164,7 +165,7 @@ class TcpSrv(object):
         title_vars = [x[1:] for x in self.args.wintitle.split(" ") if x.startswith("$")]
         t = "available @ {}://{}:{}/  (\033[33m{}\033[0m)"
         for ip, desc in sorted(eps.items(), key=lambda x: x[1]):
-            if ip.startswith("fe80") and ip not in ll_ok:
+            if ip.startswith(IP6_LL) and ip not in ll_ok:
                 continue
 
             for port in sorted(self.args.p):

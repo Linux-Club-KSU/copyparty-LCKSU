@@ -27,7 +27,7 @@ from .stolen.dnslib import (
     DNSRecord,
     set_avahi_379,
 )
-from .util import CachedSet, Daemon, Netdev, list_ips, min_ex
+from .util import IP6_LL, CachedSet, Daemon, Netdev, list_ips, min_ex
 
 if TYPE_CHECKING:
     from .svchub import SvcHub
@@ -375,7 +375,7 @@ class MDNS(MCast):
         cip = addr[0]
         v6 = ":" in cip
         if (cip.startswith("169.254") and not self.ll_ok) or (
-            v6 and not cip.startswith("fe80")
+            v6 and not cip.startswith(IP6_LL)
         ):
             return
 
