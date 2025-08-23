@@ -11350,7 +11350,7 @@ var Ls = {
 	},
 };
 
-var LANGS = ["eng", "nor", "nno", "chi", "cze", "deu", "fin", "fra", "grc", "ita", "kor", "nld", "por", "rus", "spa", "swe", "ukr"];
+var LANGS = ["eng", "nor", "chi", "cze", "deu", "fin", "fra", "grc", "ita", "kor", "nld", "nno", "pol", "por", "rus", "spa", "swe", "ukr"];
 
 if (window.langmod)
 	langmod();
