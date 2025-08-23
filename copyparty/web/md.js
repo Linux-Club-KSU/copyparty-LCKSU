@@ -201,7 +201,7 @@ function convert_markdown(md_text, dest_dom) {
 
     var marked_opts = {
         //headerPrefix: 'h-',
-        breaks: true,
+        breaks: !md_no_br,
         gfm: true
     };
 

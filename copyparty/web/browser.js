@@ -19292,7 +19292,7 @@ function show_md(md, name, div, url, depth) {
 
 	var marked_opts = {
 		headerPrefix: 'md-',
-		breaks: true,
+		breaks: !md_no_br,
 		gfm: true
 	};
 	var ext = md_plug.pre;

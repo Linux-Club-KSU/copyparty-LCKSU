@@ -44,6 +44,7 @@ def vf_bmap() -> dict[str, str]:
         "gsel",
         "hardlink",
         "magic",
+        "md_no_br",
         "no_db_ip",
         "no_sb_md",
         "no_sb_lg",
@@ -324,6 +325,7 @@ flagcats = {
         "og_ua": "if defined: only send OG html if useragent matches this regex",
     },
     "textfiles": {
+        "md_no_br": "newline only on double-newline or two tailing spaces",
         "md_hist": "where to put markdown backups; s=subfolder, v=volHist, n=nope",
         "exp": "enable textfile expansion; see --help-exp",
         "exp_md": "placeholders to expand in markdown files; see --help",
