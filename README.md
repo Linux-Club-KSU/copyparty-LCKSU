@@ -1429,6 +1429,7 @@ and some minor issues,
   * win10 onwards does not allow connecting anonymously / without accounts
 * python3 only
 * slow (the builtin webdav support in windows is 5x faster, and rclone-webdav is 30x faster)
+  * those numbers are specifically for copyparty's smb-server (because it sucks); other smb-servers should be similar to webdav
 
 known client bugs:
 * on win7 only, `--smb1` is much faster than smb2 (default) because it keeps rescanning folders on smb2
@@ -2614,9 +2615,16 @@ NOTE: full bidirectional sync, like what [nextcloud](https://docs.nextcloud.com/
 
 the commandline uploader [u2c.py](https://github.com/9001/copyparty/tree/hovudstraum/bin#u2cpy) with `--dr` is the best way to sync a folder to copyparty; verifies checksums and does files in parallel, and deletes unexpected files on the server after upload has finished which makes file-renames really cheap (it'll rename serverside and skip uploading)
 
+if you want to sync with `u2c.py` then:
+* the `e2dsa` option (either globally or volflag) must be enabled on the server for the volumes you're syncing into
+* ...and u2c will not be able to sync files/folders which are affected by the global-options `no-hash` and/or `no-idx`, and the same goes for volflags `nohash` and/or `noidx`
+* ...and u2c needs the delete-permission, so either `rwd` at minimum, or just `A` which is the same as `rwmd.a`
+  * quick reminder that `a` and `A` are different permissions, and `.` is very useful for sync
+
 alternatively there is [rclone](./docs/rclone.md) which allows for bidirectional sync and is *way* more flexible (stream files straight from sftp/s3/gcs to copyparty, ...), although there is no integrity check and it won't work with files over 100 MiB if copyparty is behind cloudflare
 
 * starting from rclone v1.63, rclone is faster than u2c.py on low-latency connections
+  * but this is only true for the initial upload; u2c will be faster for periodic syncing
 
 
 ## mount as drive
