@@ -2617,7 +2617,7 @@ the commandline uploader [u2c.py](https://github.com/9001/copyparty/tree/hovudst
 
 if you want to sync with `u2c.py` then:
 * the `e2dsa` option (either globally or volflag) must be enabled on the server for the volumes you're syncing into
-* ...and u2c will not be able to sync files/folders which are affected by the global-options `no-hash` and/or `no-idx`, and the same goes for volflags `nohash` and/or `noidx`
+* ...but DON'T enable global-options `no-hash` or `no-idx` (or volflags `nohash` / `noidx`), or at least make sure they are configured so they do not affect anything you are syncing into
 * ...and u2c needs the delete-permission, so either `rwd` at minimum, or just `A` which is the same as `rwmd.a`
   * quick reminder that `a` and `A` are different permissions, and `.` is very useful for sync
 
