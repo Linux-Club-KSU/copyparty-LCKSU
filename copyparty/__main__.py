@@ -196,26 +196,33 @@ def init_E(EE: EnvParams) -> None:
             (unicode, "/tmp"),
         ]
         errs = []
-        for chk in [os.listdir, os.mkdir]:
+        if True:
             for npath, (pf, pa) in enumerate(paths):
                 p = ""
                 try:
                     p = pf(pa)
-                    # print(chk.__name__, p, pa)
                     if not p or p.startswith("~"):
                         continue
 
                     p = os.path.normpath(p)
-                    chk(p)  # type: ignore
+                    if os.path.isdir(p) and os.listdir(p):
+                        mkdir = False
+                    else:
+                        mkdir = True
+                        os.mkdir(p)
+
                     p = os.path.join(p, "copyparty")
                     if not os.path.isdir(p):
                         os.mkdir(p)
 
                     if npath > 1:
-                        t = "Using [%s] for config; filekeys/dirkeys will change on every restart. Consider setting XDG_CONFIG_HOME or giving the unix-user a ~/.config/"
-                        errs.append(t % (p,))
+                        t = "Using %s/copyparty [%s] for config; filekeys/dirkeys will change on every restart. Consider setting XDG_CONFIG_HOME or giving the unix-user a ~/.config/"
+                        errs.append(t % (pa, p))
+                    elif mkdir:
+                        t = "Using %s/copyparty [%s] for config%s (Warning: %s did not exist and was created just now)"
+                        errs.append(t % (pa, p, " instead" if npath else "", pa))
                     elif errs:
-                        errs.append("Using [%s] instead" % (p,))
+                        errs.append("Using %s/copyparty [%s] instead" % (pa, p))
 
                     if errs:
                         warn(". ".join(errs))
@@ -223,8 +230,8 @@ def init_E(EE: EnvParams) -> None:
                     return p  # type: ignore
                 except Exception as ex:
                     if p and npath < 2:
-                        t = "Unable to store config in [%s] due to %r"
-                        errs.append(t % (p, ex))
+                        t = "Unable to store config in %s [%s] due to %r"
+                        errs.append(t % (pa, p, ex))
 
         raise Exception("could not find a writable path for config")
 
