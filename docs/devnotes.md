@@ -160,6 +160,7 @@ authenticate using header `Cookie: cppwd=foo` or url param `&pw=foo`
 
 | method | params | result |
 |--|--|--|
+| GET | `?dl` | download file (don't show in-browser) |
 | GET | `?ls` | list files/folders at URL as JSON |
 | GET | `?ls&dots` | list files/folders at URL as JSON, including dotfiles |
 | GET | `?ls=t` | list files/folders at URL as plaintext |

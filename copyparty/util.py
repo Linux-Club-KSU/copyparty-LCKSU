@@ -52,6 +52,7 @@ from .__init__ import (
     VT100,
     WINDOWS,
     EnvParams,
+    unicode,
 )
 from .__version__ import S_BUILD_DT, S_VERSION
 from .stolen import surrogateescape
@@ -115,6 +116,10 @@ IP6ALL = "0:0:0:0:0:0:0:0"
 IP6_LL = ("fe8", "fe9", "fea", "feb")
 IP64_LL = ("fe8", "fe9", "fea", "feb", "169.254")
 
+UC_CDISP = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._"
+BC_CDISP = UC_CDISP.encode("ascii")
+UC_CDISP_SET = set(UC_CDISP)
+BC_CDISP_SET = set(BC_CDISP)
 
 try:
     import fcntl
@@ -2071,6 +2076,29 @@ def gencookie(
         txt,
         "Lax" if lax else "Strict",
     )
+
+
+def gen_content_disposition(fn: str) -> str:
+    safe = UC_CDISP_SET
+    bsafe = BC_CDISP_SET
+    fn = fn.replace("/", "_").replace("\\", "_")
+    zb = fn.encode("utf-8", "xmlcharrefreplace")
+    if not PY2:
+        zbl = [
+            chr(x).encode("utf-8")
+            if x in bsafe
+            else "%{:02X}".format(x).encode("ascii")
+            for x in zb
+        ]
+    else:
+        zbl = [unicode(x) if x in bsafe else "%{:02X}".format(ord(x)) for x in zb]
+
+    ufn = b"".join(zbl).decode("ascii")
+    afn = "".join([x if x in safe else "_" for x in fn]).lstrip(".")
+    while ".." in afn:
+        afn = afn.replace("..", ".")
+
+    return "attachment; filename=\"%s\"; filename*=UTF-8''%s" % (afn, ufn)
 
 
 def humansize(sz: float, terse: bool = False) -> str:

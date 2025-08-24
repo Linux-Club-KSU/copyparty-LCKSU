@@ -12,7 +12,6 @@ import random
 import re
 import socket
 import stat
-import string
 import sys
 import threading  # typechk
 import time
@@ -31,7 +30,7 @@ try:
 except:
     pass
 
-from .__init__ import ANYWIN, PY2, RES, TYPE_CHECKING, EnvParams, unicode
+from .__init__ import ANYWIN, RES, TYPE_CHECKING, EnvParams, unicode
 from .__version__ import S_VERSION
 from .authsrv import LEELOO_DALLAS, VFS  # typechk
 from .bos import bos
@@ -66,6 +65,7 @@ from .util import (
     exclude_dotfiles,
     formatdate,
     fsenc,
+    gen_content_disposition,
     gen_filekey,
     gen_filekey_dbg,
     gencookie,
@@ -4014,6 +4014,13 @@ class HttpCli(object):
             return self.tx_404()
 
         #
+        # force download
+
+        if "dl" in self.ouparam:
+            cdis = gen_content_disposition(os.path.basename(req_path))
+            self.out_headers["Content-Disposition"] = cdis
+
+        #
         # if-modified
 
         if file_ts > 0:
@@ -4180,6 +4187,13 @@ class HttpCli(object):
 
         if not editions:
             return self.tx_404()
+
+        #
+        # force download
+
+        if "dl" in self.ouparam:
+            cdis = gen_content_disposition(os.path.basename(req_path))
+            self.out_headers["Content-Disposition"] = cdis
 
         #
         # if-modified
@@ -4729,24 +4743,7 @@ class HttpCli(object):
                     if maxn < nf:
                         raise Pebkac(400, t)
 
-        safe = (string.ascii_letters + string.digits).replace("%", "")
-        afn = "".join([x if x in safe.replace('"', "") else "_" for x in fn])
-        bascii = unicode(safe).encode("utf-8")
-        zb = fn.encode("utf-8", "xmlcharrefreplace")
-        if not PY2:
-            zbl = [
-                chr(x).encode("utf-8")
-                if x in bascii
-                else "%{:02x}".format(x).encode("ascii")
-                for x in zb
-            ]
-        else:
-            zbl = [unicode(x) if x in bascii else "%{:02x}".format(ord(x)) for x in zb]
-
-        ufn = b"".join(zbl).decode("ascii")
-
-        cdis = "attachment; filename=\"{}.{}\"; filename*=UTF-8''{}.{}"
-        cdis = cdis.format(afn, ext, ufn, ext)
+        cdis = gen_content_disposition("%s.%s" % (fn, ext))
         self.log(repr(cdis))
         self.send_headers(None, mime=mime, headers={"Content-Disposition": cdis})
 
