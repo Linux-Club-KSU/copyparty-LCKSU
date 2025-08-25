@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 from __future__ import print_function, unicode_literals
 
-S_VERSION = "2.11"
-S_BUILD_DT = "2025-05-18"
+S_VERSION = "2.12"
+S_BUILD_DT = "2025-08-26"
 
 """
 u2c.py: upload to copyparty
@@ -10,7 +10,7 @@ u2c.py: upload to copyparty
 https://github.com/9001/copyparty/blob/hovudstraum/bin/u2c.py
 
 - dependencies: no
-- supports python 2.6, 2.7, and 3.3 through 3.12
+- supports python 2.6, 2.7, and 3.3 through 3.14
 - if something breaks just try again and it'll autoresume
 """
 
@@ -677,7 +677,7 @@ def walkdirs(err, tops, excl):
                 yield stop, ap[len(stop) :].lstrip(sep), inf
         else:
             d, n = top.rsplit(sep, 1)
-            yield d, n, os.stat(top)
+            yield d or b"/", n, os.stat(top)
 
 
 # mostly from copyparty/util.py
@@ -1527,10 +1527,10 @@ def main():
 
     # fmt: off
     ap = app = argparse.ArgumentParser(formatter_class=APF, description="copyparty up2k uploader / filesearch tool  " + ver, epilog="""
-NOTE:
-source file/folder selection uses rsync syntax, meaning that:
+NOTE: source file/folder selection uses rsync syntax, meaning that:
   "foo" uploads the entire folder to URL/foo/
   "foo/" uploads the CONTENTS of the folder into URL/
+NOTE: if server has --usernames enabled, then password is "username:password"
 """)
 
     ap.add_argument("url", type=unicode, help="server url, including destination folder")
