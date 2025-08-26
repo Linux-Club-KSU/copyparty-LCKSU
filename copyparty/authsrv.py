@@ -1713,6 +1713,7 @@ class AuthSrv(object):
 
         self.args.have_idp_hdrs = bool(self.args.idp_h_usr or self.args.idp_hm_usr)
         self.args.have_ipu_or_ipr = bool(self.args.ipu or self.args.ipr)
+        self.setup_auth_ord()
 
         self.setup_pwhash(acct)
         defpw = acct.copy()
@@ -2863,6 +2864,18 @@ class AuthSrv(object):
 
             zs = str(vol.flags.get("tcolor") or self.args.tcolor)
             vol.flags["tcolor"] = zs.lstrip("#")
+
+    def setup_auth_ord(self) -> None:
+        ao = [x.strip() for x in self.args.auth_ord.split(",")]
+        if "idp" in ao:
+            zi = ao.index("idp")
+            ao = ao[:zi] + ["idp-hm", "idp-h"] + ao[zi:]
+        zsl = "pw idp-h idp-hm ipu".split()
+        pw, h, hm, ipu = [ao.index(x) if x in ao else 99 for x in zsl]
+        self.args.ao_idp_before_pw = min(h, hm) < pw
+        self.args.ao_h_before_hm = h < hm
+        self.args.ao_ipu_wins = ipu == 0
+        self.args.ao_have_pw = pw < 99
 
     def load_idp_db(self, quiet=False) -> None:
         # mutex me

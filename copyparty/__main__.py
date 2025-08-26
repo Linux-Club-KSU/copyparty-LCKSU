@@ -677,6 +677,42 @@ def get_sects():
             ),
         ],
         [
+            "auth-ord",
+            "authentication precedence",
+            dedent(
+                """
+            \033[33m--auth-ord\033[0m is a comma-separated list of auth options
+            (one or more of the [\033[35moptions\033[0m] below); first one wins
+
+            [\033[35mpw\033[0m] is conventional login, for example the "\033[36mPW\033[0m" header,
+              or the \033[36m?pw=\033[0m[...] URL-suffix, or a valid session cookie
+              (see \033[33m--help-auth\033[0m)
+
+            [\033[35midp\033[0m] is a username provided in the http-request-header
+              defined by \033[33m--idp-h-usr\033[0m and/or \033[33m--idp-hm-usr\033[0m, which is
+              provided by an authentication middleware such as
+              authentik, authelia, tailscale, ... (see \033[33m--help-idp\033[0m)
+
+            [\033[35midp-h\033[0m] is specifically the \033[33m--idp-h-usr\033[0m header,
+            [\033[35midp-hm\033[0m] is specifically an \033[33m--idp-hm-usr\033[0m header;
+            [\033[35midp\033[0m] is the same as [\033[35midp-hm,idp-h\033[0m]
+
+            [\033[35mipu\033[0m] is a mapping from an IP-address to a username,
+              auto-authing that client-IP to that account
+              (see the description of \033[36m--ipu\033[0m in \033[33m--help\033[0m)
+
+            NOTE: even if an option (\033[35mpw\033[0m/\033[35mipu\033[0m/...) is not in the list,
+              it may still be enabled and can still take effect if
+              none of the other alternatives identify the user
+
+            NOTE: if [\033[35mipu\033[0m] is in the list, it must be FIRST or LAST
+
+            NOTE: if [\033[35mpw\033[0m] is not in the list, the logout-button
+              will be hidden when any idp feature is enabled
+            """
+            ),
+        ],
+        [
             "flags",
             "list of volflags",
             dedent(
@@ -1254,6 +1290,7 @@ def add_auth(ap):
     ap2.add_argument("--idp-store", metavar="N", type=int, default=1, help="how to use \033[33m--idp-db\033[0m; [\033[32m0\033[0m] = entirely disable, [\033[32m1\033[0m] = write-only (effectively disabled), [\033[32m2\033[0m] = remember users, [\033[32m3\033[0m] = remember users and groups.\nNOTE: Will remember and restore the IdP-volumes of all users for all eternity if set to 2 or 3, even when user is deleted from your IdP")
     ap2.add_argument("--idp-adm", metavar="U,U", type=u, default="", help="comma-separated list of users allowed to use /?idp (the cache management UI)")
     ap2.add_argument("--idp-cookie", metavar="S", type=int, default=0, help="generate a session-token for IdP users which is written to cookie \033[33mcppws\033[0m (or \033[33mcppwd\033[0m if plaintext), to reduce the load on the IdP server, lifetime \033[33mS\033[0m seconds.\n └─note: The expiration time is a client hint only; the actual lifetime of the session-token is infinite (until next restart with \033[33m--ses-db\033[0m wiped)")
+    ap2.add_argument("--auth-ord", metavar="TXT", type=u, default="idp,ipu", help="controls auth precedence; examples: [\033[32mpw,idp,ipu\033[0m], [\033[32mipu,pw,idp\033[0m], see --help-auth-ord")
     ap2.add_argument("--no-bauth", action="store_true", help="disable basic-authentication support; do not accept passwords from the 'Authenticate' header at all. NOTE: This breaks support for the android app")
     ap2.add_argument("--bauth-last", action="store_true", help="keeps basic-authentication enabled, but only as a last-resort; if a cookie is also provided then the cookie wins")
     ap2.add_argument("--ses-db", metavar="PATH", type=u, default=ses_db, help="where to store the sessions database (if you run multiple copyparty instances, make sure they use different DBs)")
@@ -1264,6 +1301,10 @@ def add_auth(ap):
     ap2.add_argument("--ipr", metavar="CIDR=USR", type=u, action="append", help="\033[34mREPEATABLE:\033[0m username \033[33mUSR\033[0m can only connect from an IP matching one or more \033[33mCIDR\033[0m (comma-sep.); example: [\033[32m192.168.123.0/24,172.16.0.0/16=dave]")
     ap2.add_argument("--have-idp-hdrs", type=u, default="", help=argparse.SUPPRESS)
     ap2.add_argument("--have-ipu-or-ipr", type=u, default="", help=argparse.SUPPRESS)
+    ap2.add_argument("--ao-idp-before-pw", type=u, default="", help=argparse.SUPPRESS)
+    ap2.add_argument("--ao-h-before-hm", type=u, default="", help=argparse.SUPPRESS)
+    ap2.add_argument("--ao-ipu-wins", type=u, default="", help=argparse.SUPPRESS)
+    ap2.add_argument("--ao-has-pw", type=u, default="", help=argparse.SUPPRESS)
 
 
 def add_chpw(ap):

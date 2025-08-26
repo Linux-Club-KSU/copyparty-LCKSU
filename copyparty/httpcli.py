@@ -624,7 +624,9 @@ class HttpCli(object):
             or "*"
         )
 
-        if self.args.have_idp_hdrs:
+        if self.args.have_idp_hdrs and (
+            self.uname == "*" or self.args.ao_idp_before_pw
+        ):
             idp_usr = ""
             if self.args.idp_hm_usr:
                 for hn, hmv in self.args.idp_hm_usr_p.items():
@@ -637,9 +639,9 @@ class HttpCli(object):
                     if idp_usr:
                         break
             for hn in self.args.idp_h_usr:
-                if idp_usr:
+                if idp_usr and not self.args.ao_h_before_hm:
                     break
-                idp_usr = self.headers.get(hn)
+                idp_usr = self.headers.get(hn) or idp_usr
             if idp_usr:
                 idp_grp = (
                     self.headers.get(self.args.idp_h_grp) or ""
@@ -688,7 +690,10 @@ class HttpCli(object):
                 if idp_usr in self.asrv.vfs.aread:
                     self.pw = ""
                     self.uname = idp_usr
-                    self.html_head += "<script>var is_idp=1</script>\n"
+                    if self.args.ao_have_pw:
+                        self.html_head += "<script>var is_idp=1</script>\n"
+                    else:
+                        self.html_head += "<script>var is_idp=2</script>\n"
                     zs = self.asrv.ases.get(idp_usr)
                     if zs:
                         self.set_idp_cookie(zs)
@@ -696,7 +701,7 @@ class HttpCli(object):
                     self.log("unknown username: %r" % (idp_usr,), 1)
 
         if self.args.have_ipu_or_ipr:
-            if self.args.ipu and self.uname == "*":
+            if self.args.ipu and (self.uname == "*" or self.args.ao_ipu_wins):
                 self.uname = self.conn.ipu_iu[self.conn.ipu_nm.map(self.ip)]
             ipr = self.conn.hsrv.ipr
             if ipr and self.uname in ipr:

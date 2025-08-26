@@ -834,7 +834,7 @@ if (o1 && o2 && d.lo3)
 	o1.setAttribute("value", d.lo3.format(o2.textContent));
 
 try {
-	if (is_idp) {
+	if (is_idp > 1) {
 		var z = ['#l+div', '#l', '#c'];
 		for (var a = 0; a < z.length; a++)
 			QS(z[a]).style.display = 'none';

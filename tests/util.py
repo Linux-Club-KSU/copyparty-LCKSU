@@ -183,6 +183,7 @@ class Cfg(Namespace):
             v=v or [],
             c=c,
             E=E,
+            auth_ord="idp,ipu",
             bup_ck="sha512",
             chmod_d="755",
             cookie_cmax=8192,
