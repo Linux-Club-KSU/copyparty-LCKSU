@@ -1974,7 +1974,7 @@ def main(argv: Optional[list[str]] = None) -> None:
     if not HAVE_IPV6 and al.i == "::":
         al.i = "0.0.0.0"
 
-    al.i = al.i.split(",")
+    al.i = [x.strip() for x in al.i.split(",")]
     try:
         if "-" in al.p:
             lo, hi = [int(x) for x in al.p.split("-")]

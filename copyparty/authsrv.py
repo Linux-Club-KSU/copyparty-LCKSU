@@ -1659,6 +1659,7 @@ class AuthSrv(object):
                     # accept both , and : as separators between usernames
                     zs1, zs2 = x.replace("=", ":").split(":", 1)
                     grps[zs1] = zs2.replace(":", ",").split(",")
+                    grps[zs1] = [x.strip() for x in grps[zs1]]
                 except:
                     t = '\n  invalid value "{}" for argument --grp, must be groupname:username1,username2,...'
                     raise Exception(t.format(x))

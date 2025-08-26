@@ -325,7 +325,7 @@ class SvcHub(object):
 
         self._feature_test()
 
-        decs = {k: 1 for k in self.args.th_dec.split(",")}
+        decs = {k.strip(): 1 for k in self.args.th_dec.split(",")}
         if not HAVE_VIPS:
             decs.pop("vips", None)
         if not HAVE_PIL:
@@ -1095,7 +1095,7 @@ class SvcHub(object):
             al.tcolor = "".join([x * 2 for x in al.tcolor])
 
         zs = al.u2sz
-        zsl = zs.split(",")
+        zsl = [x.strip() for x in zs.split(",")]
         if len(zsl) not in (1, 3):
             t = "invalid --u2sz; must be either one number, or a comma-separated list of three numbers (min,default,max)"
             raise Exception(t)
