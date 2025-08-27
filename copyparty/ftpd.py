@@ -386,7 +386,7 @@ class FtpFs(AbstractedFS):
         svp = join(self.cwd, src).lstrip("/")
         dvp = join(self.cwd, dst).lstrip("/")
         try:
-            self.hub.up2k.handle_mv(self.uname, self.h.cli_ip, svp, dvp)
+            self.hub.up2k.handle_mv("", self.uname, self.h.cli_ip, svp, dvp)
         except Exception as ex:
             raise FSE(str(ex))
 

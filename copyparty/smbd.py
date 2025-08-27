@@ -318,7 +318,7 @@ class SMB(object):
             t = "blocked rename (no-move-acc %s): /%s @%s"
             yeet(t % (vfs1.axs.umove, vp1, uname))
 
-        self.hub.up2k.handle_mv(uname, "1.7.6.2", vp1, vp2)
+        self.hub.up2k.handle_mv("", uname, "1.7.6.2", vp1, vp2)
         try:
             bos.makedirs(ap2, vf=vfs2.flags)
         except:
