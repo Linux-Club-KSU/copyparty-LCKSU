@@ -926,6 +926,12 @@ class Up2k(object):
         with self.mutex, self.reg_mutex:
             # only need to protect register_vpath but all in one go feels right
             for vol in vols:
+                if bos.path.isfile(vol.realpath):
+                    self.volstate[vol.vpath] = "online (just-a-file)"
+                    t = "NOTE: volume [/%s] is a file, not a folder"
+                    self.log(t % (vol.vpath,))
+                    continue
+
                 try:
                     # mkdir gonna happen at snap anyways;
                     bos.makedirs(vol.realpath, vf=vol.flags)
