@@ -91,6 +91,9 @@ ICV_EXTS = set(zsg.split(","))
 zsg = "3gp,asf,av1,avc,avi,flv,m4v,mjpeg,mjpg,mkv,mov,mp4,mpeg,mpeg2,mpegts,mpg,mpg2,mts,nut,ogm,ogv,rm,vob,webm,wmv"
 VCV_EXTS = set(zsg.split(","))
 
+zsg = "aif,aiff,alac,ape,flac,m4a,mp3,oga,ogg,opus,tak,tta,wav,wma,wv"
+ACV_EXTS = set(zsg.split(","))
+
 zsg = "nohash noidx xdev xvol"
 VF_AFFECTS_INDEXING = set(zsg.split(" "))
 
@@ -1483,7 +1486,7 @@ class Up2k(object):
         unreg: list[str] = []
         files: list[tuple[int, int, str]] = []
         fat32 = True
-        cv = vcv = ""
+        cv = vcv = acv = ""
 
         th_cvd = self.args.th_coversd
         th_cvds = self.args.th_coversd_set
@@ -1593,9 +1596,11 @@ class Up2k(object):
                         cv = iname
                     elif not vcv and ext in VCV_EXTS and not iname.startswith("."):
                         vcv = iname
+                    elif not acv and ext in ACV_EXTS and not iname.startswith("."):
+                        acv = iname
 
         if not cv:
-            cv = vcv
+            cv = vcv or acv
 
         if not self.args.no_dirsz:
             tnf += len(files)
