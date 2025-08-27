@@ -134,6 +134,7 @@ class SvcHub(object):
         self.nsigs = 3
         self.retcode = 0
         self.httpsrv_up = 0
+        self.qr_tsz = None
 
         self.log_mutex = threading.Lock()
         self.cday = 0
@@ -787,7 +788,27 @@ class SvcHub(object):
         self.signal_handler(signal.SIGTERM, None)
 
     def sticky_qr(self) -> None:
-        tw, th = termsize()
+        self._sticky_qr()
+
+    def _unsticky_qr(self, flush=True) -> None:
+        print("\033[s\033[J\033[r\033[u", file=sys.stderr, end="")
+        if flush:
+            sys.stderr.flush()
+
+    def _sticky_qr(self, force: bool = False) -> None:
+        sz = termsize()
+        if self.qr_tsz == sz:
+            if not force:
+                return
+        else:
+            force = False
+
+        if self.qr_tsz:
+            self._unsticky_qr(False)
+        else:
+            atexit.register(self._unsticky_qr)
+
+        tw, th = self.qr_tsz = sz
         zs1, qr = self.tcpsrv.qr.split("\n", 1)
         url, colr = zs1.split(" ", 1)
         nl = len(qr.split("\n"))  # numlines
@@ -811,17 +832,34 @@ class SvcHub(object):
             url = "%s\033[%d;%dH%s\033[0m" % (colr, sh + 1, (nl + lp) * 2, url)
         qr = colr + qr
 
-        def unlock():
-            print("\033[s\033[r\033[u", file=sys.stderr)
-
-        atexit.register(unlock)
         t = "%s\033[%dA" % ("\n" * nl, nl)
         t = "%s\033[s\033[1;%dr\033[%dH%s%s\033[u" % (t, sh - 1, sh, qr, url)
-        self.pr(t, file=sys.stderr)
+        if not force:
+            self.log("qr", "sticky-qrcode %sx%s,%s" % (tw, th, sh), 6)
+        self.pr(t, file=sys.stderr, end="")
 
-    def sleepy_qr(self):
-        time.sleep(self.args.qr_wait)
-        self.log("qr-code", self.tcpsrv.qr)
+    def _qr_thr(self):
+        qr = self.tcpsrv.qr
+        w8 = self.args.qr_wait
+        if w8:
+            time.sleep(w8)
+            self.log("qr-code", qr)
+        w8 = self.args.qr_every
+        msg = "%s\033[%dA" % (qr, len(qr.split("\n")))
+        while w8:
+            time.sleep(w8)
+            if self.stopping:
+                break
+            if self.args.qr_pin:
+                self._sticky_qr(True)
+            else:
+                self.log("qr-code", msg)
+        w8 = self.args.qr_winch
+        while w8:
+            time.sleep(w8)
+            if self.stopping:
+                break
+            self._sticky_qr()
 
     def cb_httpsrv_up(self) -> None:
         self.httpsrv_up += 1
@@ -837,11 +875,10 @@ class SvcHub(object):
         if self.tcpsrv.qr:
             if self.args.qr_pin:
                 self.sticky_qr()
-            else:
-                if self.args.qr_wait:
-                    Daemon(self.sleepy_qr, "qr_w8")
-                else:
-                    self.log("qr-code", self.tcpsrv.qr)
+            if self.args.qr_wait or self.args.qr_every or self.args.qr_winch:
+                Daemon(self._qr_thr, "qr")
+            elif not self.args.qr_pin:
+                self.log("qr-code", self.tcpsrv.qr)
         else:
             self.log("root", "workers OK\n")
 
