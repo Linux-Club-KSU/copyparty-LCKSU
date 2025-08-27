@@ -1,4 +1,32 @@
 ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  
+# 2025-0821-2319  `v1.19.5`  it runs on iOS
+
+## 🧪 new features
+
+* #328 run copyparty on iPhones; see [install on iOS](https://github.com/9001/copyparty#install-on-iOS) in the readme ca98d54f
+  * cannot run in the background, doesn't have full access to your files, and is slightly buggy, but it *works*
+  * [running on android](https://github.com/9001/copyparty#install-on-android) gives you a much better experience
+* save the qr-code to a file (txt/svg/png) 202ddeac
+
+## 🩹 bugfixes
+
+* #661 fix incorrect `rproxy` hint in the logs 6c76614e
+* #649 fix js-crash when tapping in the exactly correct place (thx @hahaslav for debugging!) 0de07d8e
+* #628 ftpd: fix banning IPv6 clients 6d76254c
+
+## 🔧 other changes
+
+* #296 nixos: support non-flake setups (thx @Sorixelle!) 20ef74cd 32593670
+* config-parser catches and explains a few more common mistakes cc65b1b5
+* docs:
+  * #490, #199: readme: confirm that combining copyparty and syncthing is safe c51371c7
+  * #377 improved authelia docker example (thx @xFuture603!) cd8771fa 
+  * mention the homebrew formulae f9cb2c15
+  * #651 versus.md: fix hfs3 comparison (thx @rejetto!) 7a4973fa
+
+
+
+▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  
 # 2025-0817-1556  `v1.19.4`  take two (fix cfg vols)
 
 ## ℹ️ this upgrade is a one-way ticket
