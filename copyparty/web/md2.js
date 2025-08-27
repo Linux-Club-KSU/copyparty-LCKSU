@@ -697,8 +697,14 @@ function reLastIndexOf(txt, ptn, end) {
 // table formatter
 function fmt_table(e) {
     if (e) e.preventDefault();
-    //dom_tbox.className = '';
-
+    try {
+        fmt_table2();
+    }
+    catch (ex) {
+        return toast.err(7, 'table-format (CTRL-K) failed:\n' + ex);
+    }
+}
+function fmt_table2() {
     var txt = dom_src.value,
         ofs = dom_src.selectionStart,
         //o0 = txt.lastIndexOf('\n\n', ofs),
