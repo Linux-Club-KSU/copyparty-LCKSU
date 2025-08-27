@@ -819,6 +819,15 @@ class HttpCli(object):
                         6 if em.startswith("client d/c ") else 3,
                     )
 
+                if self.hint and self.hint.startswith("<xml> "):
+                    if self.args.log_badxml:
+                        t = "invalid XML received from client: %r"
+                        self.log(t % (self.hint[6:],), 6)
+                    else:
+                        t = "received invalid XML from client; enable --log-badxml to see the whole XML in the log"
+                        self.log(t, 6)
+                    self.hint = ""
+
                 msg = "%s\r\nURL: %s\r\n" % (em, self.vpath)
                 if self.hint:
                     msg += "hint: %s\r\n" % (self.hint,)
@@ -1535,7 +1544,9 @@ class HttpCli(object):
                 if not rbuf or len(buf) >= 32768:
                     break
 
-            xroot = parse_xml(buf.decode(enc, "replace"))
+            sbuf = buf.decode(enc, "replace")
+            self.hint = "<xml> " + sbuf
+            xroot = parse_xml(sbuf)
             xtag = next((x for x in xroot if x.tag.split("}")[-1] == "prop"), None)
             if xtag is not None:
                 props = set([y.tag.split("}")[-1] for y in xtag])
@@ -1741,6 +1752,7 @@ class HttpCli(object):
         uenc = enc.upper()
 
         txt = buf.decode(enc, "replace")
+        self.hint = "<xml> " + txt
         ET.register_namespace("D", "DAV:")
         xroot = mkenod("D:orz")
         xroot.insert(0, parse_xml(txt))
@@ -1801,6 +1813,7 @@ class HttpCli(object):
         uenc = enc.upper()
 
         txt = buf.decode(enc, "replace")
+        self.hint = "<xml> " + txt
         ET.register_namespace("D", "DAV:")
         lk = parse_xml(txt)
         assert lk.tag == "{DAV:}lockinfo"
