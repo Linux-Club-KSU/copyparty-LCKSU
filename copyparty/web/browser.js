@@ -16365,7 +16365,10 @@ function tree_scrolltoo(q) {
 }
 
 
-function tree_neigh(n) {
+function tree_neigh(n, ratelimit) {
+	if (ratelimit && QS('.dumb_loader_thing') && Date.now() - treectl.busied < 5)
+		return;
+
 	var links = QSA(showfile.active() || treectl.texts ? '#docul li>a' : '#treeul li>a+a');
 	if (!links.length) {
 		treectl.dir_cb = function () {
@@ -16635,7 +16638,7 @@ var ahotkeys = function (e) {
 	n = (k == 'KeyI' || k == 'i') ? -1 :
 		(k == 'KeyK' || k == 'k') ? 1 : 0;
 	if (n !== 0)
-		return tree_neigh(n);
+		return tree_neigh(n, 1);
 
 	if (k == 'KeyM' || k == 'm')
 		return tree_up();
@@ -17440,7 +17443,7 @@ var treectl = (function () {
 		xhr.top = top;
 		xhr.dst = dst;
 		xhr.rst = rst;
-		xhr.ts = Date.now();
+		xhr.ts = r.busied = Date.now();
 		xhr.open('GET', addq(dst, 'tree=' + top + (r.dots ? '&dots' : '') + k), true);
 		xhr.onload = xhr.onerror = r.recvtree;
 		xhr.send();
@@ -17659,7 +17662,7 @@ var treectl = (function () {
 		xhr.back = back
 		xhr.hpush = hpush;
 		xhr.hydrate = hydrate;
-		xhr.ts = Date.now();
+		xhr.ts = r.busied = Date.now();
 		xhr.open('GET', xhr.top + '?ls' + uq, true);
 		xhr.setRequestHeader('Fnugg', '' + xhr.ts);
 		xhr.onload = xhr.onerror = recvls;
