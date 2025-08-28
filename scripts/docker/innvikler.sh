@@ -15,8 +15,8 @@ rm -rf /z/base
 rm -rf /var/cache/apk/* /root/.cache
 
 # initial config; common for all flavors
-mkdir /cfg /w
-chmod 777 /cfg /w
+mkdir /state /cfg /w
+chmod 777 /state /cfg /w
 echo % /cfg > initcfg
 
 # unpack sfx and dive in
