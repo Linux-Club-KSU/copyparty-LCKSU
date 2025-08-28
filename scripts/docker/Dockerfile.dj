@@ -40,4 +40,4 @@ RUN     ash innvikler.sh dj
 
 WORKDIR /state
 EXPOSE  3923
-ENTRYPOINT ["python3", "-m", "copyparty", "--no-crt", "-c", "/z/initcfg"]
+ENTRYPOINT ["python3", "-m", "copyparty", "-c", "/z/initcfg"]

@@ -15,4 +15,4 @@ RUN     ash innvikler.sh min
 
 WORKDIR /state
 EXPOSE  3923
-ENTRYPOINT ["python3", "-m", "copyparty", "--no-crt", "--no-thumb", "-c", "/z/initcfg"]
+ENTRYPOINT ["python3", "-m", "copyparty", "--no-thumb", "-c", "/z/initcfg"]

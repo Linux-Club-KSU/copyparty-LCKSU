@@ -1134,6 +1134,7 @@ def add_general(ap, nc, srvname):
     ap2.add_argument("-v", metavar="VOL", type=u, action="append", help="\033[34mREPEATABLE:\033[0m add volume, \033[33mSRC\033[0m:\033[33mDST\033[0m:\033[33mFLAG\033[0m; examples [\033[32m.::r\033[0m], [\033[32m/mnt/nas/music:/music:r:aed\033[0m], see --help-accounts")
     ap2.add_argument("--grp", metavar="G:N,N", type=u, action="append", help="\033[34mREPEATABLE:\033[0m add group, \033[33mNAME\033[0m:\033[33mUSER1\033[0m,\033[33mUSER2\033[0m,\033[33m...\033[0m; example [\033[32madmins:ed,foo,bar\033[0m]")
     ap2.add_argument("--usernames", action="store_true", help="require username and password for login; default is just password")
+    ap2.add_argument("--chdir", metavar="PATH", type=u, help="change working-directory to \033[33mPATH\033[0m before mapping volumes")
     ap2.add_argument("-ed", action="store_true", help="enable the ?dots url parameter / client option which allows clients to see dotfiles / hidden files (volflag=dots)")
     ap2.add_argument("--urlform", metavar="MODE", type=u, default="print,xm", help="how to handle url-form POSTs; see \033[33m--help-urlform\033[0m")
     ap2.add_argument("--wintitle", metavar="TXT", type=u, default="cpp @ $pub", help="server terminal title, for example [\033[32m$ip-10.1.2.\033[0m] or [\033[32m$ip-]")
@@ -1990,6 +1991,9 @@ def main(argv: Optional[list[str]] = None) -> None:
         al.E = E  # __init__ is not shared when oxidized
     except:
         sys.exit(1)
+
+    if al.chdir:
+        os.chdir(al.chdir)
 
     if al.ansi:
         al.no_ansi = False
