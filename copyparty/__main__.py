@@ -204,14 +204,14 @@ def init_E(EE: EnvParams) -> None:
                     continue
 
                 p = os.path.normpath(p)
-                if os.path.isdir(p) and os.listdir(p):
-                    mkdir = False
-                else:
-                    mkdir = True
+                mkdir = not os.path.isdir(p)
+                if mkdir:
                     os.mkdir(p)
 
                 p = os.path.join(p, "copyparty")
-                if not os.path.isdir(p):
+                try:
+                    os.listdir(p)
+                except:
                     os.mkdir(p)
 
                 if npath > 1:
