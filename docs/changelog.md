@@ -1,4 +1,37 @@
 ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  
+# 2025-0827-2038  `v1.19.6`  auth-precedence
+
+## 🧪 new features
+
+* #673 add Portuguese translation (thx anonymous!) 4b8c2215
+  * ...and enable the Polish translation (whoops) 8f235be6
+* #689 add option to control authentication priority/precedence 543b7ea9
+* url-parameter `?dl` forces file download instead of displaying in-browser 48d6224e
+* #533 more ways to make the QR-code always-visible in the console 2848941e
+* #695 option to log invalid xml from clients 28b93d79
+* #552 configurable markdown newline behavior 0491123b
+  * and tweak the styling of monospace in links 68503444
+
+## 🩹 bugfixes
+
+* #628 FTP-server now accepts connections from IPv6 link-local addresses 978801d0
+* incorrect assumption that all IPv6 link-local addresses start with `fe80` d39c74c1
+* ftp: fix file rename d40f061a
+* u2c: couldn't upload files located at the very top of the unix file hierarchy 599e82f2
+* #699 markdown-editor: fix panic if the table-formatter is executed on something that isn't a table 4c042b3c
+
+## 🔧 other changes
+
+* #696 a volume can be one single file, not just folders aa1c9213
+* #442 strongly prefer XDG_CONFIG_HOME as config location 35472557
+* #691 album-art collected from audio-files can now become folder thumbnails 0b50fde3
+* allow spaces in more of the comma-separated options d30240b4
+* docs:
+  * mention config requirements for [syncing folders](https://github.com/9001/copyparty/#folder-sync) with u2c 6cd0a396 59f142cd
+
+
+
+▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  
 # 2025-0821-2319  `v1.19.5`  it runs on iOS
 
 ## 🧪 new features
