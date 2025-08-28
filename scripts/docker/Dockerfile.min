@@ -13,6 +13,6 @@ RUN     apk --no-cache add !pyc \
 COPY    i/dist/copyparty-sfx.py innvikler.sh ./
 RUN     ash innvikler.sh min
 
-WORKDIR /w
+WORKDIR /state
 EXPOSE  3923
 ENTRYPOINT ["python3", "-m", "copyparty", "--no-crt", "--no-thumb", "-c", "/z/initcfg"]

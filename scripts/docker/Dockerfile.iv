@@ -28,6 +28,6 @@ COPY    i/dist/copyparty-sfx.py innvikler.sh ./
 ADD     base ./base
 RUN     ash innvikler.sh iv
 
-WORKDIR /w
+WORKDIR /state
 EXPOSE  3923
 ENTRYPOINT ["python3", "-m", "copyparty", "--no-crt", "-c", "/z/initcfg"]
