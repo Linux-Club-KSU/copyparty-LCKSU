@@ -1328,6 +1328,8 @@ some recommended FTP / FTPS clients; `wark` = example password:
 * https://rclone.org/ does FTPS with `tls=false explicit_tls=true`
 * `lftp -u k,wark -p 3921 127.0.0.1 -e ls`
 * `lftp -u k,wark -p 3990 127.0.0.1 -e 'set ssl:verify-certificate no; ls'`
+* `curl ftp://127.0.0.1:3921/` (plaintext ftp)
+* `curl --ssl-reqd ftp://127.0.0.1:3990/` (encrypted ftps)
 
 config file example, which restricts FTP to only use ports 3921 and 12000-12099 so all of those ports must be opened in your firewall:
 
