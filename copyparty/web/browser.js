@@ -11787,6 +11787,7 @@ var ACtx = !IPHONE && (window.AudioContext || window.webkitAudioContext),
 	hash0 = location.hash,
 	sloc0 = '' + location,
 	noih = /[?&]v\b/.exec(sloc0),
+	dbg_kbd = /[?&]dbgkbd\b/.exec(sloc0),
 	abrt_key = "",
 	rtt = null,
 	ldks = [],
@@ -14528,7 +14529,7 @@ var fileman = (function () {
 
 		exm.onkeydown = exh.onkeydown = exd.onkeydown =
 		sh_k.onkeydown = sh_pw.onkeydown = function (e) {
-			var kc = (e.code || e.key) + '';
+			var kc = (e.key || e.code) + '';
 			if (kc.endsWith('Enter'))
 				sh_apply.click();
 		};
@@ -14737,7 +14738,7 @@ var fileman = (function () {
 				(function (a) {
 					f[a].inew.onkeydown = function (e) {
 						rn_ok(a, true);
-						var kc = (e.code || e.key) + '';
+						var kc = (e.key || e.code) + '';
 						if (kc.endsWith('Enter'))
 							return rn_apply();
 					};
@@ -14835,7 +14836,7 @@ var fileman = (function () {
 		spresets();
 
 		ire.onkeydown = ifmt.onkeydown = function (e) {
-			var k = (e.code || e.key) + '';
+			var k = (e.key || e.code) + '';
 
 			if (k == 'Escape' || k == 'Esc')
 				return rn_cancel();
@@ -15307,7 +15308,7 @@ var fileman = (function () {
 			(function (a) {
 				var inew = ebi('rn_new_' + a);
 				inew.onkeydown = function (e) {
-					if (((e.code || e.key) + '').endsWith('Enter'))
+					if (((e.key || e.code) + '').endsWith('Enter'))
 						return rn_apply();
 				};
 				inew.oninput = function (e) {
@@ -16493,9 +16494,19 @@ var ahotkeys = function (e) {
 	if (QS('#bbox-overlay.visible') || modal.busy)
 		return;
 
-	var k = (e.code || e.key) + '', pos = -1, n,
+	var k = (e.key || e.code) + '', pos = -1, n,
 		ae = document.activeElement,
 		aet = ae && ae != document.body ? ae.nodeName.toLowerCase() : '';
+
+	if (k.startsWith('Key'))
+		k = k.slice(3);
+	else if (k.startsWith('Digit'))
+		k = k.slice(5);
+
+	var kl = k.toLowerCase();
+
+	if (dbg_kbd)
+		console.log('KBD', k, kl, e.key, e.code, e.keyCode, e.which);
 
 	if (k == 'Escape' || k == 'Esc') {
 		ae && ae.blur();
@@ -16544,7 +16555,7 @@ var ahotkeys = function (e) {
 			fselfunw(e, ae, d, rem);
 			return ev(e);
 		}
-		if (k == 'Space' || k == 'Spacebar') {
+		if (k == 'Space' || k == 'Spacebar' || k == ' ') {
 			clmod(ae, 'sel', 't');
 			msel.origin_tr(ae);
 			msel.selui();
@@ -16552,7 +16563,7 @@ var ahotkeys = function (e) {
 		}
 	}
 	if (in_ftab || !aet || (ae && ae.closest('#ggrid'))) {
-		if ((k == 'KeyA' || k == 'a') && ctrl(e)) {
+		if ((kl == 'a') && ctrl(e)) {
 			var ntot = treectl.lsc.files.length + treectl.lsc.dirs.length,
 				sel = msel.getsel(),
 				all = msel.getall();
@@ -16568,7 +16579,7 @@ var ahotkeys = function (e) {
 	}
 
 	if (ae && ae.closest('pre')) {
-		if ((k == 'KeyA' || k == 'a') && ctrl(e)) {
+		if ((kl == 'a') && ctrl(e)) {
 			var sel = document.getSelection(),
 				ran = document.createRange();
 
@@ -16585,107 +16596,105 @@ var ahotkeys = function (e) {
 	if (aet && aet != 'a' && aet != 'tr' && aet != 'td' && aet != 'div' && aet != 'pre')
 		return;
 
-	if (e.key == '?')
+	if (k == '?')
 		return hkhelp();
 
 	if (!e.shiftKey && ctrl(e)) {
 		var sel = window.getSelection && window.getSelection() || {};
 		sel = sel && !sel.isCollapsed && sel.direction != 'none';
 
-		if (k == 'KeyX' || k == 'x')
+		if (kl == 'x')
 			return fileman.cut(e);
 
-		if ((k == 'KeyC' || k == 'c') && !sel)
+		if (kl == 'c' && !sel)
 			return fileman.cpy(e);
 
-		if (k == 'KeyV' || k == 'v')
+		if (kl == 'v')
 			return fileman.d_paste(e);
 
-		if (k == 'KeyK' || k == 'k')
+		if (kl == 'k')
 			return fileman.delete(e);
 
 		return;
 	}
 
-	if (e.shiftKey && k != 'KeyA' && k != 'KeyD' && k != 'A' && k != 'D')
+	if (e.shiftKey && kl != 'a' && kl != 'd')
 		return;
 
-	if (k.indexOf('Digit') === 0)
-		pos = parseInt(k.slice(-1)) * 0.1;
+	if (/^[0-9]$/.test(k))
+		pos = parseInt(k) * 0.1;
 
 	if (pos !== -1)
 		return seek_au_mul(pos) || true;
 
-	if (k == 'KeyJ' || k == 'j')
+	if (kl == 'j')
 		return prev_song() || true;
 
-	if (k == 'KeyL' || k == 'l')
+	if (kl == 'l')
 		return next_song() || true;
 
-	if (k == 'KeyP' || k == 'p')
+	if (kl == 'p')
 		return playpause() || true;
 
-	n = (k == 'KeyU' || k == 'u') ? -10 :
-		(k == 'KeyO' || k == 'o') ? 10 : 0;
+	n = kl == 'u' ? -10 : kl == 'o' ? 10 : 0;
 	if (n !== 0)
 		return seek_au_rel(n) || true;
 
-	if (k == 'KeyY')
+	if (kl == 'y')
 		return msel.getsel().length ? ebi('seldl').click() :
 			showfile.active() ? ebi('dldoc').click() :
 				dl_song();
 
-	n = (k == 'KeyI' || k == 'i') ? -1 :
-		(k == 'KeyK' || k == 'k') ? 1 : 0;
+	n = kl == 'i' ? -1 : kl == 'k' ? 1 : 0;
 	if (n !== 0)
 		return tree_neigh(n, 1);
 
-	if (k == 'KeyM' || k == 'm')
+	if (kl == 'm')
 		return tree_up();
 
-	if (k == 'KeyB' || k == 'b')
+	if (kl == 'b')
 		return treectl.hidden ? treectl.entree() : treectl.detree();
 
-	if (k == 'KeyG' || k == 'g')
+	if (kl == 'g')
 		return ebi('griden').click();
 
-	if (k == 'KeyT' || k == 't')
+	if (kl == 't')
 		return ebi('thumbs').click();
 
-	if (k == 'KeyV' || k == 'v')
+	if (kl == 'v')
 		return ebi('filetree').click();
 
 	if (k == 'F2')
 		return fileman.rename();
 
 	if (!treectl.hidden && (!e.shiftKey || !thegrid.en)) {
-		if (k == 'KeyA' || k == 'a')
+		if (kl == 'a')
 			return QS('#twig').click();
 
-		if (k == 'KeyD' || k == 'd')
+		if (kl == 'd')
 			return QS('#twobytwo').click();
 	}
 
 	if (showfile.active()) {
-		if (k == 'KeyS' || k == 's')
+		if (kl == 's')
 			showfile.tglsel();
-		if ((k == 'KeyE' || k == 'e') && ebi('editdoc').style.display != 'none')
+		if (kl == 'e' && ebi('editdoc').style.display != 'none')
 			ebi('editdoc').click();
 	}
 
 	if (mp && mp.au && !mp.au.paused) {
-		if (k == 'KeyS')
+		if (kl == 's')
 			return sel_song();
 	}
 
 	if (thegrid.en) {
-		if (k == 'KeyS' || k == 's')
+		if (kl == 's')
 			return ebi('gridsel').click();
 
-		if (k == 'KeyA' || k == 'a')
+		if (kl == 'a')
 			return QSA('#ghead a[z]')[0].click();
 
-		if (k == 'KeyD' || k == 'd')
+		if (kl == 'd')
 			return QSA('#ghead a[z]')[1].click();
 	}
 };

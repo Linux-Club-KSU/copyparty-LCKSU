@@ -278,23 +278,30 @@ window.baguetteBox = (function () {
         if (modal.busy)
             return;
 
-        if (e.key == '?')
-            return halp();
-
         if (anymod(e, true))
             return;
 
-        var k = (e.code || e.key) + '', v = vid(), pos = -1;
+        var k = (e.key || e.code) + '', v = vid();
 
-        if (k == "BracketLeft")
+        if (k.startsWith('Key'))
+            k = k.slice(3);
+        else if (k.startsWith('Digit'))
+            k = k.slice(5);
+
+        var kl = k.toLowerCase();
+
+        if (k == '?')
+            return halp();
+
+        if (k == "[" || k == "BracketLeft")
             setloop(1);
-        else if (k == "BracketRight")
+        else if (k == "]" || k == "BracketRight")
             setloop(2);
-        else if (e.shiftKey && k != "KeyR" && k != "R")
+        else if (e.shiftKey && kl != "r")
             return;
-        else if (k == "ArrowLeft" || k == "KeyJ" || k == "Left" || k == "j")
+        else if (k == "ArrowLeft" || k == "Left" || kl == "j")
             showPreviousImage();
-        else if (k == "ArrowRight" || k == "KeyL" || k == "Right" || k == "l")
+        else if (k == "ArrowRight" || k == "Right" || kl == "l")
             showNextImage();
         else if (k == "Escape" || k == "Esc")
             hideOverlay();
@@ -302,33 +309,33 @@ window.baguetteBox = (function () {
             showFirstImage(e);
         else if (k == "End")
             showLastImage(e);
-        else if (k == "Space" || k == "KeyP" || k == "KeyK")
+        else if (k == "Space" || k == "Spacebar" || kl == " " || kl == "p" || kl == "k")
             playpause();
-        else if (k == "KeyU" || k == "KeyO")
-            relseek(k == "KeyU" ? -10 : 10);
-        else if (k.indexOf('Digit') === 0 && v)
-            v.currentTime = v.duration * parseInt(k.slice(-1)) * 0.1;
-        else if (k == "KeyM" && v) {
+        else if (kl == "u" || kl == "o")
+            relseek(kl == "u" ? -10 : 10);
+        else if (v && /^[0-9]$/.test(k))
+            v.currentTime = v.duration * parseInt(k) * 0.1;
+        else if (kl == "m" && v) {
             v.muted = vmute = !vmute;
             mp_ctl();
         }
-        else if (k == "KeyV" && v) {
+        else if (kl == "v" && v) {
             vloop = !vloop;
             vnext = vnext && !vloop;
             setVmode();
         }
-        else if (k == "KeyC" && v) {
+        else if (kl == "c" && v) {
             vnext = !vnext;
             vloop = vloop && !vnext;
             setVmode();
         }
-        else if (k == "KeyF")
+        else if (kl == "f")
             tglfull();
-        else if (k == "KeyS" || k == "s")
+        else if (kl == "s")
             tglsel();
-        else if (k == "KeyR" || k == "r" || k == "R")
+        else if (kl == "r")
             rotn(e.shiftKey ? -1 : 1);
-        else if (k == "KeyY")
+        else if (kl == "y")
             dlpic();
     }
 
@@ -450,10 +457,11 @@ window.baguetteBox = (function () {
         if (anymod(e))
             return;
 
-        var k = e.code + '';
+        var k = (e.key || e.code) + '';
 
-        if (k == "Space")
-            ev(e);
+        if (k == "Space" || k == "Spacebar" || k == " ") {
+            return ev(e);
+        }
     }
 
     var passiveSupp = false;
