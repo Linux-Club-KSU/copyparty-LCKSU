@@ -1051,7 +1051,9 @@ ebi('help').onclick = function (e) {
     var dom = ebi('helpbox');
     var dtxt = dom.getElementsByTagName('textarea');
     if (dtxt.length > 0) {
-        convert_markdown(dtxt[0].value, dom);
+        var txt = dtxt[0].value;
+        if (!convert_markdown(txt, dom))
+            dom.innerText = txt.split('## markdown')[0];
         dom.innerHTML = '<a href="#" id="helpclose">close</a>' + dom.innerHTML;
     }
 
