@@ -16487,6 +16487,13 @@ function fselfunw(e, ae, d, rem) {
 	}
 	selfun();
 }
+var konmai = 0, konmak = (function() {
+	var u = "arrowup",
+		d = "arrowdown",
+		l = "arrowleft",
+		r = "arrowright";
+	return [u, u, d, d, l, r, l, r, "b", "a", "enter"];
+})();
 var ahotkeys = function (e) {
 	if (e.altKey || e.isComposing)
 		return;
@@ -16507,6 +16514,19 @@ var ahotkeys = function (e) {
 
 	if (dbg_kbd)
 		console.log('KBD', k, kl, e.key, e.code, e.keyCode, e.which);
+
+	if (konmai < 0)
+		noop();
+	else if (konmak[konmai] != kl)
+		konmai = konmai && kl == konmak[0] ? (konmai<3?konmai:1):0;
+	else if (++konmai >= konmak.length) {
+		konmai = -1;
+		apply_perms(treectl.lsc);
+		fileman.render();
+		document.documentElement.scrollTop = 0;
+		toast.inf(9, 'omega clearance granted', null, 'top');
+		return ev(e);
+	}
 
 	if (k == 'Escape' || k == 'Esc') {
 		ae && ae.blur();
@@ -17992,6 +18012,7 @@ var treectl = (function () {
 			return r.reqls(get_evpath(), false, undefined, true);
 		}
 		ls0.unlist = unlist0;
+		ls0.u2ts = u2ts;
 
 		var top = get_evpath();
 		if (r.chk_index_html(top, ls0))
@@ -18227,6 +18248,18 @@ var wfp_debounce = (function () {
 function apply_perms(res) {
 	perms = res.perms || [];
 
+	var axs = [],
+		aclass = '>',
+		chk = ['read', 'write', 'move', 'delete', 'get', 'admin'];
+
+	if (konmai < 0) {
+		acct = 'Ted Faro';
+		srvinf = 'FAS Nexus</span> // <span>57.3 EiB free of 127 EiB';
+		perms = res.perms = chk;
+		have_up2k_idx = have_tags_idx = 1;
+		have_shr = have_mv = have_del = true;
+	}
+
 	var a = QS('#ops a[data-dest="up2k"]');
 	if (have_up2k_idx) {
 		a.removeAttribute('data-perm');
@@ -18240,10 +18273,6 @@ function apply_perms(res) {
 
 	a.style.display = '';
 	tt.att(QS('#ops'));
-
-	var axs = [],
-		aclass = '>',
-		chk = ['read', 'write', 'move', 'delete', 'get', 'admin'];
 
 	for (var a = 0; a < chk.length; a++)
 		if (has(perms, chk[a]))
