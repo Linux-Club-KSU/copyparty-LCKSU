@@ -44,6 +44,7 @@ window.baguetteBox = (function () {
         loopA = null,
         loopB = null,
         url_ts = null,
+        un_pp = 0,
         resume_mp = false;
 
     var onFSC = function (e) {
@@ -337,6 +338,9 @@ window.baguetteBox = (function () {
             rotn(e.shiftKey ? -1 : 1);
         else if (kl == "y")
             dlpic();
+        else
+            return;
+        return ev(e);
     }
 
     function anim() {
@@ -460,6 +464,7 @@ window.baguetteBox = (function () {
         var k = (e.key || e.code) + '';
 
         if (k == "Space" || k == "Spacebar" || k == " ") {
+            un_pp = Date.now();
             return ev(e);
         }
     }
@@ -786,8 +791,7 @@ window.baguetteBox = (function () {
             image.setAttribute('playsinline', '1');
             // ios ignores poster
             image.onended = vidEnd;
-            image.onplay = function () { show_buttons(1); };
-            image.onpause = function () { show_buttons(); };
+            image.onplay = image.onpause = ppHandler;
         }
         image.alt = thumbnailElement ? thumbnailElement.alt || '' : '';
         if (options.titleTag && imageCaption)
@@ -800,6 +804,15 @@ window.baguetteBox = (function () {
 
         if (options.async && callback)
             callback();
+    }
+
+    function ppHandler() {
+        var now = Date.now();
+        if (now - un_pp < 50) {
+            un_pp = 0;
+            return playpause();  // browser undid space hotkey
+        }
+        show_buttons(this.paused ? 1 : 0);
     }
 
     function showNextImage(e) {
