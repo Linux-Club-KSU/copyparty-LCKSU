@@ -3435,10 +3435,9 @@ class Up2k(object):
                     cur.connection.commit()
 
                     ap = djoin(job["ptop"], job["prel"], job["name"])
-                    times = (int(time.time()), int(cj["lmod"]))
-                    bos.utime(ap, times, False)
+                    mt = bos.utime_c(self.log, ap, int(cj["lmod"]), False, True)
 
-                    self.log("touched %r from %d to %d" % (ap, job["lmod"], cj["lmod"]))
+                    self.log("touched %r from %d to %d" % (ap, job["lmod"], mt))
                 except Exception as ex:
                     self.log("umod failed, %r" % (ex,), 3)
 
@@ -3593,8 +3592,7 @@ class Up2k(object):
             shutil.copy2(fsenc(csrc), fsenc(dst))
 
         if lmod and (not linked or SYMTIME):
-            times = (int(time.time()), int(lmod))
-            bos.utime(dst, times, False)
+            bos.utime_c(self.log, dst, int(lmod), False)
 
     def handle_chunks(
         self, ptop: str, wark: str, chashes: list[str]
@@ -3767,10 +3765,8 @@ class Up2k(object):
         times = (int(time.time()), int(job["lmod"]))
         t = "no more chunks, setting times %s (%d) on %r"
         self.log(t % (times, bos.path.getsize(dst), dst))
-        try:
-            bos.utime(dst, times)
-        except:
-            self.log("failed to utime (%r, %s)" % (dst, times))
+        bos.utime_c(self.log, dst, times[1], False)
+        # the above logmsg (and associated logic) is retained due to unforget.py
 
         zs = "prel name lmod size ptop vtop wark dwrk host user addr"
         z2 = [job[x] for x in zs.split()]
@@ -4919,7 +4915,10 @@ class Up2k(object):
             mt = bos.path.getmtime(slabs, False)
             flags = self.flags.get(ptop) or {}
             atomic_move(self.log, sabs, slabs, flags)
-            bos.utime(slabs, (int(time.time()), int(mt)), False)
+            try:
+                bos.utime(slabs, (int(time.time()), int(mt)), False)
+            except:
+                self.log("relink: failed to utime(%r, %s)" % (slabs, mt), 3)
             self._symlink(slabs, sabs, flags, False, is_mv=True)
             full[slabs] = (ptop, rem)
             sabs = slabs
