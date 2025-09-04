@@ -732,7 +732,7 @@ function Donut(uc, st) {
         tstrober = setInterval(strobe, 300);
 
         if (uc.upsfx && actx && actx.state != 'suspended')
-            sfx();
+            sfx_nice();
 
         // firefox may forget that filedrops are user-gestures so it can skip this:
         if (uc.upnag && Notification && Notification.permission == 'granted')
@@ -745,8 +745,10 @@ function Donut(uc, st) {
         if (!txt)
             clearInterval(tstrober);
     }
+}
 
-    function sfx() {
+function sfx_nice() {
+    if (true) {
         var osc = actx.createOscillator(),
             gain = actx.createGain(),
             gg = gain.gain,

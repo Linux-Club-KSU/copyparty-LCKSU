@@ -16521,10 +16521,15 @@ var ahotkeys = function (e) {
 		konmai = konmai && kl == konmak[0] ? (konmai<3?konmai:1):0;
 	else if (++konmai >= konmak.length) {
 		konmai = -1;
-		apply_perms(treectl.lsc);
-		fileman.render();
 		document.documentElement.scrollTop = 0;
+		settheme.go(6);
+		start_actx();
+		sfx_nice();
 		toast.inf(9, 'omega clearance granted', null, 'top');
+		setTimeout(function() {
+			apply_perms(treectl.lsc);
+			fileman.render();
+		}, 573);
 		return ev(e);
 	}
 

@@ -882,6 +882,9 @@ html.y #path a:hover {
 #flogout {
 	display: inline;
 }
+html.dz #flogout {
+	margin-left: 1em;
+}
 #goh+span {
 	color: var(--bg-u5);
 	padding-left: .5em;
