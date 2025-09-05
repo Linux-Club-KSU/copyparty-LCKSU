@@ -414,10 +414,11 @@ class Up2k(object):
 
         ret: list[tuple[int, str, int, int, int]] = []
         userset = set([(uname or "\n"), "*"])
+        e_d = {}
         n = 1000
         try:
             for ptop, tab2 in self.registry.items():
-                cfg = self.flags.get(ptop, {}).get("u2abort", 1)
+                cfg = self.flags.get(ptop, e_d).get("u2abort", 1)
                 if not cfg:
                     continue
                 addr = (ip or "\n") if cfg in (1, 2) else ""
@@ -1138,7 +1139,7 @@ class Up2k(object):
         ft = "\033[0;32m{}{:.0}"
         ff = "\033[0;35m{}{:.0}"
         fv = "\033[0;36m{}:\033[90m{}"
-        zs = "ext_th_d html_head put_name2 mv_re_r mv_re_t rm_re_r rm_re_t srch_re_dots srch_re_nodot zipmax zipmaxn_v zipmaxs_v"
+        zs = "du_iwho ext_th_d html_head put_name2 mv_re_r mv_re_t rm_re_r rm_re_t srch_re_dots srch_re_nodot zipmax zipmaxn_v zipmaxs_v"
         fx = set(zs.split())
         fd = vf_bmap()
         fd.update(vf_cmap())
@@ -1493,6 +1494,7 @@ class Up2k(object):
         files: list[tuple[int, int, str]] = []
         fat32 = True
         cv = vcv = acv = ""
+        e_d = {}
 
         th_cvd = self.args.th_coversd
         th_cvds = self.args.th_coversd_set
@@ -1730,7 +1732,7 @@ class Up2k(object):
                 un = ""
 
             # skip upload hooks by not providing vflags
-            self.db_add(db.c, {}, rd, fn, lmod, sz, "", "", wark, wark, "", un, ip, at)
+            self.db_add(db.c, e_d, rd, fn, lmod, sz, "", "", wark, wark, "", un, ip, at)
             db.n += 1
             db.nf += 1
             tfa += 1

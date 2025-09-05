@@ -247,6 +247,7 @@ def init_E(EE: EnvParams) -> None:
     E.mod = os.path.dirname(os.path.realpath(__file__))
     if E.mod.endswith("__init__"):
         E.mod = os.path.dirname(E.mod)
+    E.mod_ = os.path.join(E.mod, "")
 
     try:
         p = os.environ.get("XDG_CONFIG_HOME")

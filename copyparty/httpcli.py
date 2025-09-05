@@ -1255,7 +1255,7 @@ class HttpCli(object):
 
             res_path = "web/" + self.vpath[5:]
             if res_path in RES:
-                ap = os.path.join(self.E.mod, res_path)
+                ap = self.E.mod_ + res_path
                 if bos.path.exists(ap) or bos.path.exists(ap + ".gz"):
                     return self.tx_file(ap)
                 else:
@@ -5408,8 +5408,9 @@ class HttpCli(object):
 
         if dk_sz and fsroot:
             kdirs = []
+            fsroot_ = os.path.join(fsroot, "")
             for dn in dirs:
-                ap = os.path.join(fsroot, dn)
+                ap = fsroot_ + dn
                 zs = self.gen_fk(2, self.args.dk_salt, ap, 0, 0)[:dk_sz]
                 kdirs.append(dn + "?k=" + zs)
             dirs = kdirs

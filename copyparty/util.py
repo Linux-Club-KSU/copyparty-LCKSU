@@ -3189,8 +3189,9 @@ def statdir(
         else:
             src = "listdir"
             fun: Any = os.lstat if lstat else os.stat
+            btop_ = os.path.join(btop, b"")
             for name in os.listdir(btop):
-                abspath = os.path.join(btop, name)
+                abspath = btop_ + name
                 try:
                     yield (fsdec(name), fun(abspath))
                 except Exception as ex:
@@ -3229,7 +3230,9 @@ def rmdirs(
 
     stats = statdir(logger, scandir, lstat, top, False)
     dirs = [x[0] for x in stats if stat.S_ISDIR(x[1].st_mode)]
-    dirs = [os.path.join(top, x) for x in dirs]
+    if dirs:
+        top_ = os.path.join(top, "")
+        dirs = [top_ + x for x in dirs]
     ok = []
     ng = []
     for d in reversed(dirs):
@@ -4205,7 +4208,7 @@ def _pkg_resource_exists(pkg: str, name: str) -> bool:
 
 
 def stat_resource(E: EnvParams, name: str):
-    path = os.path.join(E.mod, name)
+    path = E.mod_ + name
     if os.path.exists(path):
         return os.stat(fsenc(path))
     return None
@@ -4252,7 +4255,7 @@ def _has_resource(name: str):
 
 
 def has_resource(E: EnvParams, name: str):
-    return _has_resource(name) or os.path.exists(os.path.join(E.mod, name))
+    return _has_resource(name) or os.path.exists(E.mod_ + name)
 
 
 def load_resource(E: EnvParams, name: str, mode="rb") -> IO[bytes]:
@@ -4277,7 +4280,7 @@ def load_resource(E: EnvParams, name: str, mode="rb") -> IO[bytes]:
                 stream = codecs.getreader(enc)(stream)
             return stream
 
-    ap = os.path.join(E.mod, name)
+    ap = E.mod_ + name
 
     if PY2:
         return codecs.open(ap, "r", encoding=enc)  # type: ignore
