@@ -1632,7 +1632,14 @@ class HttpCli(object):
             self.log("inaccessible: %r" % ("/" + self.vpath,))
             raise Pebkac(401, "authenticate")
 
-        if "quota-available-bytes" in props and not self.args.nid:
+        zi = vn.flags["du_iwho"] if "quota-available-bytes" in props else 0
+        if zi and (
+            zi == 9
+            or (zi == 7 and self.uname != "*")
+            or (zi == 5 and self.can_write)
+            or (zi == 4 and self.can_write and self.can_read)
+            or (zi == 3 and self.can_admin)
+        ):
             bfree, btot, _ = get_df(vn.realpath, False)
             if btot:
                 df = {
@@ -5159,6 +5166,11 @@ class HttpCli(object):
         elif nre:
             re_btn = "&re=%s" % (nre,)
 
+        zi = self.args.ver_iwho
+        show_ver = zi and (
+            zi == 9 or (zi == 6 and self.uname != "*") or (zi == 3 and avol)
+        )
+
         html = self.j2s(
             "splash",
             this=self,
@@ -5181,7 +5193,7 @@ class HttpCli(object):
             no304=self.no304(),
             k304vis=self.args.k304 > 0,
             no304vis=self.args.no304 > 0,
-            ver=S_VERSION if self.args.ver else "",
+            ver=S_VERSION if show_ver else "",
             chpw=self.args.chpw and self.uname != "*",
             ahttps="" if self.is_https else "https://" + self.host + self.req,
         )
@@ -6360,7 +6372,14 @@ class HttpCli(object):
         except:
             self.log("#wow #whoa")
 
-        if not self.args.nid:
+        zi = vn.flags["du_iwho"]
+        if zi and (
+            zi == 9
+            or (zi == 7 and self.uname != "*")
+            or (zi == 5 and self.can_write)
+            or (zi == 4 and self.can_write and self.can_read)
+            or (zi == 3 and self.can_admin)
+        ):
             free, total, zs = get_df(abspath, False)
             if total:
                 h1 = humansize(free or 0)

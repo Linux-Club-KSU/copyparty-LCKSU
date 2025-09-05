@@ -158,7 +158,7 @@ class Cfg(Namespace):
         ex = "hash_mt hsortn qdel safe_dedup srch_time tail_fd tail_rate th_spec_p u2abort u2j u2sz unp_who"
         ka.update(**{k: 1 for k in ex.split()})
 
-        ex = "ac_convt au_vol dl_list mtab_age reg_cap s_thead s_tbody tail_tmax tail_who th_convt ups_who zip_who"
+        ex = "ac_convt au_vol dl_list du_iwho mtab_age reg_cap s_thead s_tbody tail_tmax tail_who th_convt ups_who ver_iwho zip_who"
         ka.update(**{k: 9 for k in ex.split()})
 
         ex = "ctl_re db_act forget_ip idp_cookie idp_store k304 loris no304 nosubtle qr_pin qr_wait re_maxage rproxy rsp_jtr rsp_slp s_wr_slp snap_wri theme themes turbo u2ow zipmaxn zipmaxs"
@@ -189,6 +189,7 @@ class Cfg(Namespace):
             cookie_cmax=8192,
             cookie_nmax=50,
             dbd="wal",
+            du_who="all",
             dk_salt="b" * 16,
             fk_salt="a" * 16,
             grp_all="acct",
@@ -220,6 +221,7 @@ class Cfg(Namespace):
             u2sort="s",
             u2ts="c",
             unpost=600,
+            ver_who="all",
             warksalt="hunter2",
             **ka
         )

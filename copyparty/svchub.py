@@ -27,7 +27,7 @@ if True:  # pylint: disable=using-constant-test
     from typing import Any, Optional, Union
 
 from .__init__ import ANYWIN, EXE, MACOS, PY2, TYPE_CHECKING, E, EnvParams, unicode
-from .authsrv import BAD_CFG, AuthSrv
+from .authsrv import BAD_CFG, AuthSrv, n_du_who, n_ver_who
 from .bos import bos
 from .cert import ensure_cert
 from .mtag import HAVE_FFMPEG, HAVE_FFPROBE, HAVE_MUTAGEN
@@ -288,6 +288,14 @@ class SvcHub(object):
         bri = "zy"[args.theme % 2 :][:1]
         ch = "abcdefghijklmnopqrstuvwx"[int(args.theme / 2)]
         args.theme = "{0}{1} {0} {1}".format(ch, bri)
+
+        if args.nid:
+            args.du_who = "no"
+        args.du_iwho = n_du_who(args.du_who)
+
+        if args.ver and args.ver_who == "no":
+            args.ver_who = "all"
+        args.ver_iwho = n_ver_who(args.ver_who)
 
         if args.nih:
             args.vname = ""

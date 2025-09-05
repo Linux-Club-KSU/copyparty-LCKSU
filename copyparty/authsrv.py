@@ -1014,7 +1014,10 @@ class AuthSrv(object):
         yield prev, True
 
     def vf0(self):
-        return {"d2d": True, "tcolor": self.args.tcolor}
+        return {"d2d": True, "tcolor": self.args.tcolor, "du_iwho": self.args.du_iwho}
+
+    def vf0b(self):
+        return {"tcolor": self.args.tcolor, "du_iwho": self.args.du_iwho}
 
     def idp_checkin(
         self, broker: Optional["BrokerCli"], uname: str, gname: str
@@ -1759,8 +1762,7 @@ class AuthSrv(object):
                 if hits:
                     t = "Hint: Found some config files in [%s], but these were not automatically loaded because they are in the wrong place%s %s\n"
                     self.log(t % (E.cfg, ehint, ", ".join(hits)), 3)
-            zvf = {"tcolor": self.args.tcolor}
-            vfs = VFS(self.log_func, absreal("."), "", "", axs, zvf)
+            vfs = VFS(self.log_func, absreal("."), "", "", axs, self.vf0b())
             if not axs.uread:
                 self.badcfg1 = True
         elif "" not in mount:
@@ -2293,6 +2295,8 @@ class AuthSrv(object):
                 vol.lim.chown = "chown" in vol.flags
                 vol.lim.uid = vol.flags["uid"]
                 vol.lim.gid = vol.flags["gid"]
+
+            vol.flags["du_iwho"] = n_du_who(vol.flags["du_who"])
 
             if vol.flags.get("og"):
                 self.args.uqe = True
@@ -3472,6 +3476,30 @@ class AuthSrv(object):
             ret.append("")
 
         self.log("generated config:\n\n" + "\n".join(ret))
+
+
+def n_du_who(s: str) -> int:
+    if s == "all":
+        return 9
+    if s == "auth":
+        return 7
+    if s == "w":
+        return 5
+    if s == "rw":
+        return 4
+    if s == "a":
+        return 3
+    return 0
+
+
+def n_ver_who(s: str) -> int:
+    if s == "all":
+        return 9
+    if s == "auth":
+        return 6
+    if s == "a":
+        return 3
+    return 0
 
 
 def split_cfg_ln(ln: str) -> dict[str, Any]:
