@@ -10,7 +10,7 @@
 	<link rel="stylesheet" media="screen" href="{{ r }}/.cpr/splash.css?_={{ ts }}">
 	<link rel="stylesheet" media="screen" href="{{ r }}/.cpr/ui.css?_={{ ts }}">
 	<style>ul{padding-left:1.3em}li{margin:.4em 0}.txa{float:right;margin:0 0 0 1em}</style>
-{{ html_head }}
+{{- html_head }}
 </head>
 
 <body>
@@ -44,7 +44,7 @@
 
         {% if args.have_idp_hdrs %}
         <p style="line-height:2em"><b>WARNING:</b> this server is using IdP-based authentication, so this stuff may not work as advertised. Depending on server config, these commands can probably only be used to access areas which don't require authentication, unless you auth using any non-IdP accounts defined in the copyparty config. Please see <a href="https://github.com/9001/copyparty/blob/hovudstraum/docs/idp.md#connecting-webdav-clients">the IdP docs</a></p>
-        {% endif %}
+        {%- endif %}
 
 
 
@@ -58,9 +58,9 @@
                 rclone mount --vfs-cache-mode writes --dir-cache-time 5s {{ aname }}-dav:{{ rvp }} <b>W:</b>
             </pre>
             <ul>
-                {% if s %}
+                {%- if s %}
                 <li>running <code>rclone mount</code> on LAN (or just dont have valid certificates)? add <code>--no-check-certificate</code></li>
-                {% endif %}
+                {%- endif %}
                 <li>old version of rclone? replace all <code>=</code> with <code>&nbsp;</code> (space)</li>
             </ul>
 
@@ -77,9 +77,9 @@
                 rclone mount --vfs-cache-mode writes --dir-cache-time 5s {{ aname }}-dav:{{ rvp }} <b>mp</b>
             </pre>
             <ul>
-                {% if s %}
+                {%- if s %}
                 <li>running <code>rclone mount</code> on LAN (or just dont have valid certificates)? add <code>--no-check-certificate</code></li>
-                {% endif %}
+                {%- endif %}
                 <li>running <code>rclone mount</code> as root? add <code>--allow-other</code></li>
                 <li>old version of rclone? replace all <code>=</code> with <code>&nbsp;</code> (space)</li>
             </ul>
@@ -114,11 +114,11 @@
                 http{{ s }}://k:<b>{{ pw }}</b>@{{ ep }}/{{ rvp }}
             </pre>
 
-            {% if s %}
+            {%- if s %}
             <p><em>replace <code>https</code> with <code>http</code> if it doesn't work</em></p>
-            {% endif %}
+            {%- endif %}
         </div>
-        {% endif %}
+        {%- endif %}
 
 
 
@@ -127,24 +127,24 @@
 
         <div class="os win">
             <p>if you can, install <a href="https://winfsp.dev/rel/">winfsp</a>+<a href="https://downloads.rclone.org/rclone-current-windows-amd64.zip">rclone</a> and then paste this in cmd:</p>
-            {% if args.ftp %}
+            {%- if args.ftp %}
             <p>connect with plaintext FTP:</p>
             <pre>
                 rclone config create {{ aname }}-ftp ftp host={{ rip }} port={{ args.ftp }} pass=k user={% if accs %}<b>{{ pw }}</b>{% else %}anonymous{% endif %} tls=false
                 rclone mount --vfs-cache-mode writes --dir-cache-time 5s {{ aname }}-ftp:{{ rvp }} <b>W:</b>
             </pre>
-            {% endif %}
-            {% if args.ftps %}
+            {%- endif %}
+            {%- if args.ftps %}
             <p>connect with TLS-encrypted FTPS:</p>
             <pre>
                 rclone config create {{ aname }}-ftps ftp host={{ rip }} port={{ args.ftps }} pass=k user={% if accs %}<b>{{ pw }}</b>{% else %}anonymous{% endif %} tls=false explicit_tls=true
                 rclone mount --vfs-cache-mode writes --dir-cache-time 5s {{ aname }}-ftps:{{ rvp }} <b>W:</b>
             </pre>
-            {% endif %}
+            {%- endif %}
             <ul>
-                {% if args.ftps %}
+                {%- if args.ftps %}
                 <li>running on LAN (or just dont have valid certificates)? add <code>no_check_certificate=true</code> to the config command</li>
-                {% endif %}
+                {%- endif %}
                 <li>old version of rclone? replace all <code>=</code> with <code>&nbsp;</code> (space)</li>
             </ul>
             <p>if you want to use the native FTP client in windows instead (please dont), press <code>win+R</code> and run this command:</p>
@@ -154,24 +154,24 @@
         </div>
 
         <div class="os lin">
-            {% if args.ftp %}
+            {%- if args.ftp %}
             <p>connect with plaintext FTP:</p>
             <pre>
                 rclone config create {{ aname }}-ftp ftp host={{ rip }} port={{ args.ftp }} pass=k user={% if accs %}<b>{{ pw }}</b>{% else %}anonymous{% endif %} tls=false
                 rclone mount --vfs-cache-mode writes --dir-cache-time 5s {{ aname }}-ftp:{{ rvp }} <b>mp</b>
             </pre>
-            {% endif %}
-            {% if args.ftps %}
+            {%- endif %}
+            {%- if args.ftps %}
             <p>connect with TLS-encrypted FTPS:</p>
             <pre>
                 rclone config create {{ aname }}-ftps ftp host={{ rip }} port={{ args.ftps }} pass=k user={% if accs %}<b>{{ pw }}</b>{% else %}anonymous{% endif %} tls=false explicit_tls=true
                 rclone mount --vfs-cache-mode writes --dir-cache-time 5s {{ aname }}-ftps:{{ rvp }} <b>mp</b>
             </pre>
-            {% endif %}
+            {%- endif %}
             <ul>
-                {% if args.ftps %}
+                {%- if args.ftps %}
                 <li>running on LAN (or just dont have valid certificates)? add <code>no_check_certificate=true</code> to the config command</li>
-                {% endif %}
+                {%- endif %}
                 <li>running <code>rclone mount</code> as root? add <code>--allow-other</code></li>
                 <li>old version of rclone? replace all <code>=</code> with <code>&nbsp;</code> (space)</li>
             </ul>
@@ -192,7 +192,7 @@
                 open {{ "ftp" if args.ftp else "ftps" }}://{% if accs %}k:<b>{{ pw }}</b>@{% else %}anonymous:@{% endif %}{{ host }}:{{ args.ftp or args.ftps }}/{{ rvp }}
             </pre>
         </div>
-        {% endif %}
+        {%- endif %}
 
 
 
@@ -206,9 +206,9 @@
         <pre>
             partyfuse.py{% if accs %} -a <b>{{ pw }}</b>{% endif %} http{{ s }}://{{ ep }}/{{ rvp }} <b><span class="os win">W:</span><span class="os lin mac">mp</span></b>
         </pre>
-        {% if s %}
+        {%- if s %}
         <ul><li>if you are on LAN (or just dont have valid certificates), add <code>-td</code></li></ul>
-        {% endif %}
+        {%- endif %}
         <p>
             you can use <a href="{{ r }}/.cpr/a/u2c.py">u2c.py</a> to upload (sometimes faster than web-browsers)
         </p>
@@ -234,7 +234,7 @@
         <pre class="os mac">
             open 'smb://<b>{{ pw }}</b>:k@{{ host }}/a'
         </pre>
-        {% endif %}
+        {%- endif %}
 
 
 
