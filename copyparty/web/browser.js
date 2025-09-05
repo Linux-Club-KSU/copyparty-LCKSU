@@ -12987,6 +12987,10 @@ function song_skip(n, dirskip) {
 }
 function next_song(e) {
 	ev(e);
+	if (QS('.dumb_loader_thing')) {
+		treectl.ls_cb = next_song;
+		return;
+	}
 	if (mp.order.length) {
 		var dirskip = mpl.traversals;
 		mpl.traversals = 0;
@@ -13020,6 +13024,10 @@ function prev_song(e) {
 	if (mp.au && !mp.au.paused && mp.au.currentTime > 3)
 		return seek_au_sec(0);
 
+	if (QS('.dumb_loader_thing')) {
+		treectl.ls_cb = function () { song_skip(-1); };
+		return;
+	}
 	return song_skip(-1);
 }
 function dl_song() {
