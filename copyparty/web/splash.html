@@ -21,7 +21,11 @@
 			{%- if this.uname == '*' %}
 		<p id="b">howdy stranger &nbsp; <small>(you're not logged in)</small></p>
 			{%- else %}
+				{%- if this.args.idp_logout %}
+		<a id="c" href="{{ this.args.idp_logout }}" class="logout">logout</a>
+				{%- else %}
 		<a id="c" href="{{ r }}/?pw=x" class="logout">logout</a>
+				{%- endif %}
 		<p><span id="m">welcome back,</span> <strong id="un">{{ this.uname|e }}</strong></p>
 			{%- endif %}
 		{%- endif %}
@@ -118,6 +122,13 @@
 		{%- else %}
 		<h1 id="l">login for more:</h1>
 		<div>
+			{%- if this.args.idp_login %}
+			<ul><li>
+				<a href="{{ this.args.idp_login | replace("{dst}",r+"/"+qvpath) }}">{{ this.args.idp_login_t }}</a>
+				{%- if this.args.ao_have_pw %}or alternatively:{%- endif %}
+			</li></ul>
+			{%- endif %}
+			{%- if this.args.ao_have_pw %}
 			<form id="lf" method="post" enctype="multipart/form-data" action="{{ r }}/{{ qvpath }}">
 				<input type="hidden" id="la" name="act" value="login" />
 				{%- if this.args.usernames %}
@@ -135,11 +146,16 @@
 				<a id="w" href="{{ ahttps }}">switch to https</a>
 				{%- endif %}
 			</form>
+			{%- endif %}
 		</div>
 		{%- endif %}
 
 		<h1 id="cc">other stuff:</h1>
 		<ul>
+			{%- if ahttps %}
+			<li><a id="wb" href="{{ ahttps }}">switch to https</a></li>
+			{%- endif %}
+
 			{%- if this.uname in this.args.idp_adm_set %}
 			<li><a id="ag" href="{{ r }}/?idp">view idp cache</a></li>
 			{%- endif %}
@@ -169,7 +185,7 @@
 			<li><a id="af" href="{{ r }}/?ru">show recent uploads</a></li>
 			<li><a id="k" href="{{ r }}/?reset" class="r" onclick="localStorage.clear();return true">reset client settings</a></li>
 
-			{%- if this.uname != '*' %}
+			{%- if this.uname != '*' and not in_shr %}
 			<li><form method="post" enctype="multipart/form-data">
 				<input type="hidden" name="act" value="logout" />
 				<input type="submit" id="lo" value="logout “{{ this.uname|e }}” everywhere" />

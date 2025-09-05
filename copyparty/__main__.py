@@ -897,6 +897,11 @@ def get_sects():
             middleware and not by clients! and, as an extra precaution,
             send a header named '\033[36mfinalmasterspark\033[0m' (a secret keyword)
             and then \033[36m--idp-h-key finalmasterspark\033[0m to require that
+
+            the login/logout links/buttons can be replaced with links
+            going to your IdP's UI; \033[36m--idp-login /login/?redir={dst}\033[0m
+            will expand \033[36m{dst}\033[0m to the URL of the current page, so
+            the IdP can redirect the user back to where they were
             """
             ),
         ],
@@ -1303,6 +1308,9 @@ def add_auth(ap):
     ap2.add_argument("--idp-store", metavar="N", type=int, default=1, help="how to use \033[33m--idp-db\033[0m; [\033[32m0\033[0m] = entirely disable, [\033[32m1\033[0m] = write-only (effectively disabled), [\033[32m2\033[0m] = remember users, [\033[32m3\033[0m] = remember users and groups.\nNOTE: Will remember and restore the IdP-volumes of all users for all eternity if set to 2 or 3, even when user is deleted from your IdP")
     ap2.add_argument("--idp-adm", metavar="U,U", type=u, default="", help="comma-separated list of users allowed to use /?idp (the cache management UI)")
     ap2.add_argument("--idp-cookie", metavar="S", type=int, default=0, help="generate a session-token for IdP users which is written to cookie \033[33mcppws\033[0m (or \033[33mcppwd\033[0m if plaintext), to reduce the load on the IdP server, lifetime \033[33mS\033[0m seconds.\n └─note: The expiration time is a client hint only; the actual lifetime of the session-token is infinite (until next restart with \033[33m--ses-db\033[0m wiped)")
+    ap2.add_argument("--idp-login", metavar="L", type=u, default="", help="replace all login-buttons with a link to URL \033[33mL\033[0m (unless \033[32mpw\033[0m is in \033[33m--auth-ord\033[0m then both will be shown); [\033[32m{dst}\033[0m] expands to url of current page")
+    ap2.add_argument("--idp-login-t", metavar="T", type=u, default="Login with SSO", help="the label/text for the idp-login button")
+    ap2.add_argument("--idp-logout", metavar="L", type=u, default="", help="replace all logout-buttons with a link to URL \033[33mL\033[0m")
     ap2.add_argument("--auth-ord", metavar="TXT", type=u, default="idp,ipu", help="controls auth precedence; examples: [\033[32mpw,idp,ipu\033[0m], [\033[32mipu,pw,idp\033[0m], see --help-auth-ord")
     ap2.add_argument("--no-bauth", action="store_true", help="disable basic-authentication support; do not accept passwords from the 'Authenticate' header at all. NOTE: This breaks support for the android app")
     ap2.add_argument("--bauth-last", action="store_true", help="keeps basic-authentication enabled, but only as a last-resort; if a cookie is also provided then the cookie wins")
@@ -1317,7 +1325,7 @@ def add_auth(ap):
     ap2.add_argument("--ao-idp-before-pw", type=u, default="", help=argparse.SUPPRESS)
     ap2.add_argument("--ao-h-before-hm", type=u, default="", help=argparse.SUPPRESS)
     ap2.add_argument("--ao-ipu-wins", type=u, default="", help=argparse.SUPPRESS)
-    ap2.add_argument("--ao-has-pw", type=u, default="", help=argparse.SUPPRESS)
+    ap2.add_argument("--ao-have-pw", type=u, default="", help=argparse.SUPPRESS)
 
 
 def add_chpw(ap):

@@ -114,6 +114,7 @@ var Ls = {
 		"gou": 'parent folder">up',
 		"gon": 'next folder">next',
 		"logout": "Logout ",
+		"login": "Login",
 		"access": " access",
 		"ot_close": "close submenu",
 		"ot_search": "search for files by attributes, path / name, music tags, or any combination of those$N$N&lt;code&gt;foo bar&lt;/code&gt; = must contain both «foo» and «bar»,$N&lt;code&gt;foo -bar&lt;/code&gt; = must contain «foo» but not «bar»,$N&lt;code&gt;^yana .opus$&lt;/code&gt; = start with «yana» and be an «opus» file$N&lt;code&gt;&quot;try unite&quot;&lt;/code&gt; = contain exactly «try unite»$N$Nthe date format is iso-8601, like$N&lt;code&gt;2009-12-31&lt;/code&gt; or &lt;code&gt;2020-09-12 23:30:00&lt;/code&gt;",
@@ -745,6 +746,7 @@ var Ls = {
 		"gou": 'naviger ett nivå opp">opp',
 		"gon": 'naviger til mappen etter denne">neste',
 		"logout": "Logg ut ",
+		"login": "Logg inn",
 		"access": " tilgang",
 		"ot_close": "lukk verktøy",
 		"ot_search": "søk etter filer ved å angi filnavn, mappenavn, tid, størrelse, eller metadata som sangtittel / artist / osv.$N$N&lt;code&gt;foo bar&lt;/code&gt; = inneholder både «foo» og «bar»,$N&lt;code&gt;foo -bar&lt;/code&gt; = inneholder «foo» men ikke «bar»,$N&lt;code&gt;^yana .opus$&lt;/code&gt; = starter med «yana», filtype «opus»$N&lt;code&gt;&quot;try unite&quot;&lt;/code&gt; = «try unite» eksakt$N$Ndatoformat er iso-8601, så f.eks.$N&lt;code&gt;2009-12-31&lt;/code&gt; eller &lt;code&gt;2020-09-12 23:30:00&lt;/code&gt;",
@@ -1375,6 +1377,7 @@ var Ls = {
 		"gou": '顶部">up',
 		"gon": '下一项">next',
 		"logout": " 登出",
+		"login": "登录", //m
 		"access": " 访问",
 		"ot_close": "关闭子菜单",
 		"ot_search": "按属性、路径/名称、音乐标签或上述内容的任意组合搜索文件$N$N&lt;code&gt;foo bar&lt;/code&gt; = 必须包含 «foo» 和 «bar»,$N&lt;code&gt;foo -bar&lt;/code&gt; = 包含 «foo» 而不包含 «bar»,$N&lt;code&gt;^yana .opus$&lt;/code&gt; = 以 «yama» 为开头的 «opus» 文件$N&lt;code&gt;&quot;try unite&quot;&lt;/code&gt; = 正好包含 «try unite»$N$N时间格式为 iso-8601, 比如:$N&lt;code&gt;2009-12-31&lt;/code&gt; or &lt;code&gt;2020-09-12 23:30:00&lt;/code&gt;",
@@ -2009,6 +2012,7 @@ var Ls = {
 		"gou": 'nadřazená složka">nahoru',
 		"gon": 'následující složka">následující',
 		"logout": "Odhlásit ",
+		"login": "Přihlásit se", //m
 		"access": " přístup",
 		"ot_close": "zavřít podnabídku",
 		"ot_search": "hledat soubory podle atributů, cesty / názvu, hudebních tagů nebo jejich kombinace$N$N&lt;code&gt;foo bar&lt;/code&gt; = musí obsahovat jak «foo» tak «bar»,$N&lt;code&gt;foo -bar&lt;/code&gt; = musí obsahovat «foo» ale ne «bar»,$N&lt;code&gt;^yana .opus$&lt;/code&gt; = začíná na «yana» a je to «opus» soubor$N&lt;code&gt;&quot;try unite&quot;&lt;/code&gt; = obsahuje přesně «try unite»$N$Nformát data je iso-8601, jako$N&lt;code&gt;2009-12-31&lt;/code&gt; nebo &lt;code&gt;2020-09-12 23:30:00&lt;/code&gt;",
@@ -2639,6 +2643,7 @@ var Ls = {
 		"gou": 'zum übergeordneter Ordner springen">hoch',
 		"gon": 'zum nächsten Ordner springen">nächst.',
 		"logout": "Abmelden ",
+		"login": "Anmelden", //m
 		"access": " Zugriff",
 		"ot_close": "Submenu schliessen",
 		"ot_search": "Dateien nach Attributen, Pfad/Name, Musiktags oder beliebiger Kombination suchen$N$N&lt;code&gt;foo bar&lt;/code&gt; = muss «foo» und «bar» enthalten,$N&lt;code&gt;foo -bar&lt;/code&gt; = muss «foo» aber nicht «bar» enthalten,$N&lt;code&gt;^yana .opus$&lt;/code&gt; = beginnt mit «yana» und ist «opus»-Datei$N&lt;code&gt;&quot;try unite&quot;&lt;/code&gt; = genau «try unite» enthalten$N$NDatumsformat ist iso-8601, z.B.$N&lt;code&gt;2009-12-31&lt;/code&gt; oder &lt;code&gt;2020-09-12 23:30:00&lt;/code&gt;",
@@ -3269,6 +3274,7 @@ var Ls = {
 		"gou": 'ylempi hakemisto">ylös',
 		"gon": 'seuraava hakemisto">seur',
 		"logout": "Kirjaudu ulos ",
+		"login": "Kirjaudu sisään", //m
 		"access": " -oikeudet",
 		"ot_close": "sulje alavalikko",
 		"ot_search": "etsi tiedostoja ominaisuuksien, tiedostopolun tai -nimen, musiikkitägien tai näiden yhdistelmän perusteella$N$N&lt;code&gt;foo bar&lt;/code&gt; = täytyy sisältää sekä «foo» että «bar»,$N&lt;code&gt;foo -bar&lt;/code&gt; = täytyy sisältää «foo» mutta ei «bar»,$N&lt;code&gt;^yana .opus$&lt;/code&gt; = alkaa «yana» ja on «opus»-tiedosto$N&lt;code&gt;&quot;try unite&quot;&lt;/code&gt; = sisältää täsmälleen «try unite»$N$Npäivämäärän muoto on iso-8601, kuten$N&lt;code&gt;2009-12-31&lt;/code&gt; tai &lt;code&gt;2020-09-12 23:30:00&lt;/code&gt;",
@@ -3899,6 +3905,7 @@ var Ls = {
 		"gou": 'dossier parent">haut',
 		"gon": 'dossier suivant">suivant',
 		"logout": "Déconnexion ",
+		"login": "Se connecter", //m
 		"access": " accès",
 		"ot_close": "fermer le sous-menu",
 		"ot_search": "chercher des fichiers par leurs attributs, chemin / nom, tag musicaux, ou nimporte quelle combinaison de ces options$N$N&lt;code&gt;foo bar&lt;/code&gt; = doit contenir à la fois «foo» et «bar»,$N&lt;code&gt;foo -bar&lt;/code&gt; = doit contenir «foo» mais pas «bar»,$N&lt;code&gt;^yana .opus$&lt;/code&gt; = commence par «yana» et est un fichier «opus»$N&lt;code&gt;&quot;try unite&quot;&lt;/code&gt; = contient exactement «try unite»$N$Nle format de date est iso-8601, comme$N&lt;code&gt;2009-12-31&lt;/code&gt; ou &lt;code&gt;2020-09-12 23:30:00&lt;/code&gt;",
@@ -4529,6 +4536,7 @@ var Ls = {
 		"gou": 'γονικός φάκελος">πάνω',
 		"gon": 'επόμενος φάκελος">επόμενο',
 		"logout": "Αποσύνδεση ",
+		"login": "Σύνδεση", //m
 		"access": " πρόσβαση",
 		"ot_close": "κλείσιμο υπομενού",
 		"ot_search": "αναζήτηση αρχείων με βάση χαρακτηριστικά, διαδρομή / όνομα, μουσικά tags ή οποιονδήποτε συνδυασμό$N$N&lt;code&gt;foo bar&lt;/code&gt; = πρέπει να περιέχει και τα «foo» και «bar»,$N&lt;code&gt;foo -bar&lt;/code&gt; = πρέπει να περιέχει το «foo» αλλά όχι το «bar»,$N&lt;code&gt;^yana .opus$&lt;/code&gt; = να ξεκινά με «yana» και να είναι αρχείο «opus»$N&lt;code&gt;&quot;try unite&quot;&lt;/code&gt; = να περιέχει ακριβώς «try unite»$N$Nη μορφή ημερομηνίας είναι iso-8601, όπως$N&lt;code&gt;2009-12-31&lt;/code&gt; ή &lt;code&gt;2020-09-12 23:30:00&lt;/code&gt;",
@@ -5159,6 +5167,7 @@ var Ls = {
 		"gou": 'cartella genitore">su',
 		"gon": 'prossima cartella">succ',
 		"logout": "Logout ",
+		"login": "Accedi", //m
 		"access": " accesso",
 		"ot_close": "chiudi sottomenu",
 		"ot_search": "cerca file per attributi, percorso / nome, tag musicali, o qualsiasi combinazione di questi$N$N&lt;code&gt;foo bar&lt;/code&gt; = deve contenere sia «foo» che «bar»,$N&lt;code&gt;foo -bar&lt;/code&gt; = deve contenere «foo» ma non «bar»,$N&lt;code&gt;^yana .opus$&lt;/code&gt; = inizia con «yana» ed è un file «opus»$N&lt;code&gt;&quot;try unite&quot;&lt;/code&gt; = contiene esattamente «try unite»$N$Nil formato data è iso-8601, come$N&lt;code&gt;2009-12-31&lt;/code&gt; o &lt;code&gt;2020-09-12 23:30:00&lt;/code&gt;",
@@ -5789,6 +5798,7 @@ var Ls = {
 		"gou": '상위 폴더">위로',
 		"gon": '다음 폴더">다음',
 		"logout": "로그아웃 ",
+		"login": "로그인", //m
 		"access": " 액세스",
 		"ot_close": "하위 메뉴 닫기",
 		"ot_search": "속성, 경로/이름, 음악 태그 또는 이들의 조합으로 파일을 검색합니다.$N$N&lt;code&gt;foo bar&lt;/code&gt; = «foo»와 «bar»를 모두 포함해야 함,$N&lt;code&gt;foo -bar&lt;/code&gt; = «foo»는 포함하지만 «bar»는 포함하지 않아야 함,$N&lt;code&gt;^yana .opus$&lt;/code&gt; = «yana»로 시작하고 «opus» 파일이어야 함$N&lt;code&gt;&quot;try unite&quot;&lt;/code&gt; = 정확히 «try unite»를 포함해야 함$N$N날짜 형식은 ISO-8601입니다. 예:$N&lt;code&gt;2009-12-31&lt;/code&gt; 또는 &lt;code&gt;2020-09-12 23:30:00&lt;/code&gt;",
@@ -6419,6 +6429,7 @@ var Ls = {
 		"gou": 'Bovenligende map">Omhoog',
 		"gon": 'Volgende map">Volgende',
 		"logout": "Uitloggen ",
+		"login": "Inloggen", //m
 		"access": " Toegang",
 		"ot_close": "Sluit onder-menu",
 		"ot_search": "Zoek voor bestanden bij attributes, pad / naam, muziek tags, of elk andere combinatie tussen$N$N&lt;code&gt;foo bar&lt;/code&gt; = moet beide «foo» en «bar» bevatten,$N&lt;code&gt;foo -bar&lt;/code&gt; = moet «foo» bevatten maar geen «bar»,$N&lt;code&gt;^yana .opus$&lt;/code&gt; = start met «yana» en moet een «opus» bestand zijn$N&lt;code&gt;&quot;try unite&quot;&lt;/code&gt; = moet precies «try unite» bevatten$N$Nde datum formaat is iso-8601, zoals$N&lt;code&gt;2009-12-31&lt;/code&gt; of &lt;code&gt;2020-09-12 23:30:00&lt;/code&gt;",
@@ -7050,6 +7061,7 @@ var Ls = {
 		"gou": 'navigér eitt nivå opp">opp',
 		"gon": 'navigér åt mappa etter den her">neste',
 		"logout": "Logg ut ",
+		"login": "Logg inn",
 		"access": " åtgang",
 		"ot_close": "lukk reiskap",
 		"ot_search": "søk etter filer ved å angje filnamn, mappenamn, tid, storleik, eller metadata som songtittel / artist / osv.$N$N&lt;code&gt;foo bar&lt;/code&gt; = inneheld båe «foo» og «bar»,$N&lt;code&gt;foo -bar&lt;/code&gt; = innehold «foo» men ikkje «bar»,$N&lt;code&gt;^yana .opus$&lt;/code&gt; = startar med «yana», filtype «opus»$N&lt;code&gt;&quot;try unite&quot;&lt;/code&gt; = «try unite» eksakt$N$Ndatoformat er iso-8601, så f.eks.$N&lt;code&gt;2009-12-31&lt;/code&gt; eller &lt;code&gt;2020-09-12 23:30:00&lt;/code&gt;",
@@ -7679,6 +7691,7 @@ var Ls = {
 		"gou": 'nadrzędny folder">w górę',
 		"gon": 'następny folder">następny',
 		"logout": "Wyloguj ",
+		"login": "Zaloguj się", //m
 		"access": " dostęp",
 		"ot_close": "zamknij pod-menu",
 		"ot_search": "szukaj plików po atrybutach, ścieżce / nazwie, tagach muzyki, bądź dowolnej ich kombinacji$N$N&lt;code&gt;foo bar&lt;/code&gt; = musi zawierać «foo» oraz «bar»,$N&lt;code&gt;foo -bar&lt;/code&gt; = musi zawierać «foo», lecz nie «bar»,$N&lt;code&gt;^yana .opus$&lt;/code&gt; = musi zaczynać się od «yana» i być plikiem «opus»$N&lt;code&gt;&quot;try unite&quot;&lt;/code&gt; = zawierać dokładnie «try unite»$N$Nformatem daty jest iso-8601, czyli$N&lt;code&gt;2009-12-31&lt;/code&gt; lub &lt;code&gt;2020-09-12 23:30:00&lt;/code&gt;",
@@ -8307,6 +8320,7 @@ var Ls = {
 		"gou": 'pasta pai">acima',
 		"gon": 'próxima pasta">próximo',
 		"logout": "Sair ",
+		"login": "Fazer login",
 		"access": " acesso",
 		"ot_close": "fechar submenu",
 		"ot_search": "procurar arquivos por atributos, caminho / nome, tags de música ou qualquer combinação deles$N$N&lt;code&gt;foo bar&lt;/code&gt; = deve conter ambos «foo» e «bar»,$N&lt;code&gt;foo -bar&lt;/code&gt; = deve conter «foo» mas não «bar»,$N&lt;code&gt;^yana .opus$&lt;/code&gt; = começar com «yana» e ser um arquivo «opus»$N&lt;code&gt;&quot;try unite&quot;&lt;/code&gt; = conter exatamente «try unite»$N$No formato de data é iso-8601, como$N&lt;code&gt;2009-12-31&lt;/code&gt; ou &lt;code&gt;2020-09-12 23:30:00&lt;/code&gt;",
@@ -8937,6 +8951,7 @@ var Ls = {
 		"gou": 'родительская папка">вверх',
 		"gon": 'следующая папка">след',
 		"logout": "Выйти ",
+		"login": "Войти", //m
 		"access": " доступ",
 		"ot_close": "закрыть подменю",
 		"ot_search": "искать файлы по атрибутам, пути / имени, музыкальным тегам или любой другой комбинации из следующих конструкций$N$N&lt;code&gt;foo bar&lt;/code&gt; = обязано содержать «foo» И «bar»,$N&lt;code&gt;foo -bar&lt;/code&gt; = обязано содержать «foo», но не «bar»,$N&lt;code&gt;^yana .opus$&lt;/code&gt; = начинается с «yana» и имеет расширение «opus»$N&lt;code&gt;&quot;try unite&quot;&lt;/code&gt; = содержит именно «try unite»$N$Nформат времени задаётся по стандарту iso-8601, например$N&lt;code&gt;2009-12-31&lt;/code&gt; или &lt;code&gt;2020-09-12 23:30:00&lt;/code&gt;",
@@ -9567,6 +9582,7 @@ var Ls = {
 		"gou": 'carpeta de nivel superior">subir',
 		"gon": 'siguiente carpeta">siguiente',
 		"logout": "Cerrar sesión ",
+		"login": "Iniciar sesión", //m
 		"access": " acceso",
 		"ot_close": "cerrar submenú",
 		"ot_search": "buscar archivos por atributos, ruta / nombre, etiquetas de música, o cualquier combinación$N$N&lt;code&gt;foo bar&lt;/code&gt; = debe contener «foo» y «bar»,$N&lt;code&gt;foo -bar&lt;/code&gt; = debe contener «foo» pero no «bar»,$N&lt;code&gt;^yana .opus$&lt;/code&gt; = empieza con «yana» y es un archivo «opus»$N&lt;code&gt;&quot;try unite&quot;&lt;/code&gt; = contiene exactamente «try unite»$N$Nel formato de fecha es iso-8601, como$N&lt;code&gt;2009-12-31&lt;/code&gt; o &lt;code&gt;2020-09-12 23:30:00&lt;/code&gt;",
@@ -10196,6 +10212,7 @@ var Ls = {
 		"gou": 'överordnad mapp">upp',
 		"gon": 'nästa mapp">nästa',
 		"logout": "Logga ut ",
+		"login": "Logga in", //m
 		"access": "-rättighet",
 		"ot_close": "stäng undermeny",
 		"ot_search": "sök efter filer via attribut, sökväg / namn, musiktaggar, eller någon kombination av dessa$N$N&lt;code&gt;foo bar&lt;/code&gt; = måste innehålla både «foo» och «bar»,$N&lt;code&gt;foo -bar&lt;/code&gt; = måste innehålla «foo» men inte «bar»,$N&lt;code&gt;^yana .opus$&lt;/code&gt; = måste börja med «yana» och vara en «opus»-fil$N&lt;code&gt;&quot;try unite&quot;&lt;/code&gt; = måste innehålla exakt «try unite»$N$Ndatumformatet är iso-8601, t.ex.$N&lt;code&gt;2009-12-31&lt;/code&gt; eller &lt;code&gt;2020-09-12 23:30:00&lt;/code&gt;",
@@ -10826,6 +10843,7 @@ var Ls = {
 		"gou": 'батьківська папка">вгору',
 		"gon": 'наступна папка">далі',
 		"logout": "Вийти ",
+		"login": "увійти", //m
 		"access": " доступ",
 		"ot_close": "закрити підменю",
 		"ot_search": "пошук файлів за атрибутами, шляхом / іменем, музичними тегами, або будь-якою комбінацією$N$N&lt;code&gt;foo bar&lt;/code&gt; = має містити «foo» і «bar»,$N&lt;code&gt;foo -bar&lt;/code&gt; = має містити «foo», але не «bar»,$N&lt;code&gt;^yana .opus$&lt;/code&gt; = починатися з «yana» і бути файлом «opus»$N&lt;code&gt;&quot;try unite&quot;&lt;/code&gt; = містити точно «try unite»$N$Nформат дати - iso-8601, наприклад$N&lt;code&gt;2009-12-31&lt;/code&gt; або &lt;code&gt;2020-09-12 23:30:00&lt;/code&gt;",
@@ -18289,10 +18307,14 @@ function apply_perms(res) {
 		axs += '-Only';
 	}
 
+	var dst = "?h";
+	if (idp_login && acct == "*")
+		dst = idp_login.replace(/\{dst\}/g, get_evpath());
+
 	ebi('acc_info').innerHTML = '<span id="srv_info2"><span>' + srvinf +
 		'</span></span><span' + aclass + axs + L.access + '</span>' + (acct != '*' ?
-			'<form id="flogout" method="post" enctype="multipart/form-data"><input type="hidden" name="act" value="logout" /><input id="blogout" type="submit" value="' + (window.is_idp ? '' : L.logout) + acct + '"></form>' :
-			'<a href="?h">Login</a>');
+			'<form id="flogout" method="post" enctype="multipart/form-data"><input type="hidden" name="act" value="logout" /><input id="blogout" type="submit" value="' + L.logout + acct + '"></form>' :
+			'<a href="' + dst + '">' + L.login + '</a>');
 
 	var o = QSA('#ops>a[data-perm]');
 	for (var a = 0; a < o.length; a++) {

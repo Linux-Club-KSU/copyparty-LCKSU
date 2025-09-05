@@ -1942,6 +1942,10 @@ you can disable the built-in password-based login system, and instead replace it
 
 * the regular config-defined users will be used as a fallback for requests which don't include a valid (trusted) IdP username header
 
+  * `--auth-ord` configured auth precedence, for example to allow overriding the IdP with a copyparty password
+
+* the login/logout links/buttons can be replaced with links to your IdP with `--idp-login` and `--idp-logout` , for example `--idp-login /idp/login/?redir={dst}` will expand `{dst}` to the page the user was on when clicking Login
+
 * if your IdP-server is slow, consider `--idp-cookie` and let requests with the cookie `cppws` bypass the IdP; experimental sessions-based feature added for a party
 
 some popular identity providers are [Authelia](https://www.authelia.com/) (config-file based) and [authentik](https://goauthentik.io/) (GUI-based, more complex)

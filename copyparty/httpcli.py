@@ -690,7 +690,7 @@ class HttpCli(object):
                 if idp_usr in self.asrv.vfs.aread:
                     self.pw = ""
                     self.uname = idp_usr
-                    if self.args.ao_have_pw:
+                    if self.args.ao_have_pw or self.args.idp_logout:
                         self.html_head += "<script>var is_idp=1</script>\n"
                     else:
                         self.html_head += "<script>var is_idp=2</script>\n"
@@ -3051,7 +3051,7 @@ class HttpCli(object):
             self.asrv.forget_session(self.conn.hsrv.broker, self.uname)
         self.get_pwd_cookie("x")
 
-        dst = self.args.SRS + "?h"
+        dst = self.args.idp_logout or (self.args.SRS + "?h")
         h2 = '<a href="' + dst + '">continue</a>'
         html = self.j2s("msg", h1="ok bye", h2=h2, redir=dst)
         self.reply(html.encode("utf-8"))

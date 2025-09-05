@@ -814,6 +814,8 @@ if (window.langmod)
 var d = Ls[sread("cpp_lang", Object.keys(Ls)) || lang] ||
 			Ls.eng || Ls.nor || Ls.chi;
 
+d.wb = d.w;
+
 for (var k in (d || {})) {
 	var f = k.slice(-1),
 		i = k.slice(0, -1),
@@ -844,14 +846,16 @@ catch (ex) { }
 
 tt.init();
 var o = QS('input[name="uname"]') || QS('input[name="cppwd"]');
-if (!MOBILE && !ebi('c') && o.offsetTop + o.offsetHeight < window.innerHeight)
+if (o && !MOBILE && !ebi('c') && o.offsetTop + o.offsetHeight < window.innerHeight)
 	o.focus();
 
 o = ebi('u');
 if (o && /[0-9]+$/.exec(o.innerHTML))
 	o.innerHTML = shumantime(o.innerHTML);
 
-ebi('uhash').value = '' + location.hash;
+o = ebi('uhash')
+if (o)
+	o.value = '' + location.hash;
 
 if (/\&re=/.test('' + location))
 	ebi('a').className = 'af g';

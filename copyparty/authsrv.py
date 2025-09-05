@@ -2808,6 +2808,7 @@ class AuthSrv(object):
             js_htm = {
                 "SPINNER": self.args.spinner,
                 "s_name": self.args.bname,
+                "idp_login": self.args.idp_login,
                 "have_up2k_idx": "e2d" in vf,
                 "have_acode": not self.args.no_acode,
                 "have_c2flac": self.args.allow_flac,
@@ -2879,7 +2880,7 @@ class AuthSrv(object):
         self.args.ao_idp_before_pw = min(h, hm) < pw
         self.args.ao_h_before_hm = h < hm
         self.args.ao_ipu_wins = ipu == 0
-        self.args.ao_have_pw = pw < 99
+        self.args.ao_have_pw = pw < 99 or not self.args.have_idp_hdrs
 
     def load_idp_db(self, quiet=False) -> None:
         # mutex me
