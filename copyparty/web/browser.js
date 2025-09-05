@@ -14343,6 +14343,7 @@ function fmt_ren(re, md, fmt) {
 
 function fs_abrt() {
 	toast.inf(30, L.fp_abrt);
+	fileman.sn++;
 	fileman.f.length = 0;
 	var xhr = new XHR();
 	xhr.open('POST', '/?fs_abrt=' + abrt_key, true);
@@ -14361,6 +14362,7 @@ var fileman = (function () {
 		r = {};
 
 	r.f = [];
+	r.sn = 1;
 	r.clip = null;
 	try {
 		r.bus = new BroadcastChannel("fileman_bus");
@@ -14645,6 +14647,7 @@ var fileman = (function () {
 			return toast.err(3, L.fr_eperm);
 
 		var f = [],
+			sn = ++r.sn,
 			base = vsplit(sel[0].vp)[0],
 			mkeys;
 
@@ -14940,6 +14943,8 @@ var fileman = (function () {
 					toast.err(9, L.fr_efail + msg);
 					return;
 				}
+				if (r.sn != sn)
+					return modal.confirm('WARNING: the rename was aborted');
 
 				f.shift().inew.value = '( OK )';
 				return rn_apply_loop();
@@ -14956,6 +14961,7 @@ var fileman = (function () {
 
 	r.delete = function (e) {
 		var sel = msel.getsel(),
+			sn = ++r.sn,
 			vps = [];
 
 		for (var a = 0; a < sel.length; a++)
@@ -14992,6 +14998,9 @@ var fileman = (function () {
 				toast.err(9, L.fd_err + msg);
 				return;
 			}
+			if (r.sn != sn)
+				return modal.confirm('WARNING: the delete was aborted');
+
 			if (this.responseText.indexOf('deleted 0 files (and 0') + 1) {
 				toast.err(9, L.fd_none);
 				return deleter('xbd');
@@ -15204,6 +15213,7 @@ var fileman = (function () {
 				'<div><table id="rn_f" class="m">',
 				'<tr><td>' + L.fr_lnew + '</td><td>' + L.fr_lold + '</td></tr>',
 			],
+			sn = ++r.sn,
 			ui = false,
 			f = [],
 			indir = [],
@@ -15263,6 +15273,9 @@ var fileman = (function () {
 				toast.err(9, (r.ccp ? L.fcp_err : L.fp_err) + msg);
 				return;
 			}
+			if (r.sn != sn)
+				return modal.confirm('WARNING: the paste was aborted');
+
 			paster();
 		}
 		function okgo() {
