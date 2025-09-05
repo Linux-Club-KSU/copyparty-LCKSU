@@ -1695,7 +1695,7 @@ class Up2k(object):
 
                 t = "reindex %r => %r mtime(%s/%s) size(%s/%s)"
                 self.log(t % (top, rp, dts, lmod, dsz, sz))
-                self.db_rm(db.c, rd, fn, 0)
+                self.db_rm(db.c, e_d, rd, fn, 0)
                 tfa += 1
                 db.n += 1
                 in_db = []
@@ -1792,7 +1792,7 @@ class Up2k(object):
         rm_files = [x for x in hits if x not in seen_files]
         n_rm = len(rm_files)
         for fn in rm_files:
-            self.db_rm(db.c, rd, fn, 0)
+            self.db_rm(db.c, e_d, rd, fn, 0)
 
         if n_rm:
             self.log("forgot {} deleted files".format(n_rm))
@@ -3143,7 +3143,7 @@ class Up2k(object):
                 for cur, dp_dir, dp_fn in lost:
                     t = "forgetting desynced db entry: %r"
                     self.log(t % ("/" + vjoin(vjoin(vfs.vpath, dp_dir), dp_fn)))
-                    self.db_rm(cur, dp_dir, dp_fn, cj["size"])
+                    self.db_rm(cur, vfs.flags, dp_dir, dp_fn, cj["size"])
                     if c2 and c2 != cur:
                         c2.connection.commit()
 
@@ -3473,7 +3473,7 @@ class Up2k(object):
                 vrel = vjoin(job["prel"], fname)
                 xlink = bool(vf.get("xlink"))
                 cur, wark, _, _, _, _, _ = self._find_from_vpath(ptop, vrel)
-                self._forget_file(ptop, vrel, cur, wark, True, st.st_size, xlink)
+                self._forget_file(ptop, vrel, vf, cur, wark, True, st.st_size, xlink)
             except Exception as ex:
                 self.log("skipping replace-relink: %r" % (ex,))
             finally:
@@ -3887,7 +3887,9 @@ class Up2k(object):
 
         return True
 
-    def db_rm(self, db: "sqlite3.Cursor", rd: str, fn: str, sz: int) -> None:
+    def db_rm(
+        self, db: "sqlite3.Cursor", vflags: dict[str, Any], rd: str, fn: str, sz: int
+    ) -> None:
         sql = "delete from up where rd = ? and fn = ?"
         try:
             r = db.execute(sql, (rd, fn))
@@ -3895,9 +3897,22 @@ class Up2k(object):
             assert self.mem_cur  # !rm
             r = db.execute(sql, s3enc(self.mem_cur, rd, fn))
 
-        if r.rowcount:
-            self.volsize[db] -= sz
-            self.volnfiles[db] -= 1
+        if not r.rowcount:
+            return
+
+        self.volsize[db] -= sz
+        self.volnfiles[db] -= 1
+
+        if "nodirsz" not in vflags:
+            try:
+                q = "update ds set nf=nf-1, sz=sz-? where rd=?"
+                while True:
+                    db.execute(q, (sz, rd))
+                    if not rd:
+                        break
+                    rd = rd.rsplit("/", 1)[0] if "/" in rd else ""
+            except:
+                pass
 
     def db_add(
         self,
@@ -3918,7 +3933,7 @@ class Up2k(object):
         skip_xau: bool = False,
     ) -> None:
         """mutex(main) me"""
-        self.db_rm(db, rd, fn, sz)
+        self.db_rm(db, vflags, rd, fn, sz)
 
         if not ip:
             db_ip = ""
@@ -4201,7 +4216,7 @@ class Up2k(object):
                         xlink = bool(dbv.flags.get("xlink"))
                         cur, wark, _, _, _, _, _ = self._find_from_vpath(ptop, volpath)
                         self._forget_file(
-                            ptop, volpath, cur, wark, True, st.st_size, xlink
+                            ptop, volpath, dbv.flags, cur, wark, True, st.st_size, xlink
                         )
                     finally:
                         if cur:
@@ -4659,7 +4674,14 @@ class Up2k(object):
 
             with self.reg_mutex:
                 has_dupes = self._forget_file(
-                    svn.realpath, srem, c1, w, is_xvol, fsize_ or fsize, xlink
+                    svn.realpath,
+                    srem,
+                    svn.flags,
+                    c1,
+                    w,
+                    is_xvol,
+                    fsize_ or fsize,
+                    xlink,
                 )
 
             if not is_xvol:
@@ -4804,6 +4826,7 @@ class Up2k(object):
         self,
         ptop: str,
         vrem: str,
+        vflags: dict[str, Any],
         cur: Optional["sqlite3.Cursor"],
         wark: Optional[str],
         drop_tags: bool,
@@ -4828,7 +4851,7 @@ class Up2k(object):
                 q = "delete from mt where w=?"
                 cur.execute(q, (wark[:16],))
 
-            self.db_rm(cur, srd, sfn, sz)
+            self.db_rm(cur, vflags, srd, sfn, sz)
 
         reg = self.registry.get(ptop)
         if reg:
