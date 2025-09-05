@@ -3064,6 +3064,11 @@ class HttpCli(object):
             uname = self.asrv.iacct.get(hpwd)
             if uname:
                 pwd = self.asrv.ases.get(uname) or pwd
+        if uname and self.conn.hsrv.ipr:
+            znm = self.conn.hsrv.ipr.get(uname)
+            if znm and not znm.map(self.ip):
+                self.log("username [%s] rejected by --ipr" % (self.uname,), 3)
+                uname = ""
         if uname:
             msg = "hi " + uname
             dur = int(60 * 60 * self.args.logout)
