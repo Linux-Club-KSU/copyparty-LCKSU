@@ -6,8 +6,8 @@ __copyright__ = 2019
 __license__ = "MIT"
 __url__ = "https://github.com/9001/copyparty/"
 
-S_VERSION = "2.0"
-S_BUILD_DT = "2024-10-01"
+S_VERSION = "2.1"
+S_BUILD_DT = "2025-09-06"
 
 """
 mount a copyparty server (local or remote) as a filesystem
@@ -99,7 +99,7 @@ except:
     elif MACOS:
         libfuse = "install https://osxfuse.github.io/"
     else:
-        libfuse = "apt install libfuse3-3\n    modprobe fuse"
+        libfuse = "apt install libfuse2\n    modprobe fuse"
 
     m = """\033[33m
   could not import fuse; these may help:
