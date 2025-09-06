@@ -902,9 +902,7 @@ class CPPF(Operations):
         return ret
 
     def _readdir(self, path, fh=None):
-        path = path.strip("/")
-        dbg("readdir %r [%s]", path, fh)
-
+        dbg("dircache miss")
         ret = self.gw.listdir(path)
         if not self.n_dircache:
             return ret
@@ -914,11 +912,17 @@ class CPPF(Operations):
             self.dircache.append(cn)
             self.clean_dircache()
 
-        # import pprint; pprint.pprint(ret)
         return ret
 
     def readdir(self, path, fh=None):
-        return [".", ".."] + list(self._readdir(path, fh))
+        dbg("readdir %r [%s]", path, fh)
+        path = path.strip("/")
+        cn = self.get_cached_dir(path)
+        if cn:
+            ret = cn.data
+        else:
+            ret = self._readdir(path, fh)
+        return [".", ".."] + list(ret)
 
     def read(self, path, length, offset, fh=None):
         req_max = 1024 * 1024 * 8
@@ -993,7 +997,6 @@ class CPPF(Operations):
         if cn:
             dents = cn.data
         else:
-            dbg("cache miss")
             dents = self._readdir(dirpath)
 
         try:
