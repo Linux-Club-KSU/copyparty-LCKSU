@@ -359,7 +359,7 @@ class Gateway(object):
     def sendreq(self, meth, path, headers, **kwargs):
         tid = get_tid()
         if self.password:
-            headers["Cookie"] = "=".join(["cppwd", self.password])
+            headers["PW"] = self.password
 
         try:
             c = self.getconn(tid)
@@ -1141,10 +1141,15 @@ def main():
     if WINDOWS:
         examples.append("http://192.168.1.69:3923/music/  M:")
 
+    epi = "example:" + ex_pre + ex_pre.join(examples)
+    epi += """\n
+NOTE: if server has --usernames enabled, then password is "username:password"
+"""
+
     ap = argparse.ArgumentParser(
         formatter_class=TheArgparseFormatter,
         description="mount a copyparty server as a local filesystem -- " + ver,
-        epilog="example:" + ex_pre + ex_pre.join(examples),
+        epilog=epi,
     )
     # fmt: off
     ap.add_argument("base_url", type=str, help="remote copyparty URL to mount")
