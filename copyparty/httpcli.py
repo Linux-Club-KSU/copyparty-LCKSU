@@ -5024,10 +5024,20 @@ class HttpCli(object):
         else:
             rip = host
 
+        defpw = "dave:hunter2" if self.args.usernames else "hunter2"
+
         vp = (self.uparam["hc"] or "").lstrip("/")
-        pw = self.ouparam.get("pw") or "hunter2"
+        pw = self.ouparam.get("pw") or defpw
         if pw in self.asrv.sesa:
-            pw = "hunter2"
+            pw = defpw
+
+        unpw = pw
+        try:
+            un, pw = unpw.split(":")
+        except:
+            un = ""
+            if self.args.usernames:
+                un = "dave"
 
         html = self.j2s(
             "svcs",
@@ -5041,7 +5051,10 @@ class HttpCli(object):
             host=html_sh_esc(host),
             hport=html_sh_esc(hport),
             aname=aname,
+            b_un=("<b>%s</b>" % (html_sh_esc(un),)) if un else "k",
+            un=html_sh_esc(un),
             pw=html_sh_esc(pw),
+            unpw=html_sh_esc(unpw),
         )
         self.reply(html.encode("utf-8"))
         return True
