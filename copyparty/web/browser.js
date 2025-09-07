@@ -11807,6 +11807,7 @@ var ACtx = !IPHONE && (window.AudioContext || window.webkitAudioContext),
 	noih = /[?&]v\b/.exec(sloc0),
 	dbg_kbd = /[?&]dbgkbd\b/.exec(sloc0),
 	abrt_key = "",
+	can_shr = false,
 	rtt = null,
 	ldks = [],
 	dks = {},
@@ -14396,7 +14397,7 @@ var fileman = (function () {
 			hdel = !(have_del && has(perms, 'delete')),
 			hcut = !(have_mv && has(perms, 'move')),
 			hpst = !(have_mv && has(perms, 'write')),
-			hshr = !(have_shr && acct != '*' && (has(perms, 'read') || has(perms, 'write')));
+			hshr = !can_shr;
 
 		if (!(enren || endel || encut || enpst))
 			hren = hdel = hcut = hpst = true;
@@ -17887,7 +17888,7 @@ var treectl = (function () {
 			fun();
 		}
 
-		if (window.have_shr && QS('#op_unpost.act') && (cdir.startsWith(SR + have_shr) || get_evpath().startsWith(SR + have_shr)))
+		if (can_shr && QS('#op_unpost.act') && (cdir.startsWith(SR + have_shr) || get_evpath().startsWith(SR + have_shr)))
 			goto('unpost');
 	}
 
@@ -18299,9 +18300,10 @@ function apply_perms(res) {
 	if (konmai < 0) {
 		acct = 'Ted Faro';
 		srvinf = 'FAS Nexus</span> // <span>57.3 EiB free of 127 EiB';
+		res.shr_who = 'auth';
 		perms = res.perms = chk;
 		have_up2k_idx = have_tags_idx = 1;
-		have_shr = have_mv = have_del = true;
+		have_mv = have_del = true;
 	}
 
 	var a = QS('#ops a[data-dest="up2k"]');
@@ -18365,6 +18367,11 @@ function apply_perms(res) {
 		have_read = has(perms, "read"),
 		de = document.documentElement,
 		tds = QSA('#u2conf td');
+
+	shr_who = res.shr_who || shr_who;
+	can_shr = acct != '*' && (have_read || have_write) && (
+		(shr_who == 'a' && has(perms, 'admin')) ||
+		(shr_who == 'auth'));
 
 	clmod(de, "read", have_read);
 	clmod(de, "write", have_write);

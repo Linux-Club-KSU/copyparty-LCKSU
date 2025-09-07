@@ -208,6 +208,7 @@ class Cfg(Namespace):
             rm_retry="0/0",
             s_rd_sz=256 * 1024,
             s_wr_sz=256 * 1024,
+            shr_who="auth",
             sort="href",
             srch_hits=99999,
             SRS="/",

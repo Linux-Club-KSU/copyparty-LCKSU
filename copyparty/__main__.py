@@ -1193,6 +1193,7 @@ def add_share(ap):
     ap2 = ap.add_argument_group("share-url options")
     ap2.add_argument("--shr", metavar="DIR", type=u, default="", help="toplevel virtual folder for shared files/folders, for example [\033[32m/share\033[0m]")
     ap2.add_argument("--shr-db", metavar="FILE", type=u, default=db_path, help="database to store shares in")
+    ap2.add_argument("--shr-who", metavar="TXT", type=u, default="auth", help="who can create a share? [\033[32mno\033[0m]=nobody, [\033[32ma\033[0m]=admin-permission, [\033[32mauth\033[0m]=authenticated (volflag=shr_who)")
     ap2.add_argument("--shr-adm", metavar="U,U", type=u, default="", help="comma-separated list of users allowed to view/delete any share")
     ap2.add_argument("--shr-rt", metavar="MIN", type=int, default=1440, help="shares can be revived by their owner if they expired less than MIN minutes ago; [\033[32m60\033[0m]=hour, [\033[32m1440\033[0m]=day, [\033[32m10080\033[0m]=week")
     ap2.add_argument("--shr-v", action="store_true", help="debug")

@@ -5955,6 +5955,14 @@ class HttpCli(object):
         except:
             raise Pebkac(400, "you dont have all the perms you tried to grant")
 
+        zs = vfs.flags["shr_who"]
+        if zs == "auth" and self.uname != "*":
+            pass
+        elif zs == "a" and self.uname in vfs.axs.uadmin:
+            pass
+        else:
+            raise Pebkac(400, "you dont have perms to create shares from this volume")
+
         ap, reals, _ = vfs.ls(
             rem, self.uname, not self.args.no_scandir, [[s_rd, s_wr, s_mv, s_del]]
         )

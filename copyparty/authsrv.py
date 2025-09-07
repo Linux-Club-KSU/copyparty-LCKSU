@@ -976,6 +976,14 @@ class AuthSrv(object):
         self.indent = ""
         self.is_lxc = args.c == ["/z/initcfg"]
 
+        self._vf0b = {
+            "tcolor": self.args.tcolor,
+            "du_iwho": self.args.du_iwho,
+            "shr_who": self.args.shr_who if self.args.shr else "no",
+        }
+        self._vf0 = self._vf0b.copy()
+        self._vf0["d2d"] = True
+
         # fwd-decl
         self.vfs = VFS(log_func, "", "", "", AXS(), {})
         self.acct: dict[str, str] = {}  # uname->pw
@@ -1014,10 +1022,10 @@ class AuthSrv(object):
         yield prev, True
 
     def vf0(self):
-        return {"d2d": True, "tcolor": self.args.tcolor, "du_iwho": self.args.du_iwho}
+        return self._vf0.copy()
 
     def vf0b(self):
-        return {"tcolor": self.args.tcolor, "du_iwho": self.args.du_iwho}
+        return self._vf0b.copy()
 
     def idp_checkin(
         self, broker: Optional["BrokerCli"], uname: str, gname: str
@@ -2298,6 +2306,9 @@ class AuthSrv(object):
 
             vol.flags["du_iwho"] = n_du_who(vol.flags["du_who"])
 
+            if not enshare:
+                vol.flags["shr_who"] = "no"
+
             if vol.flags.get("og"):
                 self.args.uqe = True
 
@@ -2804,6 +2815,7 @@ class AuthSrv(object):
                 "dcrop": vf["crop"],
                 "dth3x": vf["th3x"],
                 "u2ts": vf["u2ts"],
+                "shr_who": vf["shr_who"],
                 "frand": bool(vf.get("rand")),
                 "lifetime": vf.get("lifetime") or 0,
                 "unlist": vf.get("unlist") or "",
@@ -2818,6 +2830,7 @@ class AuthSrv(object):
                 "have_c2flac": self.args.allow_flac,
                 "have_c2wav": self.args.allow_wav,
                 "have_shr": self.args.shr,
+                "shr_who": vf["shr_who"],
                 "have_zip": not self.args.no_zip,
                 "have_mv": not self.args.no_mv,
                 "have_del": not self.args.no_del,
