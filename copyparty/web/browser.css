@@ -3496,7 +3496,6 @@ html.ez {
 html.e {
   text-shadow: none;
 }
-
 html.e #files,
 html.e #u2conf input[type="checkbox"]:hover + label,
 html.e .tgl.btn.on:hover,
@@ -3595,6 +3594,10 @@ html.e #ops,
 html.e #srv_info {
   display: flex;
   align-items: center;
+}
+html.e #acc_info span.warn,
+html.e #acc_info a {
+  color: var(--white);
 }
 html.e #flogout:before {
   padding-left: 0.2em;
