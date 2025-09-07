@@ -6224,16 +6224,13 @@ class HttpCli(object):
         add_og = "og" in vn.flags
         if add_og:
             if "th" in self.uparam or "raw" in self.uparam:
-                og_ua = add_og = False
+                add_og = False
             elif vn.flags["og_ua"]:
-                og_ua = add_og = vn.flags["og_ua"].search(self.ua)
-            else:
-                og_ua = False
-                add_og = True
+                add_og = vn.flags["og_ua"].search(self.ua)
             og_fn = ""
 
         if "v" in self.uparam:
-            add_og = og_ua = True
+            add_og = True
 
         if "b" in self.uparam:
             self.out_headers["X-Robots-Tag"] = "noindex, nofollow"
@@ -6354,7 +6351,7 @@ class HttpCli(object):
 
             is_md = abspath.lower().endswith(".md")
             if add_og and not is_md:
-                if og_ua or self.host not in self.headers.get("referer", ""):
+                if self.host not in self.headers.get("referer", ""):
                     self.vpath, og_fn = vsplit(self.vpath)
                     vpath = self.vpath
                     vn, rem = self.asrv.vfs.get(self.vpath, self.uname, False, False)
