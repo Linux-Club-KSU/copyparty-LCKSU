@@ -6225,8 +6225,8 @@ class HttpCli(object):
         if add_og:
             if "th" in self.uparam or "raw" in self.uparam:
                 og_ua = add_og = False
-            elif self.args.og_ua:
-                og_ua = add_og = self.args.og_ua.search(self.ua)
+            elif vn.flags["og_ua"]:
+                og_ua = add_og = vn.flags["og_ua"].search(self.ua)
             else:
                 og_ua = False
                 add_og = True
