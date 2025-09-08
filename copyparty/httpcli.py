@@ -3419,8 +3419,6 @@ class HttpCli(object):
                         sz, sha_hex, sha_b64 = copier(
                             p_data, f, hasher, max_sz, self.args.s_wr_slp
                         )
-                        if sz == 0:
-                            raise Pebkac(400, "empty files in post")
                     finally:
                         f.close()
 
