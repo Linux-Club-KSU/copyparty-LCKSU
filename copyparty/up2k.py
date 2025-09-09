@@ -60,6 +60,7 @@ from .util import (
     sfsenc,
     spack,
     statdir,
+    trystat_shutil_copy2,
     ub64enc,
     unhumanize,
     vjoin,
@@ -2768,7 +2769,7 @@ class Up2k(object):
         cur.close()
         db.close()
 
-        shutil.copy2(fsenc(db_path), fsenc(bak))
+        trystat_shutil_copy2(self.log, fsenc(db_path), fsenc(bak))
         return self._orz(db_path)
 
     def _read_ver(self, cur: "sqlite3.Cursor") -> Optional[int]:
@@ -3591,7 +3592,7 @@ class Up2k(object):
                 t = "BUG: no valid sources to link from! orig(%r) fsrc(%r) link(%r)"
                 self.log(t, 1)
                 raise Exception(t % (src, fsrc, dst))
-            shutil.copy2(fsenc(csrc), fsenc(dst))
+            trystat_shutil_copy2(self.log, fsenc(csrc), fsenc(dst))
 
         if lmod and (not linked or SYMTIME):
             bos.utime_c(self.log, dst, int(lmod), False)
@@ -4427,7 +4428,7 @@ class Up2k(object):
             b1, b2 = fsenc(sabs), fsenc(dabs)
             is_link = os.path.islink(b1)  # due to _relink
             try:
-                shutil.copy2(b1, b2)
+                trystat_shutil_copy2(self.log, b1, b2)
             except:
                 try:
                     wunlink(self.log, dabs, dvn.flags)
@@ -4733,7 +4734,7 @@ class Up2k(object):
             b1, b2 = fsenc(sabs), fsenc(dabs)
             is_link = os.path.islink(b1)  # due to _relink
             try:
-                shutil.copy2(b1, b2)
+                trystat_shutil_copy2(self.log, b1, b2)
             except:
                 try:
                     wunlink(self.log, dabs, dvn.flags)

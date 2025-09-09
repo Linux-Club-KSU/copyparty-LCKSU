@@ -2639,6 +2639,24 @@ def set_fperms(f: Union[typing.BinaryIO, typing.IO[Any]], vf: dict[str, Any]) ->
         os.fchown(fno, vf["uid"], vf["gid"])
 
 
+def trystat_shutil_copy2(log: "NamedLogger", src: bytes, dst: bytes) -> bytes:
+    try:
+        return shutil.copy2(src, dst)
+    except:
+        # ignore failed mtime on linux+ntfs; for example:
+        # shutil.py:437 <copy2>: copystat(src, dst, follow_symlinks=follow_symlinks)
+        # shutil.py:376 <copystat>: lookup("utime")(dst, ns=(st.st_atime_ns, st.st_mtime_ns),
+        # [PermissionError] [Errno 1] Operation not permitted, '/windows/_videos'
+        _, _, tb = sys.exc_info()
+        for _, _, fun, _ in traceback.extract_tb(tb):
+            if fun == "copystat":
+                if log:
+                    t = "warning: failed to retain some file attributes (timestamp and/or permissions) during copy from %r to %r:\n%s"
+                    log(t % (src, dst, min_ex()), 3)
+                return dst  # close enough
+        raise
+
+
 def _fs_mvrm(
     log: "NamedLogger", src: str, dst: str, atomic: bool, flags: dict[str, Any]
 ) -> bool:
