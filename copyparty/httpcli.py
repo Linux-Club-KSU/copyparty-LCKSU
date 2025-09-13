@@ -6229,6 +6229,7 @@ class HttpCli(object):
 
         if "v" in self.uparam:
             add_og = True
+            og_fn = ""
 
         if "b" in self.uparam:
             self.out_headers["X-Robots-Tag"] = "noindex, nofollow"
