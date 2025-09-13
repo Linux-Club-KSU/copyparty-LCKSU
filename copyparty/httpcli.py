@@ -4911,8 +4911,8 @@ class HttpCli(object):
             else:
                 fullfile = b""
 
-            if not sz_md and b"\n" in buf[:2]:
-                lead = buf[: buf.find(b"\n") + 1]
+            if not sz_md and buf.startswith((b"\n", b"\r\n")):
+                lead = b"\n" if buf.startswith(b"\n") else b"\r\n"
                 sz_md += len(lead)
 
             sz_md += len(buf)
