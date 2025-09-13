@@ -1738,7 +1738,7 @@ def add_og(ap):
     ap2.add_argument("--uqe", action="store_true", help="query-string parceling; translate a request for \033[33m/foo/.uqe/BASE64\033[0m into \033[33m/foo?TEXT\033[0m, or \033[33m/foo/?TEXT\033[0m if the first character in \033[33mTEXT\033[0m is a slash. Automatically enabled for \033[33m--og\033[0m")
 
 
-def add_ui(ap, retry):
+def add_ui(ap, retry: int):
     THEMES = 10
     ap2 = ap.add_argument_group("ui options")
     ap2.add_argument("--grid", action="store_true", help="show grid/thumbnails by default (volflag=grid)")
@@ -1813,7 +1813,7 @@ def add_debug(ap):
 
 
 def run_argparse(
-    argv: list[str], formatter: Any, retry: bool, nc: int, verbose=True
+    argv: list[str], formatter: Any, retry: int, nc: int, verbose=True
 ) -> argparse.Namespace:
     ap = argparse.ArgumentParser(
         formatter_class=formatter,
@@ -1880,18 +1880,21 @@ def run_argparse(
     for k, h, _ in sects:
         ap2.add_argument("--help-" + k, action="store_true", help=h)
 
-    try:
-        if not retry:
-            raise Exception()
-
+    if retry:
+        a = ["ascii", "replace"]
         for x in ap._actions:
-            if not x.help:
-                continue
+            try:
+                x.default = x.default.encode(*a).decode(*a)
+            except:
+                pass
 
-            a = ["ascii", "replace"]
-            x.help = x.help.encode(*a).decode(*a) + "\033[0m"
-    except:
-        pass
+            try:
+                if x.help and x.help is not argparse.SUPPRESS:
+                    x.help = x.help.replace("└─", "`-").encode(*a).decode(*a)
+                    if retry > 2:
+                        x.help = RE_ANSI.sub("", x.help)
+            except:
+                pass
 
     ret = ap.parse_args(args=argv[1:])
     for k, h, t in sects:
@@ -2001,7 +2004,7 @@ def main(argv: Optional[list[str]] = None) -> None:
     except:
         nc = 486  # mdns/ssdp restart headroom; select() maxfd is 512 on windows
 
-    retry = False
+    retry = 0
     for fmtr in [RiceFormatter, RiceFormatter, Dodge11874, BasicDodge11874]:
         try:
             al = run_argparse(argv, fmtr, retry, nc)
@@ -2010,8 +2013,9 @@ def main(argv: Optional[list[str]] = None) -> None:
         except SystemExit:
             raise
         except:
-            retry = True
-            lprint("\n[ {} ]:\n{}\n".format(fmtr, min_ex()))
+            retry += 1
+            t = "WARNING: due to limitations in your terminal and/or OS, the helptext cannot be displayed correctly. Will show a simplified version due to the following error:\n[ %s ]:\n%s\n"
+            lprint(t % (fmtr, min_ex()))
 
     try:
         assert al  # type: ignore
