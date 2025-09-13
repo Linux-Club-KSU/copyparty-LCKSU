@@ -1177,6 +1177,8 @@ def add_qr(ap, tty):
     ap2.add_argument("--qr-every", metavar="SEC", type=float, default=0, help="print the qr-code every \033[33mSEC\033[0m (try this with/without --qr-pin in case of issues)")
     ap2.add_argument("--qr-winch", metavar="SEC", type=float, default=0, help="when --qr-pin is enabled, check for terminal size change every \033[33mSEC\033[0m")
     ap2.add_argument("--qr-file", metavar="TXT", type=u, action="append", help="\033[34mREPEATABLE:\033[0m write qr-code to file.\n └─To create txt or svg, \033[33mTXT\033[0m is Filepath:Zoom:Pad, for example [\033[32mqr.txt:1:2\033[0m]\n └─To create png or gif, \033[33mTXT\033[0m is Filepath:Zoom:Pad:Foreground:Background, for example [\033[32mqr.png:8:2:333333:ffcc55\033[0m], or [\033[32mqr.png:8:2::ffcc55\033[0m] for transparent")
+    ap2.add_argument("--qr-stdout", action="store_true", help="always display the QR-code on STDOUT in the terminal, even if \033[33m-q\033[0m")
+    ap2.add_argument("--qr-stderr", action="store_true", help="always display the QR-code on STDERR in the terminal, even if \033[33m-q\033[0m")
 
 
 def add_fs(ap):
