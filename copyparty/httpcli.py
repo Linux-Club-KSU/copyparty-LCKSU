@@ -4731,11 +4731,9 @@ class HttpCli(object):
             packer = StreamZip
             ext = "zip"
 
-        fn = items[0] if items and items[0] else self.vpath
-        if fn:
-            fn = fn.rstrip("/").split("/")[-1]
-        else:
-            fn = self.host.split(":")[0]
+        fn = self.vpath.split("/")[-1] or self.host.split(":")[0]
+        if items:
+            fn = "sel-" + fn
 
         if vn.flags.get("zipmax") and not (
             vn.flags.get("zipmaxu") and self.uname != "*"
