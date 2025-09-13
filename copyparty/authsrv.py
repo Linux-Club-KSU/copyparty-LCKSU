@@ -1846,7 +1846,7 @@ class AuthSrv(object):
             vol.all_vps.sort(key=lambda x: len(x[0]), reverse=True)
             vol.root = vfs
 
-        zs = "neversymlink"
+        zs = "neversymlink du_iwho"
         k_ign = set(zs.split())
         for vol in vfs.all_vols.values():
             unknown_flags = set()
@@ -2347,7 +2347,7 @@ class AuthSrv(object):
             vol.flags["du_iwho"] = n_du_who(vol.flags["du_who"])
 
             if not enshare:
-                vol.flags["shr_who"] = "no"
+                vol.flags["shr_who"] = self.args.shr_who = "no"
 
             if vol.flags.get("og"):
                 self.args.uqe = True
