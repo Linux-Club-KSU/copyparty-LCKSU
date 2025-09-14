@@ -1577,10 +1577,12 @@ def vol_san(vols: list["VFS"], txt: bytes) -> bytes:
         bvp = vol.vpath.encode("utf-8")
         bvph = b"$hist(/" + bvp + b")"
 
-        txt = txt.replace(bap, bvp)
-        txt = txt.replace(bhp, bvph)
-        txt = txt.replace(bap.replace(b"\\", b"\\\\"), bvp)
-        txt = txt.replace(bhp.replace(b"\\", b"\\\\"), bvph)
+        if bap:
+            txt = txt.replace(bap, bvp)
+            txt = txt.replace(bap.replace(b"\\", b"\\\\"), bvp)
+        if bhp:
+            txt = txt.replace(bhp, bvph)
+            txt = txt.replace(bhp.replace(b"\\", b"\\\\"), bvph)
 
         if vol.histpath != vol.dbpath:
             bdp = vol.dbpath.encode("utf-8")

@@ -426,15 +426,17 @@ class VFS(object):
             self.all_nodes[vpath] = self
             self.all_aps = [(rp, [self])]
             self.all_vps = [(vp, self)]
+            self.canonical = self._canonical
+            self.dcanonical = self._dcanonical
         else:
             self.histpath = self.dbpath = ""
             self.all_aps = []
             self.all_vps = []
+            self.canonical = self._canonical_null
+            self.dcanonical = self._dcanonical_null
 
         self.get_dbv = self._get_dbv
         self.ls = self._ls
-        self.canonical = self._canonical
-        self.dcanonical = self._dcanonical
 
     def __repr__(self) -> str:
         return "VFS(%s)" % (
@@ -628,6 +630,12 @@ class VFS(object):
         vrem = vjoin(self.vpath[len(dbv.vpath) :].lstrip("/"), vrem)
         return dbv, vrem
 
+    def _canonical_null(self, rem: str, resolve: bool = True) -> str:
+        return ""
+
+    def _dcanonical_null(self, rem: str) -> str:
+        return ""
+
     def _canonical(self, rem: str, resolve: bool = True) -> str:
         """returns the canonical path (fully-resolved absolute fs path)"""
         ap = self.realpath
@@ -715,8 +723,12 @@ class VFS(object):
         """return user-readable [fsdir,real,virt] items at vpath"""
         virt_vis = {}  # nodes readable by user
         abspath = self.canonical(rem)
-        real = list(statdir(self.log, scandir, lstat, abspath, throw))
-        real.sort()
+        if abspath:
+            real = list(statdir(self.log, scandir, lstat, abspath, throw))
+            real.sort()
+        else:
+            real = []
+
         if not rem:
             # no vfs nodes in the list of real inodes
             real = [x for x in real if x[0] not in self.nodes]
@@ -2010,6 +2022,8 @@ class AuthSrv(object):
         promote = []
         demote = []
         for vol in vfs.all_vols.values():
+            if not vol.realpath:
+                continue
             hid = self.hid_cache.get(vol.realpath)
             if not hid:
                 zb = hashlib.sha512(afsenc(vol.realpath)).digest()
@@ -2048,6 +2062,8 @@ class AuthSrv(object):
             vol.histpath = absreal(vol.histpath)
 
         for vol in vfs.all_vols.values():
+            if not vol.realpath:
+                continue
             hid = self.hid_cache[vol.realpath]
             vflag = vol.flags.get("dbpath")
             if vflag == "-":
@@ -2807,6 +2823,8 @@ class AuthSrv(object):
                     shn.dcanonical = shn._dcanonical_shr
                 else:
                     shn.ls = shn._ls
+                    shn.canonical = shn._canonical
+                    shn.dcanonical = shn._dcanonical
 
                 shn.shr_owner = s_un
                 shn.shr_src = (s_vfs, s_rem)
