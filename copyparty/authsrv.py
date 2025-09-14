@@ -99,6 +99,8 @@ SBADCFG = " ({})".format(BAD_CFG)
 
 PTN_U_GRP = re.compile(r"\$\{u(%[+-][^}]+)\}")
 PTN_G_GRP = re.compile(r"\$\{g(%[+-][^}]+)\}")
+PTN_U_ANY = re.compile(r"(\${[u][}%])")
+PTN_G_ANY = re.compile(r"(\${[g][}%])")
 PTN_SIGIL = re.compile(r"(\${[ug][}%])")
 
 
@@ -1130,6 +1132,16 @@ class AuthSrv(object):
         visited = set()
         src0 = src  # abspath
         dst0 = dst  # vpath
+
+        zsl = []
+        for ptn, sigil in ((PTN_U_ANY, "${u}"), (PTN_G_ANY, "${g}")):
+            if bool(ptn.search(src)) != bool(ptn.search(dst)):
+                zsl.append(sigil)
+        if zsl:
+            t = "ERROR: if %s is mentioned in a volume definition, it must be included in both the filesystem-path [%s] and the volume-url [/%s]"
+            t = "\n".join([t % (x, src, dst) for x in zsl])
+            self.log(t, 1)
+            raise Exception(t)
 
         un_gn = [(un, gn) for un, gns in un_gns.items() for gn in gns]
         if not un_gn:
