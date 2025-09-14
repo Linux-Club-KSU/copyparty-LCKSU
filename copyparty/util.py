@@ -2108,6 +2108,7 @@ def humansize(sz: float, terse: bool = False) -> str:
 
         sz /= 1024.0
 
+    assert unit  # type: ignore  # !rm
     if terse:
         return "%s%s" % (str(sz)[:4].rstrip("."), unit[:1])
     else:
@@ -2260,14 +2261,14 @@ def odfusion(
     ret = base.copy()
     if oth.startswith("+"):
         for k in words1:
-            ret[k] = True
+            ret[k] = True  # type: ignore
     elif oth[:1] in ("-", "/"):
         for k in words1:
-            ret.pop(k, None)
+            ret.pop(k, None)  # type: ignore
     else:
         ret = ODict.fromkeys(words0, True)
 
-    return ret
+    return ret  # type: ignore
 
 
 def ipnorm(ip: str) -> str:
@@ -2695,7 +2696,7 @@ def _fs_mvrm(
                 t = "something appeared at dst; aborting rename %r ==> %r"
                 log(t % (src, dst), 1)
                 return False
-            osfun(*args)
+            osfun(*args)  # type: ignore
             if attempt:
                 now = time.time()
                 t = "%sd in %.2f sec, attempt %d: %r"
@@ -2745,7 +2746,7 @@ def atomic_move(log: "NamedLogger", src: str, dst: str, flags: dict[str, Any]) -
                 os.unlink(bdst)
             except:
                 pass
-            shutil.move(bsrc, bdst)
+            shutil.move(bsrc, bdst)  # type: ignore
 
 
 def wunlink(log: "NamedLogger", abspath: str, flags: dict[str, Any]) -> bool:
@@ -2788,6 +2789,8 @@ def get_df(abspath: str, prune: bool) -> tuple[int, int, str]:
 if not ANYWIN and not MACOS:
 
     def siocoutq(sck: socket.socket) -> int:
+        assert fcntl  # type: ignore  # !rm
+        assert termios  # type: ignore  # !rm
         # SIOCOUTQ^sockios.h == TIOCOUTQ^ioctl.h
         try:
             zb = fcntl.ioctl(sck.fileno(), termios.TIOCOUTQ, b"AAAA")
@@ -3151,7 +3154,7 @@ def sendfile_kern(
         try:
             req = min(0x2000000, upper - ofs)  # 32 MiB
             if use_poll:
-                poll.poll(10000)
+                poll.poll(10000)  # type: ignore
             else:
                 select.select([], [out_fd], [], 10)
             n = os.sendfile(out_fd, in_fd, ofs, req)
@@ -3441,7 +3444,9 @@ NICEB = NICES.encode("utf-8")
 
 
 def runcmd(
-    argv: Union[list[bytes], list[str]], timeout: Optional[float] = None, **ka: Any
+    argv: Union[list[bytes], list[str], list["LiteralString"]],
+    timeout: Optional[float] = None,
+    **ka: Any
 ) -> tuple[int, str, str]:
     isbytes = isinstance(argv[0], (bytes, bytearray))
     oom = ka.pop("oom", 0)  # 0..1000
@@ -3460,19 +3465,19 @@ def runcmd(
     if ANYWIN:
         if isbytes:
             if argv[0] in CMD_EXEB:
-                argv[0] += b".exe"
+                argv[0] += b".exe"  # type: ignore
         else:
             if argv[0] in CMD_EXES:
-                argv[0] += ".exe"
+                argv[0] += ".exe"  # type: ignore
 
     if ka.pop("nice", None):
         if WINDOWS:
             ka["creationflags"] = 0x4000
         elif NICEB:
             if isbytes:
-                argv = [NICEB] + argv
+                argv = [NICEB] + argv  # type: ignore
             else:
-                argv = [NICES] + argv
+                argv = [NICES] + argv  # type: ignore
 
     p = sp.Popen(argv, stdout=cout, stderr=cerr, **ka)
 
@@ -3484,10 +3489,10 @@ def runcmd(
             pass
 
     if not timeout or PY2:
-        bout, berr = p.communicate(sin)
+        bout, berr = p.communicate(sin)  # type: ignore
     else:
         try:
-            bout, berr = p.communicate(sin, timeout=timeout)
+            bout, berr = p.communicate(sin, timeout=timeout)  # type: ignore
         except sp.TimeoutExpired:
             if kill == "n":
                 return -18, "", ""  # SIGCONT; leave it be
@@ -3497,7 +3502,7 @@ def runcmd(
                 killtree(p.pid)
 
             try:
-                bout, berr = p.communicate(timeout=1)
+                bout, berr = p.communicate(timeout=1)  # type: ignore
             except:
                 bout = b""
                 berr = b""
@@ -3920,7 +3925,7 @@ def runhook(
     txt: str,
 ) -> dict[str, Any]:
     assert broker or up2k  # !rm
-    args = (broker or up2k).args
+    args = (broker or up2k).args  # type: ignore
     verbose = args.hook_v
     vp = vp.replace("\\", "/")
     ret = {"rc": 0}
@@ -3938,6 +3943,7 @@ def runhook(
                     if broker:
                         broker.say("up2k.hook_fx", k, v, vp)
                     else:
+                        assert up2k  # !rm
                         up2k.fx_backlog.append((k, v, vp))
                 elif k == "reloc" and v:
                     # idk, just take the last one ig
@@ -4097,6 +4103,8 @@ def termsize() -> tuple[int, int]:
     env = os.environ
 
     def ioctl_GWINSZ(fd: int) -> Optional[tuple[int, int]]:
+        assert fcntl  # type: ignore  # !rm
+        assert termios  # type: ignore  # !rm
         try:
             cr = sunpack(b"hh", fcntl.ioctl(fd, termios.TIOCGWINSZ, b"AAAA"))
             return cr[::-1]

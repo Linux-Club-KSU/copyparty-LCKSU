@@ -345,7 +345,7 @@ class U2idx(object):
         uname: str,
         vols: list[VFS],
         uq: str,
-        uv: list[Union[str, int]],
+        uv: Union[list[str], list[Union[str, int]]],
         have_mt: bool,
         sort: bool,
         lim: int,
