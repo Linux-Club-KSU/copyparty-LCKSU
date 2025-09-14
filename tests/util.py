@@ -17,7 +17,7 @@ from argparse import Namespace
 
 import jinja2
 
-from copyparty.__init__ import MACOS, WINDOWS, E
+from copyparty.__init__ import ANYWIN, MACOS, WINDOWS, E
 
 J2_ENV = jinja2.Environment(loader=jinja2.BaseLoader)  # type: ignore
 J2_FILES = J2_ENV.from_string("{{ files|join('\n') }}\nJ2EOT")
@@ -185,6 +185,7 @@ class Cfg(Namespace):
             E=E,
             auth_ord="idp,ipu",
             bup_ck="sha512",
+            casechk="a" if ANYWIN or MACOS else "n",
             chmod_d="755",
             cookie_cmax=8192,
             cookie_nmax=50,

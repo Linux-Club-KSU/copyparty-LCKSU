@@ -13,7 +13,7 @@ import threading
 import time
 from datetime import datetime
 
-from .__init__ import ANYWIN, PY2, TYPE_CHECKING, WINDOWS, E
+from .__init__ import ANYWIN, MACOS, PY2, TYPE_CHECKING, WINDOWS, E
 from .bos import bos
 from .cfg import flagdescs, permdescs, vf_bmap, vf_cmap, vf_vmap
 from .pwhash import PWHash
@@ -629,6 +629,28 @@ class VFS(object):
 
         vrem = vjoin(self.vpath[len(dbv.vpath) :].lstrip("/"), vrem)
         return dbv, vrem
+
+    def casechk(self, rem: str, do_stat: bool) -> bool:
+        ap = self.canonical(rem, False)
+        if do_stat and not bos.path.exists(ap):
+            return True  # doesn't exist at all; good to go
+        dp, fn = os.path.split(ap)
+        try:
+            fns = os.listdir(dp)
+        except:
+            return True  # maybe chmod 111; assume ok
+        if fn in fns:
+            return True
+        hit = "<?>"
+        lfn = fn.lower()
+        for zs in fns:
+            if lfn == zs.lower():
+                hit = zs
+                break
+        if self.log:
+            t = "returning 404 due to underlying case-insensitive filesystem:\n  http-req: %r\n  local-fs: %r"
+            self.log("vfs", t % (fn, hit))
+        return False
 
     def _canonical_null(self, rem: str, resolve: bool = True) -> str:
         return ""
@@ -1247,8 +1269,8 @@ class AuthSrv(object):
             self.log(t, c=3)
             raise Exception(BAD_CFG)
 
-        if not bos.path.isdir(src):
-            self.log("warning: filesystem-path does not exist: {}".format(src), 3)
+        if not bos.path.exists(src):
+            self.log("warning: filesystem-path did not exist: %r" % (src,), 3)
 
         mount[dst] = (src, dst0)
         daxs[dst] = AXS()
@@ -2551,6 +2573,47 @@ class AuthSrv(object):
                     t = 'volume "/{}" defines metadata tag "{}", but doesnt use it in "-mte" (or with "cmte" in its volflags)'
                     self.log(t.format(vol.vpath, mtp), 1)
                     errors = True
+
+        for vol in vfs.all_nodes.values():
+            if not vol.realpath or os.path.isfile(vol.realpath):
+                continue
+            ccs = vol.flags["casechk"][:1].lower()
+            if ccs in ("y", "n"):
+                if ccs == "y":
+                    vol.flags["bcasechk"] = True
+                continue
+            try:
+                bos.makedirs(vol.realpath, vf=vol.flags)
+                files = os.listdir(vol.realpath)
+                for fn in files:
+                    fn2 = fn.lower()
+                    if fn == fn2:
+                        fn2 = fn.upper()
+                    if fn == fn2 or fn2 in files:
+                        continue
+                    is_ci = os.path.exists(os.path.join(vol.realpath, fn2))
+                    ccs = "y" if is_ci else "n"
+                    break
+                if ccs not in ("y", "n"):
+                    ap = os.path.join(vol.realpath, "casechk")
+                    open(ap, "wb").close()
+                    ccs = "y" if os.path.exists(ap[:-1] + "K") else "n"
+                    os.unlink(ap)
+            except Exception as ex:
+                if ANYWIN:
+                    zs = "Windows"
+                    ccs = "y"
+                elif MACOS:
+                    zs = "Macos"
+                    ccs = "y"
+                else:
+                    zs = "Linux"
+                    ccs = "n"
+                t = "unable to determine if filesystem at %r is case-insensitive due to %r; assuming casechk=%s due to %s"
+                self.log(t % (vol.realpath, ex, ccs, zs), 3)
+            vol.flags["casechk"] = ccs
+            if ccs == "y":
+                vol.flags["bcasechk"] = True
 
         tags = self.args.mtp or []
         tags = [x.split("=")[0] for x in tags]

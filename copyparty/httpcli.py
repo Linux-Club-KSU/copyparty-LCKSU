@@ -735,6 +735,9 @@ class HttpCli(object):
         else:
             avn = vn
 
+        if "bcasechk" in vn.flags and not vn.casechk(rem, True):
+            return self.tx_404() and False
+
         (
             self.can_read,
             self.can_write,
