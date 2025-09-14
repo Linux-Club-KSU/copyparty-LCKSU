@@ -18,6 +18,13 @@ ngs=(
     dj-{ppc64le,s390x,arm}
 )
 
+err=
+for x in awk jq podman python3 tar wget ; do
+    command -v $x >/dev/null && continue
+    err=1; echo ERROR: missing dependency: $x
+done
+[ $err ] && exit 1
+
 for v in "$@"; do
     [ "$v" = clean  ] && clean=1
     [ "$v" = hclean ] && hclean=1
@@ -56,7 +63,7 @@ filt=
     for a in $sarchs; do  # arm/v6
         podman pull --arch=$a alpine:latest
     done
-    
+
     podman images --format "{{.ID}} {{.History}}" |
     awk '/library\/alpine/{print$1}' |
     while read id; do
