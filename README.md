@@ -2706,7 +2706,7 @@ below are some tweaks roughly ordered by usefulness:
   * and pypy can sometimes crash on startup with `-j0` (TODO make issue)
 
 * if you are running the copyparty server **on Windows or Macos:**
-  * `--casechk=y` makes it much faster, but also awakens [the usual surprises](https://github.com/9001/copyparty/issues/781) you expect from a case-insensitive filesystem
+  * `--casechk=n` makes it much faster, but also awakens [the usual surprises](https://github.com/9001/copyparty/issues/781) you expect from a case-insensitive filesystem
     * this is the same as `casechk: n` in a config-file
 
 
