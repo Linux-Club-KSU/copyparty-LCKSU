@@ -178,6 +178,7 @@ def au_unpk(
 
         elif pk == "epub":
             fi = get_cover_from_epub(log, abspath)
+            assert fi  # !rm
 
         else:
             raise Exception("unknown compression %s" % (pk,))
@@ -510,7 +511,6 @@ class MTag(object):
                 "album-artist",
                 "tpe2",
                 "aart",
-                "conductor",
                 "organization",
                 "band",
             ],

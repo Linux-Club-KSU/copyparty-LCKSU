@@ -178,6 +178,8 @@ necho() {
 }
 
 [ $repack ] || {
+	(cd ../scripts; ./genlic.py ../copyparty/res/COPYING.txt)
+
 	necho collecting ipaddress
 	f="../build/ipaddress-1.0.23.tar.gz"
 	[ -e "$f" ] ||
@@ -307,8 +309,6 @@ necho() {
 
 	# remove type hints before build instead
 	(cd copyparty; PYTHONPATH="..:$PYTHONPATH" "$pybin" ../../scripts/strip_hints/a.py; rm uh)
-
-	(cd ../scripts; ./genlic.py ../copyparty/res/COPYING.txt)
 }
 
 [ ! -e copyparty/web/deps/mini-fa.woff ] && [ $dl_wd ] && {

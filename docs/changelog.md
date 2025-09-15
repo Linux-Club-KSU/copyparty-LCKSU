@@ -1,4 +1,61 @@
 ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  
+# 2025-0907-2300  `v1.19.8`  SECURITY: fix single-file shares
+
+## ⚠️ ATTN: this release fixes [CVE-2025-58753](https://github.com/9001/copyparty/security/advisories/GHSA-pxvw-4w88-6x95), an issue with shares
+
+* when a share is created for just one or more files inside a folder, it was possible to access the other files inside that folder by guessing the filenames
+* it was not possible to descend into subdirectories in this manner; only the sibling files were accessible
+* NOTE: this does NOT affect filekeys; this is specifically regarding the `shr` global-option
+
+## recent important news
+
+* [v1.19.8 (2025-09-07)](https://github.com/9001/copyparty/releases/tag/v1.19.8) fixed [CVE-2025-58753](https://github.com/9001/copyparty/security/advisories/GHSA-pxvw-4w88-6x95) (a missing permission-check inside single-file shares)
+* [v1.15.0 (2024-09-08)](https://github.com/9001/copyparty/releases/tag/v1.15.0) changed upload deduplication to be default-disabled
+* [v1.14.3 (2024-08-30)](https://github.com/9001/copyparty/releases/tag/v1.14.3) fixed a bug that was introduced in v1.13.8 (2024-08-13); this bug could lead to **data loss** -- see the v1.14.3 release-notes for details
+
+## 🧪 new features
+
+* #761 IdP: option to replace the login/logout links and buttons with redirects into an IdP UI 09f22993
+* #726 disk-usage and server-version can be selectively hidden according to user permissions 19a4c453
+* option `--shr-who` / volflag `shr_who` decides who is able to create a share of that volume edafa158
+* #751 nixos: add globalExtraConfig to specify repeatable config parameters (thx @xvrqt!) 09e3018b
+* some very small speedups (mainly u2c and ancient python versions) 74821a38
+* #759 #393 total folder size now decreases when files inside are deleted 96b109b0
+  * would previously require a reindex to get back on track
+
+## 🩹 bugfixes
+
+* fix [GHSA-pxvw-4w88-6x95](https://github.com/9001/copyparty/security/advisories/GHSA-pxvw-4w88-6x95) by fencing fileshares to just the shared files e0a92ba7
+* #397 prevent hinting at valid passwords, even if they cannot be used to authenticate with 7a4ee4db
+* #747 disable some features if `/tmp` must be used for runtime config e6755aa8
+  * the config-folder will now also be created with chmod 700 (accessible by owner only)
+* #733 #298 fix hotkeys on non-qwerty keyboard layouts (dvorak etc.) e798a9a5
+* #539 ftp-server: support clients which never does a CWD b0496311
+* ignore the plaintext session-cookie on https; fixes some confusing behavior when switching from https to http c71128fd
+* `og-ua` would prevent clients matching the pattern from accessing fullsize files
+* `og-ua` was only possible to set globally; the `og_ua` volflag was ignored 422f8f62
+* uds / unix-domain-sockets got wrong permissions when `rm-sck` was used e270fe60
+* #727 macos: support running from config-files 230a1462
+* #539 avoid issues if someone uploads a file with a last-modified timestamp from year -9999999999999 eeb7738b
+* using the spacebar to pause a video was jank on chrome bfcb6eac
+* block the next-song hotkey while a folder is loading f7e08ed0
+* #748 fix rare js-panic when an action is aborted aaeec11f
+* #738 bubbleparty: use /bin/bash (thx @ckastner!) 0469b5a2
+
+## 🔧 other changes
+
+* partyfuse: nice speedup by caching `readdir` too 06d2654b
+* partyfuse: explain usage with usernames 1cdb3880
+* connect-page: better examples when usernames enabled 3bdef75e
+* docker: fix image annotations ab562382
+
+## 🌠 fun facts
+
+* konami's biggest legacy lives on f0caf881 bd6d1f96
+
+
+
+▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  
 # 2025-0828-2014  `v1.19.7`  chdir
 
 ## 🧪 new features

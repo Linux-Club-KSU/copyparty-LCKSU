@@ -2705,6 +2705,10 @@ below are some tweaks roughly ordered by usefulness:
 * using [pypy](https://www.pypy.org/) instead of [cpython](https://www.python.org/) *can* be 70% faster for some workloads, but slower for many others
   * and pypy can sometimes crash on startup with `-j0` (TODO make issue)
 
+* if you are running the copyparty server **on Windows or Macos:**
+  * `--casechk=n` makes it much faster, but also awakens [the usual surprises](https://github.com/9001/copyparty/issues/781) you expect from a case-insensitive filesystem
+    * this is the same as `casechk: n` in a config-file
+
 
 ## client-side
 

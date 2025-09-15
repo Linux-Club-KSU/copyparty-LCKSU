@@ -735,6 +735,9 @@ class HttpCli(object):
         else:
             avn = vn
 
+        if "bcasechk" in vn.flags and not vn.casechk(rem, True):
+            return self.tx_404() and False
+
         (
             self.can_read,
             self.can_write,
@@ -1551,6 +1554,7 @@ class HttpCli(object):
             if xtag is not None:
                 props = set([y.tag.split("}")[-1] for y in xtag])
             # assume <allprop/> otherwise; nobody ever gonna <propname/>
+            self.hint = ""
 
         zi = int(time.time())
         vst = os.stat_result((16877, -1, -1, 1, 1000, 1000, 8, zi, zi, zi))
@@ -1560,7 +1564,9 @@ class HttpCli(object):
         except OSError as ex:
             if ex.errno not in (errno.ENOENT, errno.ENOTDIR):
                 raise
-            raise Pebkac(404)
+            if tap:
+                raise Pebkac(404)
+            st = vst
 
         topdir = {"vp": "", "st": st}
         fgen: Iterable[dict[str, Any]] = []
@@ -1600,6 +1606,9 @@ class HttpCli(object):
             )
 
         elif depth == "0" or not stat.S_ISDIR(st.st_mode):
+            if depth == "0" and not self.vpath and not vn.realpath:
+                # rootless server; give dummy listing
+                self.can_read = True
             # propfind on a file; return as topdir
             if not self.can_read and not self.can_get:
                 self.log("inaccessible: %r" % ("/" + self.vpath,))
@@ -1632,7 +1641,11 @@ class HttpCli(object):
             self.log("inaccessible: %r" % ("/" + self.vpath,))
             raise Pebkac(401, "authenticate")
 
-        zi = vn.flags["du_iwho"] if "quota-available-bytes" in props else 0
+        zi = (
+            vn.flags["du_iwho"]
+            if vn.realpath and "quota-available-bytes" in props
+            else 0
+        )
         if zi and (
             zi == 9
             or (zi == 7 and self.uname != "*")
@@ -1767,6 +1780,7 @@ class HttpCli(object):
         assert xprop  # !rm
         for ze in xprop:
             ze.clear()
+        self.hint = ""
 
         txt = """<multistatus xmlns="DAV:"><response><propstat><status>HTTP/1.1 403 Forbidden</status></propstat></response></multistatus>"""
         xroot = parse_xml(txt)
@@ -1824,6 +1838,7 @@ class HttpCli(object):
         ET.register_namespace("D", "DAV:")
         lk = parse_xml(txt)
         assert lk.tag == "{DAV:}lockinfo"
+        self.hint = ""
 
         token = str(uuid.uuid4())
 
@@ -4731,11 +4746,9 @@ class HttpCli(object):
             packer = StreamZip
             ext = "zip"
 
-        fn = items[0] if items and items[0] else self.vpath
-        if fn:
-            fn = fn.rstrip("/").split("/")[-1]
-        else:
-            fn = self.host.split(":")[0]
+        fn = self.vpath.split("/")[-1] or self.host.split(":")[0]
+        if items:
+            fn = "sel-" + fn
 
         if vn.flags.get("zipmax") and not (
             vn.flags.get("zipmaxu") and self.uname != "*"
@@ -4911,8 +4924,8 @@ class HttpCli(object):
             else:
                 fullfile = b""
 
-            if not sz_md and b"\n" in buf[:2]:
-                lead = buf[: buf.find(b"\n") + 1]
+            if not sz_md and buf.startswith((b"\n", b"\r\n")):
+                lead = b"\n" if buf.startswith(b"\n") else b"\r\n"
                 sz_md += len(lead)
 
             sz_md += len(buf)
@@ -6229,6 +6242,7 @@ class HttpCli(object):
 
         if "v" in self.uparam:
             add_og = True
+            og_fn = ""
 
         if "b" in self.uparam:
             self.out_headers["X-Robots-Tag"] = "noindex, nofollow"

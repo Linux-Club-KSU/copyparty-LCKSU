@@ -357,9 +357,17 @@ pip install partftpy  # tftp server
 pip install impacket  # smb server -- disable Windows Defender if you REALLY need this on windows
 pip install Pillow pillow-heif  # thumbnails
 pip install pyvips  # faster thumbnails
-pip install psutil  # better cleanup of stuck metadata parsers on windows 
+pip install psutil  # better cleanup of stuck metadata parsers on windows
 pip install black==21.12b0 click==8.0.2 bandit pylint flake8 isort mypy  # vscode tooling
 ```
+
+* on archlinux you can do this:
+  * `sudo pacman -Sy --needed python-{pip,isort,jinja,argon2-cffi,pyzmq,mutagen,pyftpdlib,pillow}`
+  * then, as user: `python3 -m pip install --user --break-system-packages -U strip_hints black==21.12b0 click==8.0.2`
+  * for building docker images: `sudo pacman -Sy --needed qemu-user-static{,-binfmt} podman{,-docker} jq`
+
+* and if you want to run the python 2.7 tests:
+  * `git clone https://github.com/pyenv/pyenv .pyenv ; cd .pyenv/bin ; env PYTHON_CONFIGURE_OPTS='--enable-optimizations' PYTHON_CFLAGS='-march=native -mtune=native -std=c17' ./pyenv install 2.7.18 -v ; ln -s $HOME/.pyenv/versions/2.7.18/bin/python2 $HOME/bin/`
 
 
 ## just the sfx
